@@ -1,0 +1,814 @@
+<html lang="pt" data-theme="light"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>EliteDigital - Loja de Informática &amp; Construtor de PC</title>
+  <meta name="description" content="Loja powered by PrestaShop com Construtor de PC personalizado e Modo Escuro/Claro">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fa0707">
+
+  <link rel="icon" type="image/vnd.microsoft.icon" href="https://www.elitedigital.pt/img/favicon.ico?1631183047">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://www.elitedigital.pt/themes/warehouse/assets/css/theme.css" type="text/css" media="all">
+  <link rel="stylesheet" href="https://www.elitedigital.pt/themes/warehouse/assets/css/custom.css" type="text/css" media="all">
+
+  <style>
+    /* ==========================================================
+       DARK & LIGHT THEME VARIABLES & OVERRIDES
+       ========================================================== */
+    :root {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8f9fa;
+      --bg-card: #ffffff;
+      --text-primary: #1f2937;
+      --text-muted: #6b7280;
+      --border-color: #e5e7eb;
+      --header-bg: #ffffff;
+      --megamenu-bg: #1a1a1a;
+      --accent-red: #dd3333;
+      --accent-hover: #b91c1c;
+      --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    [data-theme="dark"] {
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --bg-card: #1e293b;
+      --text-primary: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #334155;
+      --header-bg: #0f172a;
+      --megamenu-bg: #090d16;
+      --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    body {
+      background-color: var(--bg-primary) !important;
+      color: var(--text-primary) !important;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    #header, .desktop-header-style-2, .header-top, .header-nav {
+      background-color: var(--header-bg) !important;
+      color: var(--text-primary) !important;
+      border-color: var(--border-color) !important;
+    }
+
+    .product-miniature, .elementor-widget-wrap, .modal-content {
+      background-color: var(--bg-card) !important;
+      color: var(--text-primary) !important;
+      border-color: var(--border-color) !important;
+    }
+
+    .product-title a, .product-miniature a {
+      color: var(--text-primary) !important;
+    }
+
+    .text-muted {
+      color: var(--text-muted) !important;
+    }
+
+    /* Theme Switcher Button & Dropdown */
+    .theme-settings-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 13px;
+      transition: all 0.2s ease;
+    }
+
+    .theme-settings-btn:hover {
+      background: var(--accent-red);
+      color: #ffffff;
+      border-color: var(--accent-red);
+    }
+
+    /* Modal / Popup for Settings */
+    #settingsModal {
+      display: none;
+      position: fixed;
+      z-index: 99999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+    }
+
+    .settings-modal-content {
+      background-color: var(--bg-card);
+      color: var(--text-primary);
+      margin: 10% auto;
+      padding: 24px;
+      border: 1px solid var(--border-color);
+      width: 90%;
+      max-width: 480px;
+      border-radius: 16px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+      animation: modalFadeIn 0.25s ease-out;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .theme-toggle-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .theme-card {
+      border: 2px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .theme-card.active {
+      border-color: var(--accent-red);
+      background-color: rgba(221, 51, 51, 0.08);
+    }
+
+    .theme-card i {
+      font-size: 28px;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    /* PC Constructor Highlight Navigation Badge */
+    .constructor-nav-link {
+      background: #ffffff;
+      color: #1f2937 !important;
+      border: 1px solid #d1d5db;
+      padding: 6px 14px !important;
+      border-radius: 6px;
+      font-weight: 700 !important;
+      box-shadow: 0 2px 8px rgba(221, 51, 51, 0.4);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 6px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .constructor-nav-link:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(221, 51, 51, 0.6);
+      color: #fff !important;
+    }
+
+    /* Interactive PC Builder Section Banner */
+    .pc-builder-promo-section {
+      background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+      color: #ffffff;
+      padding: 40px 24px;
+      border-radius: 16px;
+      margin: 30px 0;
+      border: 1px solid #374151;
+      box-shadow: var(--card-shadow);
+    }
+
+    .pc-builder-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .pc-builder-step {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 16px 10px;
+      text-align: center;
+      transition: all 0.2s ease;
+      color: #f3f4f6;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pc-builder-step:hover {
+      background: var(--accent-red);
+      color: #ffffff;
+      transform: translateY(-3px);
+      text-decoration: none;
+    }
+
+    .pc-builder-step i {
+      font-size: 26px;
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+
+<body id="index" class="lang-pt country-pt currency-eur layout-full-width page-index tax-display-enabled body-desktop-header-style-w-2">
+
+<main id="main-page-content">
+
+  <!-- ================= HEADER ================= -->
+  <header id="header" class="desktop-header-style-w-2">
+    
+    <!-- Top Bar Navigation -->
+    <nav class="header-nav">
+      <div class="container">
+        <div class="row justify-content-between align-items-center">
+          
+          <div class="col col-auto col-md left-nav">
+            <div class="d-inline-block">
+              <ul class="social-links _topbar">
+                <li class="facebook"><a href="https://www.facebook.com/elitedigital.pt" target="_blank" rel="noreferrer noopener"><i class="fa fa-facebook fa-fw"></i></a></li>
+                <li class="instagram"><a href="https://www.instagram.com/elitedigital.pt/" target="_blank" rel="noreferrer noopener"><i class="fa fa-instagram fa-fw"></i></a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col col-auto center-nav text-center">
+            <!-- Promo banner / Announcement -->
+            <span class="badge badge-danger mr-2">NOVO</span>
+            <span>Monte o seu computador à medida com o <strong>Construtor de PC</strong>!</span>
+          </div>
+
+          <div class="col col-auto col-md right-nav text-right d-flex align-items-center justify-content-end" style="gap: 12px;">
+            
+            <!-- NEW SETTINGS / THEME BUTTON -->
+            <button class="theme-settings-btn" id="openSettingsBtn" onclick="toggleSettingsModal(true)">
+              <i class="fa fa-cog fa-spin-hover"></i>
+              <span>Definições</span>
+            </button>
+
+            <!-- Wishlist -->
+            <div class="d-inline-block">
+              <a href="//www.elitedigital.pt/module/iqitwishlist/view" class="text-reset">
+                <i class="fa fa-heart-o fa-fw" aria-hidden="true"></i> Lista de Desejos (<span id="iqitwishlist-nb">0</span>)
+              </a>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Header -->
+    <div class="sticky-desktop-wrapper">
+      <div id="desktop-header" class="desktop-header-style-2">
+        <div class="header-top">
+          <div id="desktop-header-container" class="container">
+            <div class="row align-items-center">
+              
+              <div class="col col-auto col-header-left">
+                <div id="desktop_logo">
+                  <a href="https://www.elitedigital.pt/">
+                    <img class="logo img-fluid" src="https://www.elitedigital.pt/img/loja-prestashop-2-logo-1631183047.jpg" alt="EliteDigital">
+                  </a>
+                </div>
+              </div>
+
+              <div class="col col-header-center">
+                <div id="search_widget" class="search-widget">
+                  <form method="get" action="https://www.elitedigital.pt/module/iqitsearch/searchiqit">
+                    <div class="input-group">
+                      <input type="text" name="s" value="" placeholder="Pesquise no nosso catálogo ou monte o seu PC..." class="form-control form-search-control">
+                      <button type="submit" class="search-btn">
+                        <i class="fa fa-search"></i>
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              <div class="col col-auto col-header-right">
+                <div class="row no-gutters justify-content-end align-items-center" style="gap: 10px;">
+                  
+                  <div id="header-user-btn" class="col col-auto header-btn-w header-user-btn-w">
+                    <a href="https://www.elitedigital.pt/a-minha-conta" class="header-btn header-user-btn">
+                      <i class="fa fa-user fa-fw icon"></i>
+                      <span class="title">Iniciar sessão</span>
+                    </a>
+                  </div>
+
+                  <div id="ps-shoppingcart-wrapper" class="col col-auto">
+                    <div id="ps-shoppingcart" class="header-btn-w header-cart-btn-w ps-shoppingcart dropdown">
+                      <div id="blockcart" class="blockcart cart-preview">
+                        <a id="cart-toogle" class="cart-toogle header-btn header-cart-btn">
+                          <i class="fa fa-shopping-bag fa-fw icon"><span class="cart-products-count-btn d-none">0</span></i>
+                          <span class="info-wrapper">
+                            <span class="title">Carrinho</span>
+                            <span class="cart-toggle-details"><span class="text-faded cart-separator"> / </span>Vazio</span>
+                          </span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= NAVIGATION MENU ================= -->
+        <div class="container iqit-megamenu-container">
+          <div id="iqitmegamenu-wrapper" class="iqitmegamenu-wrapper iqitmegamenu-all">
+            <div class="container container-iqitmegamenu">
+              <div id="iqitmegamenu-horizontal" class="iqitmegamenu clearfix" role="navigation">
+
+                <!-- Vertical MegaMenu Dropdown (PRODUTOS) -->
+                <div class="cbp-vertical-on-top">
+                  <nav id="cbp-hrmenu1" class="cbp-hrmenu iqitmegamenu-all cbp-vertical">
+                    <div class="cbp-vertical-title">
+                      <i class="fa fa-bars cbp-iconbars"></i> 
+                      <span class="cbp-vertical-title-text">PRODUTOS</span>
+                    </div>
+
+                    <ul id="cbp-hrmenu1-ul">
+                      
+                      <!-- 1. CONSTRUTOR DE PC (NEW HIGHLIGHT CATEGORY) -->
+                      <li id="cbp-hrmenu-tab-constructor" class="cbp-hrmenu-tab" style="background: rgba(221, 51, 51, 0.08);">
+                        <a href="#pc-builder-section" style="color: var(--accent-red); font-weight: bold;">
+                          <i class="fa fa-wrench mr-2" style="color: var(--accent-red);"></i>
+                          <span>CONSTRUTOR DE PC</span>
+                          <i class="fa fa-angle-right cbp-submenu-aindicator"></i>
+                        </a>
+
+                        <div class="cbp-hrsub-wrapper">
+                          <div class="cbp-hrsub col-12" style="background: var(--bg-card); color: var(--text-primary);">
+                            <div class="cbp-hrsub-inner p-4">
+                              <div class="row">
+                                <div class="col-12 mb-3">
+                                  <h4 style="color: var(--accent-red); font-weight: 700;">
+                                    <i class="fa fa-desktop mr-2"></i>Monte o Seu PC Personalizado Componente a Componente
+                                  </h4>
+                                  <p class="text-muted">Selecione os componentes compatíveis para criar a sua configuração de sonho:</p>
+                                </div>
+
+                                <div class="col-3">
+                                  <div class="cbp-category-link-w">
+                                    <a href="https://www.elitedigital.pt/316-processadores" class="cbp-column-title nav-link cbp-category-title">
+                                      <i class="fa fa-microchip mr-2"></i>1. Processadores (CPU)
+                                    </a>
+                                    <ul class="cbp-links cbp-category-tree">
+                                      <li><a href="https://www.elitedigital.pt/318-processadores-intel">Intel Core (12ª, 13ª, 14ª Gen &amp; Ultra)</a></li>
+                                      <li><a href="https://www.elitedigital.pt/319-processadores-amd">AMD Ryzen (Séries 5000, 7000, 9000)</a></li>
+                                    </ul>
+                                  </div>
+                                </div>
+
+                                <div class="col-3">
+                                  <div class="cbp-category-link-w">
+                                    <a href="https://www.elitedigital.pt/304-motherboards" class="cbp-column-title nav-link cbp-category-title">
+                                      <i class="fa fa-sliders mr-2"></i>2. Motherboards
+                                    </a>
+                                    <ul class="cbp-links cbp-category-tree">
+                                      <li><a href="https://www.elitedigital.pt/305-placas-mae-desktops">Chipsets Intel (B760, Z790, B860)</a></li>
+                                      <li><a href="https://www.elitedigital.pt/305-placas-mae-desktops">Chipsets AMD (B550, B650, X670, B850)</a></li>
+                                    </ul>
+                                  </div>
+                                </div>
+
+                                <div class="col-3">
+                                  <div class="cbp-category-link-w">
+                                    <a href="https://www.elitedigital.pt/300-memoria-ram" class="cbp-column-title nav-link cbp-category-title">
+                                      <i class="fa fa-database mr-2"></i>3. Memória RAM
+                                    </a>
+                                    <ul class="cbp-links cbp-category-tree">
+                                      <li><a href="https://www.elitedigital.pt/301-memoria-desktops">DDR4 High Speed</a></li>
+                                      <li><a href="https://www.elitedigital.pt/301-memoria-desktops">DDR5 Ultra Speed (5600MHz+)</a></li>
+                                    </ul>
+                                  </div>
+                                </div>
+
+                                <div class="col-3">
+                                  <div class="cbp-category-link-w">
+                                    <a href="https://www.elitedigital.pt/312-placas-graficas" class="cbp-column-title nav-link cbp-category-title">
+                                      <i class="fa fa-gamepad mr-2"></i>4. Placas Gráficas (GPU)
+                                    </a>
+                                    <ul class="cbp-links cbp-category-tree">
+                                      <li><a href="https://www.elitedigital.pt/314-placas-graficas-nvidia">NVIDIA GeForce RTX 40 &amp; 50 Series</a></li>
+                                      <li><a href="https://www.elitedigital.pt/315-placas-graficas-amd">AMD Radeon RX 7000 &amp; 9000 Series</a></li>
+                                    </ul>
+                                  </div>
+                                </div>
+
+                                <div class="col-3 mt-4">
+                                  <div class="cbp-category-link-w">
+                                    <a href="https://www.elitedigital.pt/284-armazenamento" class="cbp-column-title nav-link cbp-category-title">
+                                      <i class="fa fa-hdd-o mr-2"></i>5. Armazenamento
+                                    </a>
+                                    <ul class="cbp-links cbp-category-tree">
+                                      <li><a href="https://www.elitedigital.pt/286-discos-internos-ssd">SSD NVMe M.2 PCIe 4.0 / 5.0</a></li>
+                                      <li><a href="https://www.elitedigital.pt/285-discos-internos-hdd">Discos Rígidos SATA 3.5"</a></li>
+                                    </ul>
+                                  </div>
+                                </div>
+
+                                <div class="col-3 mt-4">
+                                  <div class="cbp-category-link-w">
+                                    <a href="https://www.elitedigital.pt/298-fontes-de-alimentacao" class="cbp-column-title nav-link cbp-category-title">
+                                      <i class="fa fa-bolt mr-2"></i>6. Fontes de Alimentação
+                                    </a>
+                                    <ul class="cbp-links cbp-category-tree">
+                                      <li><a href="https://www.elitedigital.pt/299-fontes-de-alimentacao-standard">80+ Bronze / Gold / Platinum</a></li>
+                                      <li><a href="https://www.elitedigital.pt/299-fontes-de-alimentacao-standard">Full Modular &amp; ATX 3.0 Ready</a></li>
+                                    </ul>
+                                  </div>
+                                </div>
+
+                                <div class="col-3 mt-4">
+                                  <div class="cbp-category-link-w">
+                                    <a href="https://www.elitedigital.pt/291-caixas-estruturas" class="cbp-column-title nav-link cbp-category-title">
+                                      <i class="fa fa-cube mr-2"></i>7. Caixas de Computador
+                                    </a>
+                                    <ul class="cbp-links cbp-category-tree">
+                                      <li><a href="https://www.elitedigital.pt/292-caixas-de-computador">Mid Tower &amp; Full Tower ATX</a></li>
+                                      <li><a href="https://www.elitedigital.pt/292-caixas-de-computador">Aquarium Design / Vidro Temperado</a></li>
+                                    </ul>
+                                  </div>
+                                </div>
+
+                                <div class="col-3 mt-4">
+                                  <div class="cbp-category-link-w">
+                                    <a href="https://www.elitedigital.pt/320-refrigeracao-dissipacao" class="cbp-column-title nav-link cbp-category-title">
+                                      <i class="fa fa-snowflake-o mr-2"></i>8. Refrigeração (Cooling)
+                                    </a>
+                                    <ul class="cbp-links cbp-category-tree">
+                                      <li><a href="https://www.elitedigital.pt/366-refrigeracao-modding">Water Coolers AIO 240mm / 360mm</a></li>
+                                      <li><a href="https://www.elitedigital.pt/321-refrigeracao-desktops">Air Coolers &amp; Ventoinhas aRGB</a></li>
+                                    </ul>
+                                  </div>
+                                </div>
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+
+                      <!-- Standard Categories -->
+                      <li id="cbp-hrmenu-tab-47" class="cbp-hrmenu-tab">
+                        <a href="https://www.elitedigital.pt/227-computadores">
+                          <span>COMPUTADORES</span> <i class="fa fa-angle-right cbp-submenu-aindicator"></i>
+                        </a>
+                      </li>
+                      <li id="cbp-hrmenu-tab-26" class="cbp-hrmenu-tab">
+                        <a href="https://www.elitedigital.pt/258-mobilidade">
+                          <span>MOBILIDADE</span> <i class="fa fa-angle-right cbp-submenu-aindicator"></i>
+                        </a>
+                      </li>
+                      <li id="cbp-hrmenu-tab-27" class="cbp-hrmenu-tab">
+                        <a href="https://www.elitedigital.pt/283-componentes">
+                          <span>COMPONENTES</span> <i class="fa fa-angle-right cbp-submenu-aindicator"></i>
+                        </a>
+                      </li>
+                      <li id="cbp-hrmenu-tab-28" class="cbp-hrmenu-tab">
+                        <a href="https://www.elitedigital.pt/322-imagem-som">
+                          <span>IMAGEM &amp; SOM</span> <i class="fa fa-angle-right cbp-submenu-aindicator"></i>
+                        </a>
+                      </li>
+                      <li id="cbp-hrmenu-tab-29" class="cbp-hrmenu-tab">
+                        <a href="https://www.elitedigital.pt/362-gaming-modding">
+                          <span>GAMING &amp; MODDING</span> <i class="fa fa-angle-right cbp-submenu-aindicator"></i>
+                        </a>
+                      </li>
+                      <li id="cbp-hrmenu-tab-30" class="cbp-hrmenu-tab">
+                        <a href="https://www.elitedigital.pt/378-perifericos">
+                          <span>PERIFÉRICOS</span> <i class="fa fa-angle-right cbp-submenu-aindicator"></i>
+                        </a>
+                      </li>
+                      <li id="cbp-hrmenu-tab-31" class="cbp-hrmenu-tab">
+                        <a href="https://www.elitedigital.pt/434-redes-comunicacoes">
+                          <span>REDES &amp; COMUNICAÇÕES</span> <i class="fa fa-angle-right cbp-submenu-aindicator"></i>
+                        </a>
+                      </li>
+                      <li id="cbp-hrmenu-tab-42" class="cbp-hrmenu-tab">
+                        <a href="https://www.elitedigital.pt/466-casa-escritorio">
+                          <span>CASA &amp; ESCRITÓRIO</span> <i class="fa fa-angle-right cbp-submenu-aindicator"></i>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+
+                <!-- Horizontal Navigation Bar -->
+                <nav id="cbp-hrmenu" class="cbp-hrmenu cbp-horizontal cbp-hrsub-narrow">
+                  <ul class="d-flex align-items-center">
+                    
+                    <!-- NEW CONSTRUCTOR BUTTON IN HORIZONTAL BAR -->
+                    <li id="cbp-hrmenu-tab-constructor-btn" class="cbp-hrmenu-tab mr-2">
+                      <a href="#pc-builder-section" class="nav-link constructor-nav-link">
+                        <span style="background:#0d6efd;color:#fff;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:700;">NOVO</span>
+                        <i class="fa fa-cogs"></i>
+                        <span class="cbp-tab-title">CONSTRUTOR DE PC</span>
+                      </a>
+                    </li>
+
+                    <li id="cbp-hrmenu-tab-36" class="cbp-hrmenu-tab">
+                      <a href="index.html" class="nav-link">
+                        <span class="cbp-tab-title">NOVIDADES</span>
+                      </a>
+                    </li>
+                    <li id="cbp-hrmenu-tab-35" class="cbp-hrmenu-tab">
+                      <a href="campanha.html" class="nav-link">
+                        <span class="cbp-tab-title">CAMPANHAS</span>
+                      </a>
+                    </li>
+                    <li id="cbp-hrmenu-tab-41" class="cbp-hrmenu-tab">
+                      <a href="lojas.html" class="nav-link">
+                        <span class="cbp-tab-title">LOJAS</span>
+                      </a>
+                    </li>
+                    <li id="cbp-hrmenu-tab-38" class="cbp-hrmenu-tab">
+                      <a href="franchise.html" class="nav-link">
+                        <span class="cbp-tab-title">FRANCHISING</span>
+                      </a>
+                    </li>
+
+                    <!-- SETTINGS TAB IN NAV -->
+                    <li class="cbp-hrmenu-tab ml-auto">
+                      <a href="javascript:void(0)" onclick="toggleSettingsModal(true)" class="nav-link" style="color: var(--text-muted);">
+                        <i class="fa fa-adjust mr-1"></i>
+                        <span class="cbp-tab-title">TEMA &amp; DEFINIÇÕES</span>
+                      </a>
+                    </li>
+
+                  </ul>
+                </nav>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <section id="wrapper">
+    <div id="inner-wrapper" class="container">
+      
+      <!-- ================= PC BUILDER / CONSTRUCTOR SECTION ================= -->
+      <section id="pc-builder-section" class="pc-builder-promo-section">
+        <div class="row align-items-center">
+          <div class="col-lg-8">
+            <span class="badge badge-danger px-3 py-2 mb-2" style="font-size: 13px;">CONFIGURADOR DE COMPUTADORES</span>
+            <h2 class="text-white font-weight-bold mt-2" style="font-size: 28px;">
+              Crie o seu Computador Personalizado Peça por Peça
+            </h2>
+            <p class="text-light mb-0" style="opacity: 0.9;">
+              Escolha os seus componentes favoritos com garantia de compatibilidade, montagem profissional e testes de estabilidade.
+            </p>
+          </div>
+          <div class="col-lg-4 text-lg-right mt-3 mt-lg-0">
+            <a href="https://www.elitedigital.pt/283-componentes" class="btn btn-danger btn-lg px-4" style="border-radius: 30px; font-weight: 700;">
+              <i class="fa fa-play mr-2"></i> Iniciar Configuração
+            </a>
+          </div>
+        </div>
+
+        <!-- Component Step-by-Step Grid -->
+        <div class="pc-builder-grid">
+          <a href="https://www.elitedigital.pt/316-processadores" class="pc-builder-step">
+            <i class="fa fa-microchip"></i>
+            <strong>1. CPU</strong>
+            <small class="text-muted">Processador</small>
+          </a>
+
+          <a href="https://www.elitedigital.pt/304-motherboards" class="pc-builder-step">
+            <i class="fa fa-sliders"></i>
+            <strong>2. Placa-Mãe</strong>
+            <small class="text-muted">Motherboard</small>
+          </a>
+
+          <a href="https://www.elitedigital.pt/300-memoria-ram" class="pc-builder-step">
+            <i class="fa fa-database"></i>
+            <strong>3. RAM</strong>
+            <small class="text-muted">Memória</small>
+          </a>
+
+          <a href="https://www.elitedigital.pt/312-placas-graficas" class="pc-builder-step">
+            <i class="fa fa-gamepad"></i>
+            <strong>4. GPU</strong>
+            <small class="text-muted">Placa Gráfica</small>
+          </a>
+
+          <a href="https://www.elitedigital.pt/284-armazenamento" class="pc-builder-step">
+            <i class="fa fa-hdd-o"></i>
+            <strong>5. SSD / HDD</strong>
+            <small class="text-muted">Armazenamento</small>
+          </a>
+
+          <a href="https://www.elitedigital.pt/298-fontes-de-alimentacao" class="pc-builder-step">
+            <i class="fa fa-bolt"></i>
+            <strong>6. Fonte (PSU)</strong>
+            <small class="text-muted">Alimentação</small>
+          </a>
+
+          <a href="https://www.elitedigital.pt/291-caixas-estruturas" class="pc-builder-step">
+            <i class="fa fa-cube"></i>
+            <strong>7. Caixa (Case)</strong>
+            <small class="text-muted">Chassis</small>
+          </a>
+
+          <a href="https://www.elitedigital.pt/320-refrigeracao-dissipacao" class="pc-builder-step">
+            <i class="fa fa-snowflake-o"></i>
+            <strong>8. Cooler</strong>
+            <small class="text-muted">Refrigeração</small>
+          </a>
+        </div>
+      </section>
+
+      <!-- Products Grid Section Demo -->
+      <div id="content-wrapper" class="mb-5">
+        <h3 class="font-weight-bold mb-4" style="color: var(--text-primary);">Componentes e Promoções em Destaque</h3>
+        
+        <div class="row">
+          
+          <!-- Product Card 1 -->
+          <div class="col-md-3 col-sm-6 mb-4">
+            <div class="product-miniature p-3 rounded" style="box-shadow: var(--card-shadow); border: 1px solid var(--border-color);">
+              <img src="https://www.elitedigital.pt/7809210-home_default/placa-grafica-asus-prime-rtx-5070-ti-16gb-gddr7-pcie-hdmi-displayport.jpg" class="img-fluid rounded mb-3" alt="RTX 5070 Ti">
+              <span class="badge badge-success mb-2">Disponível</span>
+              <h5 class="h6 font-weight-bold mb-1">ASUS Prime RTX 5070 Ti 16GB GDDR7</h5>
+              <div class="text-muted small mb-2">Placa Gráfica para Construtor de PC</div>
+              <div class="d-flex justify-content-between align-items-center mt-3">
+                <span class="font-weight-bold" style="color: var(--accent-red); font-size: 18px;">1 446,43 €</span>
+                <button class="btn btn-sm btn-danger"><i class="fa fa-plus mr-1"></i>Adicionar</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Card 2 -->
+          <div class="col-md-3 col-sm-6 mb-4">
+            <div class="product-miniature p-3 rounded" style="box-shadow: var(--card-shadow); border: 1px solid var(--border-color);">
+              <img src="https://www.elitedigital.pt/7326758-home_default/processador-amd-ryzen-7-9700x-am5-8-core-55ghz-com-radeon-graphics.jpg" class="img-fluid rounded mb-3" alt="Ryzen 7 9700X">
+              <span class="badge badge-success mb-2">Disponível</span>
+              <h5 class="h6 font-weight-bold mb-1">AMD Ryzen 7 9700X AM5 8-Core 5.5GHz</h5>
+              <div class="text-muted small mb-2">Processador Socket AM5</div>
+              <div class="d-flex justify-content-between align-items-center mt-3">
+                <span class="font-weight-bold" style="color: var(--accent-red); font-size: 18px;">272,65 €</span>
+                <button class="btn btn-sm btn-danger"><i class="fa fa-plus mr-1"></i>Adicionar</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Card 3 -->
+          <div class="col-md-3 col-sm-6 mb-4">
+            <div class="product-miniature p-3 rounded" style="box-shadow: var(--card-shadow); border: 1px solid var(--border-color);">
+              <img src="https://www.elitedigital.pt/8179686-home_default/water-cooler-cpu-arctic-liquid-freezer-iii-pro-360-a-rgb-refrigeracao-liquida.jpg" class="img-fluid rounded mb-3" alt="Liquid Freezer III">
+              <span class="badge badge-danger mb-2">-52,09 €</span>
+              <h5 class="h6 font-weight-bold mb-1">Arctic Liquid Freezer III Pro 360 A-RGB</h5>
+              <div class="text-muted small mb-2">Water Cooler 360mm</div>
+              <div class="d-flex justify-content-between align-items-center mt-3">
+                <span class="font-weight-bold" style="color: var(--accent-red); font-size: 18px;">89,90 €</span>
+                <button class="btn btn-sm btn-danger"><i class="fa fa-plus mr-1"></i>Adicionar</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Card 4 -->
+          <div class="col-md-3 col-sm-6 mb-4">
+            <div class="product-miniature p-3 rounded" style="box-shadow: var(--card-shadow); border: 1px solid var(--border-color);">
+              <img src="https://www.elitedigital.pt/12062121-home_default/motherboard-sktam5-atx-asus-prime-b850-plus.jpg" class="img-fluid rounded mb-3" alt="ASUS Prime B850-PLUS">
+              <span class="badge badge-success mb-2">Disponível</span>
+              <h5 class="h6 font-weight-bold mb-1">MotherBoard ASUS PRIME B850-PLUS AM5</h5>
+              <div class="text-muted small mb-2">Motherboard ATX DDR5</div>
+              <div class="d-flex justify-content-between align-items-center mt-3">
+                <span class="font-weight-bold" style="color: var(--accent-red); font-size: 18px;">182,11 €</span>
+                <button class="btn btn-sm btn-danger"><i class="fa fa-plus mr-1"></i>Adicionar</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= SETTINGS MODAL (THEME TOGGLE) ================= -->
+  <div id="settingsModal" onclick="handleBackdropClick(event)">
+    <div class="settings-modal-content">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="m-0 font-weight-bold" style="color: var(--text-primary);">
+          <i class="fa fa-cog mr-2" style="color: var(--accent-red);"></i>Definições de Visualização
+        </h4>
+        <button type="button" class="close text-reset" onclick="toggleSettingsModal(false)" style="font-size: 24px;">×</button>
+      </div>
+      
+      <hr style="border-color: var(--border-color);">
+
+      <p class="text-muted mb-3">Escolha a aparência da interface:</p>
+
+      <div class="theme-toggle-options">
+        
+        <!-- Light Theme Option -->
+        <div class="theme-card active" id="theme-light-card" onclick="setTheme('light')">
+          <i class="fa fa-sun-o" style="color: #f59e0b;"></i>
+          <strong>Modo Claro</strong>
+          <small class="d-block text-muted">Fundo branco clássico</small>
+        </div>
+
+        <!-- Dark Theme Option -->
+        <div class="theme-card" id="theme-dark-card" onclick="setTheme('dark')">
+          <i class="fa fa-moon-o" style="color: #6366f1;"></i>
+          <strong>Modo Escuro</strong>
+          <small class="d-block text-muted">Confortável para os olhos</small>
+        </div>
+
+      </div>
+
+      <div class="text-right mt-4">
+        <button class="btn btn-secondary px-4 mr-2" onclick="toggleSettingsModal(false)">Fechar</button>
+        <button class="btn btn-danger px-4" onclick="toggleSettingsModal(false)">Guardar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <footer id="footer">
+    <div id="footer-container-main" class="footer-container footer-style-2 py-4" style="background: var(--bg-secondary); border-top: 1px solid var(--border-color);">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <h5 class="font-weight-bold" style="color: var(--text-primary);">EliteDigital</h5>
+            <p class="text-muted small">Especialistas em informática, computadores gaming, hardware e montagem personalizada.</p>
+          </div>
+          <div class="col-md-4">
+            <h5 class="font-weight-bold" style="color: var(--text-primary);">Construtor de PC</h5>
+            <p class="text-muted small">Escolha peças individuais: CPUs, GPUs, RAMs, SSDs, Fontes e Caixas com entrega rápida.</p>
+          </div>
+          <div class="col-md-4 text-md-right">
+            <h5 class="font-weight-bold" style="color: var(--text-primary);">Suporte ao Cliente</h5>
+            <p class="text-muted small">loja.online@elitedigital.pt | Aveiro, Portugal</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</main>
+
+<!-- ================= JAVASCRIPT LOGIC ================= -->
+<script>
+  // Open / Close Settings Modal
+  function toggleSettingsModal(show) {
+    const modal = document.getElementById('settingsModal');
+    if (modal) {
+      modal.style.display = show ? 'block' : 'none';
+    }
+  }
+
+  function handleBackdropClick(event) {
+    if (event.target.id === 'settingsModal') {
+      toggleSettingsModal(false);
+    }
+  }
+
+  // Set Theme: 'light' or 'dark'
+  function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('elitedigital_theme', theme);
+    updateThemeCards(theme);
+  }
+
+  function updateThemeCards(theme) {
+    const lightCard = document.getElementById('theme-light-card');
+    const darkCard = document.getElementById('theme-dark-card');
+    if (lightCard && darkCard) {
+      if (theme === 'dark') {
+        darkCard.classList.add('active');
+        lightCard.classList.remove('active');
+      } else {
+        lightCard.classList.add('active');
+        darkCard.classList.remove('active');
+      }
+    }
+  }
+
+  // Initialize saved theme on load
+  document.addEventListener('DOMContentLoaded', function() {
+    const savedTheme = localStorage.getItem('elitedigital_theme') || 'light';
+    setTheme(savedTheme);
+  });
+</script>
+
+
+
+</body></html>
