@@ -1,0 +1,137 @@
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="topbar">
+      <span class="social">
+        <a href="https://www.facebook.com/elitedigital.pt" target="_blank" rel="noreferrer noopener" aria-label="Facebook"><i class="fa fa-facebook"></i></a>
+        <a href="https://www.instagram.com/elitedigital.pt/" target="_blank" rel="noreferrer noopener" aria-label="Instagram"><i class="fa fa-instagram"></i></a>
+      </span>
+      <span class="promo-txt"><span style="background:var(--accent-red);color:#fff;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:800;">NOVO</span> &nbsp;Monte o seu computador à medida com o <strong>Construtor de PC</strong>!</span>
+      <span class="topbar-right">
+        <button class="theme-settings-btn" onclick="toggleSettingsModal(true)"><i class="fa fa-cog"></i><span>Definições</span></button>
+        <a href="javascript:void(0)" class="wishlist-link" title="Funcionalidade disponível na loja online"><i class="fa fa-heart-o"></i> Lista de Desejos (0)</a>
+      </span>
+    </div>
+    <div class="header-main">
+      <a href="index.html" class="brand-logo"><img src="https://www.elitedigital.pt/img/loja-prestashop-2-logo-1631183047.jpg" alt="EliteDigital"></a>
+      <form class="search-box" method="get" action="https://www.elitedigital.pt/module/iqitsearch/searchiqit" target="_blank" rel="noopener">
+        <input type="text" name="s" placeholder="Pesquise no catálogo EliteDigital…">
+        <button type="submit" aria-label="Pesquisar"><i class="fa fa-search"></i></button>
+      </form>
+      <div class="header-actions">
+        <a href="https://www.elitedigital.pt/a-minha-conta" target="_blank" rel="noopener"><i class="fa fa-user"></i><span>Iniciar sessão</span></a>
+        <a href="https://www.elitedigital.pt/carrinho" target="_blank" rel="noopener"><i class="fa fa-shopping-bag"></i><span>Carrinho</span></a>
+      </div>
+    </div>
+  </div>
+  <nav class="main-nav">
+    <div class="container">
+      <a class="nav-item" href="index.html"><i class="fa fa-bolt"></i>NOVIDADES</a>
+      <a class="nav-item" href="campanha.html"><i class="fa fa-tags"></i>CAMPANHAS</a>
+      <a class="nav-item" href="lojas.html"><i class="fa fa-map-marker"></i>LOJAS</a>
+      <a class="nav-item" href="franchise.html"><i class="fa fa-handshake-o"></i>FRANCHISING</a>
+      <span class="nav-spacer"></span>
+      <a class="nav-item ed-pill-red active" href="construtor.html"><span class="ed-badge">NOVO</span><i class="fa fa-cogs"></i>CONSTRUTOR DE PC</a>
+      <a class="nav-item ed-pill-green" href="recondicionados.html"><span class="ed-badge green">PROMO</span><i class="fa fa-recycle"></i>RECONDICIONADOS</a>
+    </div>
+  </nav>
+</header>
+
+<main class="container">
+
+  <section class="builder-hero">
+    <span class="kicker"><i class="fa fa-wrench"></i> &nbsp;CONFIGURADOR DE COMPUTADORES</span>
+    <h1>Monte o seu PC peça a peça</h1>
+    <p>Escolha entre <strong id="hero-count">100</strong> componentes reais do catálogo EliteDigital, com verificação automática de compatibilidade (socket, DDR, potência e formato) e orçamento em tempo real.</p>
+    <div class="hero-meta">
+      <span><i class="fa fa-check-circle"></i> Compatibilidade verificada</span>
+      <span><i class="fa fa-eur"></i> Preços reais da loja</span>
+      <span><i class="fa fa-save"></i> Configuração guardada no browser</span>
+      <span><i class="fa fa-magic"></i> 3 builds prontas a usar</span>
+    </div>
+  </section>
+
+  <div class="presets" id="presets"></div>
+
+  <div class="builder-layout">
+    <aside class="builder-steps" id="steps" aria-label="Etapas do configurador"></aside>
+
+    <div class="builder-main">
+      <div class="builder-toolbar">
+        <h2 class="cat-title" id="cat-title"><i class="fa fa-microchip"></i> Processador</h2>
+        <span class="toolbar-spacer"></span>
+        <label class="toolbar-search"><i class="fa fa-search"></i><input type="text" id="part-search" placeholder="Pesquisar peças…"></label>
+        <select class="toolbar-select" id="part-sort" aria-label="Ordenar">
+          <option value="reco">Ordenar: Recomendados</option>
+          <option value="asc">Preço: mais baixo</option>
+          <option value="desc">Preço: mais alto</option>
+        </select>
+        <label class="compat-toggle" title="Esconder peças incompatíveis com a seleção atual"><input type="checkbox" id="compat-only" checked> Só compatíveis</label>
+        <span class="parts-count" id="parts-count"></span>
+      </div>
+      <div id="compat-alert"></div>
+      <div class="parts-grid" id="parts"></div>
+    </div>
+
+    <aside class="builder-summary" id="summary" aria-label="Resumo da configuração"></aside>
+  </div>
+
+  <section class="howto">
+    <div class="howto-card"><i class="fa fa-list-ol"></i><strong>1. Escolha as peças</strong><p>Navegue pelas 8 categorias e selecione os componentes. Tudo o que vê existe mesmo na loja EliteDigital.</p></div>
+    <div class="howto-card"><i class="fa fa-puzzle-piece"></i><strong>2. Compatibilidade automática</strong><p>O configurador cruza socket do CPU, geração DDR, potência da fonte, formato da caixa e TDP do cooler.</p></div>
+    <div class="howto-card"><i class="fa fa-calculator"></i><strong>3. Orçamento em tempo real</strong><p>Veja o total, a potência estimada e a fonte recomendada. Copie o resumo ou abra cada peça na loja.</p></div>
+    <div class="howto-card"><i class="fa fa-truck"></i><strong>4. Finalize na loja</strong><p>Cada peça tem ligação direta para a página oficial — preços, stock e compra final na EliteDigital.</p></div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <h5>EliteDigital</h5>
+      <p>Especialistas em informática, computadores gaming, hardware e montagem personalizada.</p>
+      <a href="https://www.elitedigital.pt" target="_blank" rel="noopener">www.elitedigital.pt</a>
+    </div>
+    <div>
+      <h5>Construtor de PC</h5>
+      <p>CPUs, placas-mãe, RAM, GPUs, SSDs, fontes, caixas e coolers — dados de 12/10/2026.</p>
+      <a href="construtor.html">Voltar ao topo ↑</a>
+    </div>
+    <div>
+      <h5>Suporte ao Cliente</h5>
+      <p>loja.online@elitedigital.pt · Aveiro, Portugal</p>
+      <a href="lojas.html">Ver lojas</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ================= SETTINGS MODAL ================= -->
+<div id="settingsModal" onclick="handleBackdropClick(event)" style="display:none;">
+  <div class="settings-modal-content">
+    <div class="modal-head">
+      <h4><i class="fa fa-cog"></i>Definições de Visualização</h4>
+      <button type="button" class="modal-close" onclick="toggleSettingsModal(false)">×</button>
+    </div>
+    <hr class="modal-hr">
+    <p class="text-muted" style="margin:0 0 4px;font-size:14px;">Escolha a aparência da interface:</p>
+    <div class="theme-toggle-options">
+      <div class="theme-card" id="theme-light-card" onclick="setTheme('light')">
+        <i class="fa fa-sun-o" style="color:#f59e0b;"></i>
+        <strong>Modo Claro</strong>
+        <small style="display:block;" class="text-muted">Fundo branco clássico</small>
+      </div>
+      <div class="theme-card" id="theme-dark-card" onclick="setTheme('dark')">
+        <i class="fa fa-moon-o" style="color:#6366f1;"></i>
+        <strong>Modo Escuro</strong>
+        <small style="display:block;" class="text-muted">Confortável para os olhos</small>
+      </div>
+    </div>
+    <div class="modal-btns">
+      <button class="btn-secondary" onclick="toggleSettingsModal(false)">Fechar</button>
+      <button class="btn-danger" onclick="toggleSettingsModal(false)">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"><i class="fa fa-check-circle"></i><span id="toast-msg"></span></div>

@@ -1,0 +1,811 @@
+<html lang="pt" data-theme="light"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>EliteDigital - Computadores Recondicionados</title>
+  <meta name="description" content="Computadores recondicionados certificados com 24 meses de garantia: portáteis, desktops e all-in-one com preços até -55% face ao novo.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fa0707">
+
+  <link rel="icon" type="image/vnd.microsoft.icon" href="https://www.elitedigital.pt/img/favicon.ico?1631183047">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <style>
+    /* ==========================================================
+       DARK & LIGHT THEME VARIABLES (same system as Construtor)
+       ========================================================== */
+    :root {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8f9fa;
+      --bg-card: #ffffff;
+      --text-primary: #1f2937;
+      --text-muted: #6b7280;
+      --border-color: #e5e7eb;
+      --header-bg: #ffffff;
+      --accent-red: #dd3333;
+      --accent-hover: #b91c1c;
+      --accent-green: #16a34a;
+      --accent-green-dark: #15803d;
+      --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    [data-theme="dark"] {
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --bg-card: #1e293b;
+      --text-primary: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #334155;
+      --header-bg: #0f172a;
+      --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      transition: background-color 0.3s ease, color 0.3s ease;
+      line-height: 1.5;
+    }
+
+    a { color: inherit; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+
+    /* ===================== HEADER / NAV ===================== */
+    .site-header {
+      background: var(--header-bg);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 8px 0;
+      font-size: 13px;
+      color: var(--text-muted);
+      border-bottom: 1px dashed var(--border-color);
+    }
+
+    .topbar .promo-note strong { color: var(--accent-green); }
+
+    .header-main {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 0;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 20px;
+      letter-spacing: -0.5px;
+    }
+
+    .brand .brand-mark {
+      background: var(--accent-red);
+      color: #fff;
+      border-radius: 8px;
+      padding: 6px 9px;
+      font-size: 16px;
+    }
+
+    .brand small { display: block; font-size: 11px; font-weight: 600; color: var(--text-muted); letter-spacing: 1px; }
+
+    .header-tools { display: flex; align-items: center; gap: 10px; }
+
+    .theme-settings-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 13px;
+      transition: all 0.2s ease;
+    }
+
+    .theme-settings-btn:hover { background: var(--accent-red); color: #fff; border-color: var(--accent-red); }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 10px 0 14px;
+      flex-wrap: wrap;
+    }
+
+    .main-nav a {
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      transition: background 0.15s ease, color 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .main-nav a:hover { background: var(--bg-secondary); }
+
+    .main-nav a.active { background: var(--accent-green); color: #fff !important; }
+
+    .nav-spacer { flex: 1; }
+    .main-nav a.nav-refurb { box-shadow: 0 2px 8px rgba(22,163,74,.4); border: 1px solid #dd3333; border-top: 3px solid #dd3333; }
+    .nav-pill-green { background: #fff !important; color: var(--accent-green-dark) !important; }
+    .main-nav a.nav-constructor {
+      background: linear-gradient(135deg, #ff1a1a 0%, #b30000 100%);
+      color: #fff;
+      border: 1px solid #ef4444;
+      border-top: 3px solid #fca5a5;
+      box-shadow: 0 2px 8px rgba(221, 51, 51, 0.4), inset 0 1px 0 rgba(255,255,255,.25);
+    }
+
+    .main-nav a.nav-constructor:hover { transform: translateY(-1px); }
+
+    .nav-pill {
+      background: #0d6efd;
+      color: #fff;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    /* ===================== HERO ===================== */
+    .refurb-hero {
+      background: linear-gradient(135deg, #052e16 0%, #14532d 55%, #166534 100%);
+      color: #fff;
+      border-radius: 18px;
+      padding: 46px 34px;
+      margin: 30px 0;
+      box-shadow: var(--card-shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .refurb-hero::after {
+      content: "\26BB";
+      position: absolute;
+      right: -20px;
+      top: -30px;
+      font-size: 190px;
+      opacity: 0.06;
+    }
+
+    .refurb-hero .badge-green {
+      display: inline-block;
+      background: #22c55e;
+      color: #052e16;
+      font-weight: 800;
+      font-size: 12px;
+      letter-spacing: 1.2px;
+      padding: 6px 12px;
+      border-radius: 30px;
+      margin-bottom: 14px;
+    }
+
+    .refurb-hero h1 { margin: 0 0 10px; font-size: 34px; line-height: 1.15; }
+    .refurb-hero p { margin: 0; max-width: 640px; opacity: 0.92; font-size: 15px; }
+
+    .hero-stats {
+      display: flex;
+      gap: 26px;
+      margin-top: 26px;
+      flex-wrap: wrap;
+    }
+
+    .hero-stats .stat b { display: block; font-size: 24px; }
+    .hero-stats .stat span { font-size: 12px; opacity: 0.8; }
+
+    /* ===================== TRUST STRIP ===================== */
+    .trust-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 12px;
+      margin: 24px 0 8px;
+    }
+
+    .trust-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: var(--card-shadow);
+    }
+
+    .trust-item i { font-size: 20px; color: var(--accent-green); }
+
+    /* ===================== FILTERS ===================== */
+    .filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 30px 0 20px;
+    }
+
+    .filter-btn {
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .filter-btn:hover { border-color: var(--accent-green); color: var(--accent-green); }
+    .filter-btn.active { background: var(--accent-green); border-color: var(--accent-green); color: #fff; }
+
+    /* ===================== PRODUCT GRID ===================== */
+    .refurb-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(258px, 1fr));
+      gap: 18px;
+      margin-bottom: 40px;
+    }
+
+    .refurb-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .refurb-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.18); }
+
+    .refurb-thumb {
+      border-radius: 10px;
+      height: 130px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+      color: #d1fae5;
+      font-size: 44px;
+      position: relative;
+    }
+
+    .grade-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: #22c55e;
+      color: #052e16;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 20px;
+      letter-spacing: 0.4px;
+    }
+
+    .discount-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: var(--accent-red);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 20px;
+    }
+
+    .refurb-card h3 { margin: 0 0 2px; font-size: 15px; line-height: 1.3; }
+    .refurb-card .specs { color: var(--text-muted); font-size: 12px; margin-bottom: 10px; min-height: 34px; }
+
+    .price-row { margin-top: auto; }
+    .price-old { color: var(--text-muted); text-decoration: line-through; font-size: 12px; margin-right: 8px; }
+    .price-new { color: var(--accent-red); font-weight: 800; font-size: 19px; }
+    .price-iva { display: block; font-size: 10px; color: var(--text-muted); margin-bottom: 10px; }
+
+    .add-btn {
+      width: 100%;
+      border: 0;
+      background: var(--accent-green);
+      color: #fff;
+      font-weight: 700;
+      padding: 9px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .add-btn:hover { background: var(--accent-green-dark); }
+    .add-btn.added { background: #0f766e; }
+
+    .stock-note { font-size: 11px; color: var(--text-muted); margin-top: 8px; display: flex; align-items: center; gap: 6px; }
+    .stock-dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; display: inline-block; }
+    .stock-dot.low { background: #f59e0b; }
+
+    /* ===================== PROCESS ===================== */
+    .process-section {
+      background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+      color: #fff;
+      border-radius: 16px;
+      padding: 36px 26px;
+      margin: 10px 0 34px;
+      border: 1px solid #374151;
+    }
+
+    .process-section h2 { margin: 0 0 6px; font-size: 24px; }
+    .process-section > p { margin: 0 0 22px; opacity: 0.85; font-size: 14px; }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 14px;
+    }
+
+    .process-step {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 18px 12px;
+      text-align: center;
+    }
+
+    .process-step .num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--accent-green);
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .process-step i { display: block; font-size: 22px; margin-bottom: 6px; color: #86efac; }
+    .process-step strong { display: block; font-size: 13px; margin-bottom: 4px; }
+    .process-step small { color: #cbd5e1; font-size: 11.5px; }
+
+    /* ===================== CTA ===================== */
+    .cross-cta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 44px;
+    }
+
+    .cta-box {
+      border-radius: 14px;
+      padding: 24px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      box-shadow: var(--card-shadow);
+    }
+
+    .cta-box h3 { margin: 0 0 6px; font-size: 17px; }
+    .cta-box p { margin: 0 0 14px; color: var(--text-muted); font-size: 13px; }
+
+    .cta-box .btn {
+      display: inline-block;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 10px 20px;
+      border-radius: 30px;
+      color: #fff;
+    }
+
+    .btn-red { background: var(--accent-red); }
+    .btn-red:hover { background: var(--accent-hover); }
+    .btn-dark { background: #1f2937; }
+    .btn-dark:hover { background: #111827; }
+
+    @media (max-width: 720px) {
+      .cross-cta { grid-template-columns: 1fr; }
+      .refurb-hero h1 { font-size: 26px; }
+    }
+
+    /* ===================== MODAL (same as Construtor) ===================== */
+    #settingsModal {
+      display: none;
+      position: fixed;
+      z-index: 99999;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+    }
+
+    .settings-modal-content {
+      background-color: var(--bg-card);
+      color: var(--text-primary);
+      margin: 10% auto;
+      padding: 24px;
+      border: 1px solid var(--border-color);
+      width: 90%;
+      max-width: 480px;
+      border-radius: 16px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+      animation: modalFadeIn 0.25s ease-out;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .theme-toggle-options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
+
+    .theme-card {
+      border: 2px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .theme-card.active { border-color: var(--accent-red); background-color: rgba(221, 51, 51, 0.08); }
+    .theme-card i { font-size: 28px; margin-bottom: 8px; display: block; }
+
+    /* ===================== FOOTER ===================== */
+    .site-footer {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-color);
+      padding: 28px 0;
+      margin-top: 20px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      font-size: 13px;
+    }
+
+    .footer-grid h5 { margin: 0 0 8px; font-size: 14px; }
+    .footer-grid p, .footer-grid a { color: var(--text-muted); margin: 0 0 4px; display: block; text-decoration: none; }
+    .footer-grid a:hover { color: var(--accent-green); }
+  </style>
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="topbar">
+      <span><i class="fa fa-leaf" style="color:#16a34a;"></i> &nbsp;Gestão sustentável de equipamentos — menos lixo eletrónico, mais poupança.</span>
+      <span class="promo-note">NOVO: <strong>até -55%</strong> em portáteis e desktops certificados <i class="fa fa-arrow-right"></i></span>
+    </div>
+
+    <div class="header-main">
+      <a href="index.html" class="brand">
+        <span class="brand-mark"><i class="fa fa-bolt"></i></span>
+        <span>EliteDigital<small>RECONDICIONADOS</small></span>
+      </a>
+
+      <div class="header-tools">
+        <button class="theme-settings-btn" onclick="toggleSettingsModal(true)">
+          <i class="fa fa-cog"></i>
+          <span>Definições</span>
+        </button>
+      </div>
+    </div>
+
+    <nav class="main-nav">
+      <a href="index.html"><i class="fa fa-home"></i> NOVIDADES</a>
+      <a href="campanha.html"><i class="fa fa-tag"></i> CAMPANHAS</a>
+      <a href="lojas.html"><i class="fa fa-map-marker"></i> LOJAS</a>
+      <a href="franchise.html"><i class="fa fa-handshake-o"></i> FRANCHISING</a>
+      <span class="nav-spacer"></span>
+      <a href="construtor.html" class="nav-constructor"><span class="nav-pill">NOVO</span> <i class="fa fa-cogs"></i> CONSTRUTOR DE PC</a>
+      <a href="recondicionados.html" class="active nav-refurb"><span class="nav-pill nav-pill-green">PROMO</span> <i class="fa fa-recycle"></i> RECONDICIONADOS</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- ================= HERO ================= -->
+  <section class="refurb-hero">
+    <span class="badge-green"><i class="fa fa-certificate"></i> &nbsp;CERTIFICADO &amp; TESTADO</span>
+    <h1>Computadores Recondicionados</h1>
+    <p>
+      Equipamentos empresariais de segunda vida, revistos por técnicos certificados, com componentes
+      substituídos quando necessário e garantia real de 24 meses. Mesma fiabilidade, uma fração do preço —
+      e um compromisso sério com a economia circular.
+    </p>
+    <div class="hero-stats">
+      <div class="stat"><b>24 meses</b><span>de garantia em tudo</span></div>
+      <div class="stat"><b>-55%</b><span>vs. equipamento novo</span></div>
+      <div class="stat"><b>14 pontos</b><span>de inspeção técnica</span></div>
+      <div class="stat"><b>30 dias</b><span>para devolução</span></div>
+    </div>
+  </section>
+
+  <!-- ================= TRUST STRIP ================= -->
+  <div class="trust-strip">
+    <div class="trust-item"><i class="fa fa-shield"></i> Garantia de 24 meses</div>
+    <div class="trust-item"><i class="fa fa-battery-three-quarters"></i> Bateria verificada &gt; 80%</div>
+    <div class="trust-item"><i class="fa fa-windows"></i> Windows 11 Pro ativado</div>
+    <div class="trust-item"><i class="fa fa-truck"></i> Envio grátis acima de 50 €</div>
+    <div class="trust-item"><i class="fa fa-exchange"></i> Troca do teu usado por crédito</div>
+  </div>
+
+  <!-- ================= CATALOG ================= -->
+  <div class="filters" id="refurb-filters">
+    <button class="filter-btn active" data-filter="todos">Todos</button>
+    <button class="filter-btn" data-filter="portatil"><i class="fa fa-laptop"></i> Portáteis</button>
+    <button class="filter-btn" data-filter="desktop"><i class="fa fa-desktop"></i> Desktops</button>
+    <button class="filter-btn" data-filter="aio"><i class="fa fa-television"></i> All-in-One</button>
+    <span style="margin-left:auto; align-self:center; font-size:12px; color:var(--text-muted);">
+      <span id="visible-count">8</span> equipamento(s) em stock
+    </span>
+  </div>
+
+  <div class="refurb-grid" id="refurb-grid">
+
+    <div class="refurb-card" data-type="portatil">
+      <div class="refurb-thumb"><i class="fa fa-laptop"></i><span class="grade-badge">GRAU A</span><span class="discount-badge">-56%</span></div>
+      <h3>Lenovo ThinkPad T480 14&quot;</h3>
+      <div class="specs">Intel Core i5-8350U &middot; 16 GB RAM &middot; SSD 512 GB &middot; Wi-Fi &middot; 2ª bateria incluída</div>
+      <div class="price-row">
+        <span class="price-old">899,00 €</span><span class="price-new">399,00 €</span>
+        <span class="price-iva">IVA incluído &middot; 140,65 € de poupança face ao novo</span>
+        <button class="add-btn"><i class="fa fa-plus"></i> Adicionar ao Carrinho</button>
+        <div class="stock-note"><span class="stock-dot"></span> Stock: 3 unidades</div>
+      </div>
+    </div>
+
+    <div class="refurb-card" data-type="portatil">
+      <div class="refurb-thumb"><i class="fa fa-laptop"></i><span class="grade-badge">GRAU A</span><span class="discount-badge">-53%</span></div>
+      <h3>Dell Latitude 5520 15.6&quot;</h3>
+      <div class="specs">Intel Core i7-1165G7 &middot; 16 GB RAM &middot; SSD 512 GB &middot; Full HD &middot; Leitor de impressão digital</div>
+      <div class="price-row">
+        <span class="price-old">1 049,00 €</span><span class="price-new">489,00 €</span>
+        <span class="price-iva">IVA incluído &middot; 560,00 € de poupança face ao novo</span>
+        <button class="add-btn"><i class="fa fa-plus"></i> Adicionar ao Carrinho</button>
+        <div class="stock-note"><span class="stock-dot"></span> Stock: 5 unidades</div>
+      </div>
+    </div>
+
+    <div class="refurb-card" data-type="portatil">
+      <div class="refurb-thumb"><i class="fa fa-laptop"></i><span class="grade-badge" style="background:#a3e635;color:#1a2e05;">GRAU B+</span><span class="discount-badge">-63%</span></div>
+      <h3>HP EliteBook 840 G6 14&quot;</h3>
+      <div class="specs">Intel Core i7-8665U &middot; 16 GB RAM &middot; SSD 256 GB &middot; Marcas de uso leve na tampa</div>
+      <div class="price-row">
+        <span class="price-old">949,00 €</span><span class="price-new">349,00 €</span>
+        <span class="price-iva">IVA incluído &middot; 600,00 € de poupança face ao novo</span>
+        <button class="add-btn"><i class="fa fa-plus"></i> Adicionar ao Carrinho</button>
+        <div class="stock-note"><span class="stock-dot low"></span> Stock: 1 unidade</div>
+      </div>
+    </div>
+
+    <div class="refurb-card" data-type="desktop">
+      <div class="refurb-thumb"><i class="fa fa-desktop"></i><span class="grade-badge">GRAU A</span><span class="discount-badge">-53%</span></div>
+      <h3>Dell OptiPlex 7070 SFF</h3>
+      <div class="specs">Intel Core i7-9700 &middot; 16 GB RAM &middot; SSD 512 GB + HDD 1 TB &middot; Windows 11 Pro</div>
+      <div class="price-row">
+        <span class="price-old">799,00 €</span><span class="price-new">379,00 €</span>
+        <span class="price-iva">IVA incluído &middot; Ideal para escritório e contabilidade</span>
+        <button class="add-btn"><i class="fa fa-plus"></i> Adicionar ao Carrinho</button>
+        <div class="stock-note"><span class="stock-dot"></span> Stock: 8 unidades</div>
+      </div>
+    </div>
+
+    <div class="refurb-card" data-type="desktop">
+      <div class="refurb-thumb"><i class="fa fa-desktop"></i><span class="grade-badge" style="background:#a3e635;color:#1a2e05;">GRAU A-</span><span class="discount-badge">-57%</span></div>
+      <h3>HP ProDesk 600 G4 SFF</h3>
+      <div class="specs">Intel Core i5-9500 &middot; 8 GB RAM &middot; SSD 256 GB &middot;upgrade grátis para 16 GB até 31/10</div>
+      <div class="price-row">
+        <span class="price-old">649,00 €</span><span class="price-new">279,00 €</span>
+        <span class="price-iva">IVA incluído &middot; 370,00 € de poupança face ao novo</span>
+        <button class="add-btn"><i class="fa fa-plus"></i> Adicionar ao Carrinho</button>
+        <div class="stock-note"><span class="stock-dot"></span> Stock: 4 unidades</div>
+      </div>
+    </div>
+
+    <div class="refurb-card" data-type="desktop">
+      <div class="refurb-thumb"><i class="fa fa-cube"></i><span class="grade-badge">GRAU A</span><span class="discount-badge">-54%</span></div>
+      <h3>Lenovo ThinkCentre M720q Tiny</h3>
+      <div class="specs">Intel Core i5-9500T &middot; 16 GB RAM &middot; SSD 512 GB &middot; Wi-Fi 6 &middot; formato 1L ultra-compacto</div>
+      <div class="price-row">
+        <span class="price-old">699,00 €</span><span class="price-new">319,00 €</span>
+        <span class="price-iva">IVA incluído &middot; Suporte VESA incluído</span>
+        <button class="add-btn"><i class="fa fa-plus"></i> Adicionar ao Carrinho</button>
+        <div class="stock-note"><span class="stock-dot"></span> Stock: 6 unidades</div>
+      </div>
+    </div>
+
+    <div class="refurb-card" data-type="aio">
+      <div class="refurb-thumb"><i class="fa fa-television"></i><span class="grade-badge">GRAU A</span><span class="discount-badge">-52%</span></div>
+      <h3>HP EliteOne 800 G5 AIO 24&quot;</h3>
+      <div class="specs">Intel Core i5-9500 &middot; 8 GB RAM &middot; SSD 256 GB &middot; Full HD IPS &middot; webcam pop-up</div>
+      <div class="price-row">
+        <span class="price-old">1 099,00 €</span><span class="price-new">529,00 €</span>
+        <span class="price-iva">IVA incluído &middot; Estação de trabalho pronta a usar</span>
+        <button class="add-btn"><i class="fa fa-plus"></i> Adicionar ao Carrinho</button>
+        <div class="stock-note"><span class="stock-dot low"></span> Stock: 2 unidades</div>
+      </div>
+    </div>
+
+    <div class="refurb-card" data-type="aio">
+      <div class="refurb-thumb"><i class="fa fa-television"></i><span class="grade-badge" style="background:#a3e635;color:#1a2e05;">GRAU B+</span><span class="discount-badge">-53%</span></div>
+      <h3>Dell OptiPlex 7470 AIO 23.8&quot;</h3>
+      <div class="specs">Intel Core i7-9700 &middot; 16 GB RAM &middot; SSD 512 GB &middot; Ecrã com riscos estéticos, sem impacto visual</div>
+      <div class="price-row">
+        <span class="price-old">1 249,00 €</span><span class="price-new">589,00 €</span>
+        <span class="price-iva">IVA incluído &middot; 660,00 € de poupança face ao novo</span>
+        <button class="add-btn"><i class="fa fa-plus"></i> Adicionar ao Carrinho</button>
+        <div class="stock-note"><span class="stock-dot low"></span> Stock: 1 unidade</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ================= PROCESS ================= -->
+  <section class="process-section">
+    <h2><i class="fa fa-recycle" style="color:#22c55e;"></i> Como recondicionamos cada equipamento</h2>
+    <p>Um processo de 5 fases documentado, exclusivo para stock empresarial (lease return) — não aceitamos equipamento de proveniência incerta.</p>
+    <div class="process-grid">
+      <div class="process-step"><span class="num">1</span><i class="fa fa-clipboard"></i><strong>Receção &amp; Diagnóstico</strong><small>Leitura de S.M.A.R.T., histórico da bateria e teste de portas.</small></div>
+      <div class="process-step"><span class="num">2</span><i class="fa fa-wrench"></i><strong>Reparação &amp; Upgrade</strong><small>Substituição de peças gastas, pasta térmica nova e SSD quando aplicável.</small></div>
+      <div class="process-step"><span class="num">3</span><i class="fa fa-bath"></i><strong>Limpeza Profunda</strong><small>Desinfetação, ar comprimido e remoção total de dados com certificação.</small></div>
+      <div class="process-step"><span class="num">4</span><i class="fa fa-flask"></i><strong>Teste de Burn-in</strong><small>48 h de stress térmico e estabilidade antes de entrar em venda.</small></div>
+      <div class="process-step"><span class="num">5</span><i class="fa fa-certificate"></i><strong>Certificação &amp; Grau</strong><small>Classificação estética (A / A- / B+) e ativação da garantia de 24 meses.</small></div>
+    </div>
+  </section>
+
+  <!-- ================= CROSS LINKS ================= -->
+  <div class="cross-cta">
+    <div class="cta-box">
+      <h3><i class="fa fa-cogs" style="color:var(--accent-red);"></i> Não encontraste o que procuravas?</h3>
+      <p>Monta um computador exactamente à tua medida no nosso Construtor de PC — peça a peça, com garantia de compatibilidade.</p>
+      <a href="construtor.html" class="btn btn-red"><i class="fa fa-play"></i> Abrir o Construtor de PC</a>
+    </div>
+    <div class="cta-box">
+      <h3><i class="fa fa-map-marker" style="color:var(--accent-green);"></i> Vê o stock recondicionado na loja</h3>
+      <p>Cada unidade é única. O stock online pode esgotar — nas nossas lojas físicas há sempre unidades adicionais para levantar.</p>
+      <a href="lojas.html" class="btn btn-dark"><i class="fa fa-store"></i> Ver Rede de Lojas</a>
+    </div>
+  </div>
+
+</main>
+
+<!-- ================= SETTINGS MODAL (shared with Construtor) ================= -->
+<div id="settingsModal" onclick="handleBackdropClick(event)">
+  <div class="settings-modal-content">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+      <h4 style="margin:0;"><i class="fa fa-cog" style="color:var(--accent-red);"></i> Definições de Visualização</h4>
+      <button type="button" onclick="toggleSettingsModal(false)" style="font-size:24px;background:none;border:0;color:inherit;cursor:pointer;">&times;</button>
+    </div>
+    <hr style="border-color:var(--border-color);">
+    <p style="color:var(--text-muted);">Escolha a aparência da interface:</p>
+    <div class="theme-toggle-options">
+      <div class="theme-card active" id="theme-light-card" onclick="setTheme('light')">
+        <i class="fa fa-sun-o" style="color:#f59e0b;"></i>
+        <strong>Modo Claro</strong>
+        <small style="display:block;color:var(--text-muted);">Fundo branco clássico</small>
+      </div>
+      <div class="theme-card" id="theme-dark-card" onclick="setTheme('dark')">
+        <i class="fa fa-moon-o" style="color:#6366f1;"></i>
+        <strong>Modo Escuro</strong>
+        <small style="display:block;color:var(--text-muted);">Confortável para os olhos</small>
+      </div>
+    </div>
+    <div style="text-align:right;margin-top:16px;">
+      <button class="theme-settings-btn" onclick="toggleSettingsModal(false)">Fechar</button>
+      <button class="theme-settings-btn" onclick="toggleSettingsModal(false)">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <h5>EliteDigital &mdash; Recondicionados</h5>
+      <p>Equipamento certificado, testado e com garantia. Economia circular aplicada à informática.</p>
+    </div>
+    <div>
+      <h5>Navegação</h5>
+      <a href="index.html">Novidades</a>
+      <a href="campanha.html">Campanhas</a>
+      <a href="construtor.html">Construtor de PC</a>
+      <a href="lojas.html">Rede de Lojas</a>
+      <a href="franchise.html">Franchising</a>
+    </div>
+    <div>
+      <h5>Suporte ao Cliente</h5>
+      <p>loja.online@elitedigital.pt &middot; Aveiro, Portugal</p>
+      <p>Garantia de 24 meses em todo o stock recondicionado.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ---------- Theme (shares localStorage key with construtor.html) ----------
+  function toggleSettingsModal(show) {
+    const modal = document.getElementById('settingsModal');
+    if (modal) modal.style.display = show ? 'block' : 'none';
+  }
+
+  function handleBackdropClick(event) {
+    if (event.target.id === 'settingsModal') toggleSettingsModal(false);
+  }
+
+  function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('elitedigital_theme', theme);
+    updateThemeCards(theme);
+  }
+
+  function updateThemeCards(theme) {
+    const lightCard = document.getElementById('theme-light-card');
+    const darkCard = document.getElementById('theme-dark-card');
+    if (lightCard && darkCard) {
+      darkCard.classList.toggle('active', theme === 'dark');
+      lightCard.classList.toggle('active', theme !== 'dark');
+    }
+  }
+
+  // ---------- Category filter ----------
+  const filterBtns = document.querySelectorAll('#refurb-filters .filter-btn');
+  const cards = document.querySelectorAll('#refurb-grid .refurb-card');
+  const counter = document.getElementById('visible-count');
+
+  filterBtns.forEach(btn => btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    let visible = 0;
+    cards.forEach(card => {
+      const show = (f === 'todos' || card.dataset.type === f);
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    counter.textContent = visible;
+  }));
+
+  // ---------- Demo cart feedback ----------
+  document.querySelectorAll('.add-btn').forEach(btn => btn.addEventListener('click', () => {
+    if (btn.classList.contains('added')) return;
+    const original = btn.innerHTML;
+    btn.classList.add('added');
+    btn.innerHTML = '<i class="fa fa-check"></i> Adicionado (demonstração)';
+    setTimeout(() => { btn.classList.remove('added'); btn.innerHTML = original; }, 1800);
+  }));
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const savedTheme = localStorage.getItem('elitedigital_theme') || 'light';
+    setTheme(savedTheme);
+  });
+</script>
+
+</body></html>

@@ -1,0 +1,362 @@
+<script>
+/* ============================================================
+   CATÁLOGO — componentes reais de www.elitedigital.pt (12/10/2026)
+   ============================================================ */
+const CATALOG = __CATALOG_JSON__;
+
+const CATS = [
+  {key:'cpu',         name:'Processador',  short:'CPU',      icon:'fa-microchip'},
+  {key:'motherboard', name:'Placa-Mãe',    short:'Board',    icon:'fa-sliders'},
+  {key:'ram',         name:'Memória RAM',  short:'RAM',      icon:'fa-database'},
+  {key:'gpu',         name:'Placa Gráfica',short:'GPU',      icon:'fa-gamepad'},
+  {key:'ssd',         name:'Armazenamento',short:'SSD',      icon:'fa-hdd-o'},
+  {key:'psu',         name:'Fonte (PSU)',  short:'Fonte',    icon:'fa-bolt'},
+  {key:'case',        name:'Caixa',        short:'Caixa',    icon:'fa-cube'},
+  {key:'cooler',      name:'Refrigeração', short:'Cooler',   icon:'fa-snowflake-o'}
+];
+
+const IGPU = {id:'IGPU', name:'Gráficos Integrados do CPU (sem placa dedicada)', price:0,
+  price_txt:'0,00 €', img:'', url:'', desc:'Usa o chip gráfico do processador. Ideal para escritório e HTPC.', avail:'Disponível',
+  spec:{vram:0, watts:0, tier:'igpu'}};
+
+const PRESETS = [
+  {id:'office', name:'Escritório & Casa', icon:'fa-briefcase', color:'#0d6efd',
+   desc:'Rápido para trabalho, net e filmes. Silencioso e económico.',
+   picks:{cpu:'201010', motherboard:'355777', ram:'191437', gpu:'IGPU', ssd:'1275', psu:'1036', case:'26991', cooler:'365760'}},
+  {id:'gaming1080', name:'Gaming 1080p', icon:'fa-gamepad', color:'#dd3333',
+   desc:'Gaming Full HD com folga: 6 núcleos, 16 GB e gráfica dedicada.',
+   picks:{cpu:'161480', motherboard:'366860', ram:'191437', gpu:'364840', ssd:'318753', psu:'355677', case:'241138', cooler:'368729'}},
+  {id:'ultra4k', name:'Entusiasta 4K', icon:'fa-rocket', color:'#7c3aed',
+   desc:'X3D + 32 GB DDR5 + RX 9070 + NVMe Gen4 topo de gama.',
+   picks:{cpu:'355788', motherboard:'270140', ram:'347017', gpu:'364106', ssd:'365330', psu:'338358', case:'350900', cooler:'1161'}}
+];
+
+/* ================= STATE ================= */
+const LS_KEY = 'ed_builder_v2';
+let state = {cpu:null, motherboard:null, ram:null, gpu:null, ssd:null, psu:null, case:null, cooler:null};
+let activeCat = 'cpu';
+try {
+  const saved = JSON.parse(localStorage.getItem(LS_KEY) || '{}');
+  for (const c of CATS) if (saved[c.key]) state[c.key] = saved[c.key];
+} catch(e){}
+function save(){ try{ localStorage.setItem(LS_KEY, JSON.stringify(state)); }catch(e){} }
+
+/* ================= HELPERS ================= */
+const $ = id => document.getElementById(id);
+function fmt(n){ return n.toLocaleString('pt-PT',{minimumFractionDigits:2, maximumFractionDigits:2}) + ' €'; }
+function getPart(cat, id){
+  if (!id) return null;
+  if (cat==='gpu' && id==='IGPU') return IGPU;
+  return (CATALOG[cat]||[]).find(p => String(p.id)===String(id)) || null;
+}
+function sel(cat){ return getPart(cat, state[cat]); }
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function toast(msg){
+  $('toast-msg').textContent = msg;
+  const t = $('toast'); t.classList.add('show');
+  clearTimeout(t._h); t._h = setTimeout(()=>t.classList.remove('show'), 2600);
+}
+
+/* ================= COMPAT ENGINE ================= */
+function estimateW(cpu, gpu){
+  const c = cpu ? (cpu.spec.tdp||65) : 0;
+  const g = gpu ? (gpu.spec.watts||0) : 0;
+  return c + g + 120; // base: board + ram + ssd + fans
+}
+function recommendedPSU(est){ return Math.ceil(est*1.25/50)*50; }
+
+function coolerFits(cooler, cpuSocket){
+  const s = cooler.spec.sockets||[];
+  if (!s.length) return true;
+  if (s.includes(cpuSocket)) return true;
+  const fam = h => s.some(x => x.indexOf(h)===0);
+  if (cpuSocket==='LGA1700'||cpuSocket==='LGA1851') return fam('LGA')||s.includes('1700')||s.includes('115X')||s.includes('1200');
+  if (cpuSocket==='LGA1200') return fam('LGA')||s.includes('1200')||s.includes('115X')||s.includes('1700');
+  if (cpuSocket==='AM4'||cpuSocket==='AM5') return fam('AM');
+  return false;
+}
+
+/* issues(cat, part) -> array de strings, face à seleção atual (excluindo a própria categoria) */
+function issues(cat, part){
+  const out = [];
+  const cpu = cat==='cpu' ? part : sel('cpu');
+  const mb  = cat==='motherboard' ? part : sel('motherboard');
+  const ram = cat==='ram' ? part : sel('ram');
+  const gpu = cat==='gpu' ? part : sel('gpu');
+  const psu = cat==='psu' ? part : sel('psu');
+  const cs  = cat==='case' ? part : sel('case');
+  const co  = cat==='cooler' ? part : sel('cooler');
+
+  if ((cat==='cpu'||cat==='motherboard') && cpu && mb && cpu.spec.socket!=='?' && mb.spec.socket!=='?'
+      && cpu.spec.socket!==mb.spec.socket)
+    out.push('Socket incompatível: CPU ' + cpu.spec.socket + ' ≠ placa-mãe ' + mb.spec.socket);
+  if ((cat==='ram'||cat==='motherboard') && ram && mb && ram.spec.ddr!==mb.spec.ddr)
+    out.push('Memória ' + ram.spec.ddr + ' incompatível com placa-mãe ' + mb.spec.ddr);
+  if (cat==='gpu' && part.id==='IGPU' && cpu && !cpu.spec.igpu)
+    out.push('Este CPU não tem gráficos integrados — escolha uma placa gráfica');
+  if (cat==='case' && cs && mb && !(cs.spec.support||[]).includes(mb.spec.form))
+    out.push('Caixa ' + cs.spec.size + ' não suporta placas ' + mb.spec.form);
+  if (cat==='motherboard' && mb && cs && !(cs.spec.support||[]).includes(mb.spec.form))
+    out.push('Placa ' + mb.spec.form + ' não cabe na caixa ' + cs.spec.size);
+  if (cat==='cooler' && co && cpu && cpu.spec.socket && !coolerFits(co, cpu.spec.socket))
+    out.push('Cooler sem suporte indicado para socket ' + cpu.spec.socket);
+  if (cat==='cooler' && co && cpu && co.spec.tdp && cpu.spec.tdp && co.spec.tdp < cpu.spec.tdp)
+    out.push('TDP do cooler (' + co.spec.tdp + 'W) abaixo do CPU (' + cpu.spec.tdp + 'W)');
+  if (cat==='cpu' && co && cpu && !coolerFits(co, cpu.spec.socket||'?'))
+    out.push('Cooler atual pode não suportar socket ' + (cpu.spec.socket||'?'));
+  if (cat==='psu' && psu && (cpu||gpu)) {
+    const est = estimateW(cpu, gpu);
+    if (psu.spec.watts < est) out.push('Potência insuficiente: ' + psu.spec.watts + 'W para ~' + est + 'W estimados');
+    else if (psu.spec.watts < recommendedPSU(est)) out.push('Apertada: recomendado ≥ ' + recommendedPSU(est) + 'W para esta build');
+  }
+  if ((cat==='cpu'||cat==='gpu') && psu && (cpu||gpu)) {
+    const est = estimateW(cpu, gpu);
+    if (psu.spec.watts < est) out.push('Fonte atual (' + psu.spec.watts + 'W) insuficiente para ~' + est + 'W');
+  }
+  return out;
+}
+
+function buildProblems(){
+  const errs = [];
+  const cpu=sel('cpu'), mb=sel('motherboard'), ram=sel('ram'), gpu=sel('gpu'),
+        psu=sel('psu'), cs=sel('case'), co=sel('cooler');
+  if (cpu&&mb&&cpu.spec.socket!=='?'&&mb.spec.socket!=='?'&&cpu.spec.socket!==mb.spec.socket)
+    errs.push('Socket: CPU ' + cpu.spec.socket + ' ≠ placa-mãe ' + mb.spec.socket);
+  if (ram&&mb&&ram.spec.ddr!==mb.spec.ddr)
+    errs.push('DDR: RAM ' + ram.spec.ddr + ' ≠ placa-mãe ' + mb.spec.ddr);
+  if (gpu&&gpu.id==='IGPU'&&cpu&&!cpu.spec.igpu)
+    errs.push('CPU sem gráficos integrados — adicione uma placa gráfica');
+  if (mb&&cs&&!(cs.spec.support||[]).includes(mb.spec.form))
+    errs.push('Caixa ' + cs.spec.size + ' não suporta placas ' + mb.spec.form);
+  if (co&&cpu&&cpu.spec.socket&&!coolerFits(co,cpu.spec.socket))
+    errs.push('Cooler sem suporte indicado para socket ' + cpu.spec.socket);
+  if (co&&cpu&&co.spec.tdp&&cpu.spec.tdp&&co.spec.tdp<cpu.spec.tdp)
+    errs.push('Cooler de ' + co.spec.tdp + 'W para um CPU de ' + cpu.spec.tdp + 'W');
+  if (psu&&(cpu||gpu)){
+    const est=estimateW(cpu,gpu);
+    if (psu.spec.watts<est) errs.push('Fonte de ' + psu.spec.watts + 'W insuficiente (~' + est + 'W estimados)');
+    else if (psu.spec.watts<recommendedPSU(est)) errs.push('Fonte justa: recomendado ≥ ' + recommendedPSU(est) + 'W');
+  }
+  const outStock = CATS.filter(c=>{const p=sel(c.key);return p&&p.avail!=='Disponível';}).map(c=>c.name);
+  return {errs, outStock};
+}
+
+/* ================= SPEC CHIPS ================= */
+function chips(cat, p){
+  const s=p.spec||{};
+  if (cat==='cpu') return [s.socket, s.cores? s.cores+' núcleos':null, (s.tdp||65)+'W TDP', s.igpu?'iGPU ✓':'sem iGPU'].filter(Boolean);
+  if (cat==='motherboard') return [s.socket, s.ddr, s.form, s.wifi?'Wi-Fi':null].filter(Boolean);
+  if (cat==='ram') return [s.ddr, s.cap+' GB', s.speed? s.speed+' MHz':null, s.kit?'Kit 2x':null].filter(Boolean);
+  if (cat==='gpu'){
+    if (p.id==='IGPU') return ['0 €','iGPU'];
+    return [(s.vram||'?')+' GB VRAM', '~'+(s.watts||'?')+'W', {office:'Escritório',entry:'Entrada',mid:'Intermédia',high:'Topo de gama'}[s.tier]||s.tier].filter(Boolean);
+  }
+  if (cat==='ssd') return [(s.cap>=1000?(s.cap/1000)+' TB':s.cap+' GB'), s.nvme?'NVMe':'SATA', s.form].filter(Boolean);
+  if (cat==='psu') return [s.watts+'W', s.cert, s.modular?'Modular':null].filter(Boolean);
+  if (cat==='case') return [s.size, s.glass?'Vidro temperado':null, s.rgb?'ARGB':null].filter(Boolean);
+  if (cat==='cooler') return [s.water?'Water cooler':'Ar', (s.tdp||'?')+'W TDP', s.rgb?'ARGB':null].filter(Boolean);
+  return [];
+}
+
+/* ================= RENDER: STEPS ================= */
+function renderSteps(){
+  const el = $('steps');
+  let html = '<div class="steps-title">COMPONENTES</div>';
+  CATS.forEach((c,i)=>{
+    const p = sel(c.key);
+    const cls = 'step-item' + (c.key===activeCat?' active':'') + (p?' done':'');
+    const sub = p ? esc(p.name.length>34? p.name.slice(0,34)+'…' : p.name) : 'Por escolher';
+    html += '<div class="'+cls+'" data-cat="'+c.key+'" role="button" tabindex="0">'
+      + '<span class="step-num">'+(p?'<i class="fa fa-check"></i>':(i+1))+'</span>'
+      + '<span class="step-info"><strong><i class="fa '+c.icon+'"></i>'+c.name+'</strong><small>'+sub+'</small></span>'
+      + (p? '<span class="step-price">'+fmt(p.price)+'</span>':'')
+      + '</div>';
+  });
+  el.innerHTML = html;
+  el.querySelectorAll('.step-item').forEach(d=>{
+    const go = ()=>{ activeCat=d.dataset.cat; $('part-search').value=''; renderAll(); };
+    d.addEventListener('click', go);
+    d.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();go();} });
+  });
+}
+
+/* ================= RENDER: PARTS ================= */
+function partList(cat){
+  let list = (CATALOG[cat]||[]).slice();
+  if (cat==='gpu') list.unshift(IGPU);
+  const q = $('part-search').value.trim().toLowerCase();
+  if (q) list = list.filter(p => (p.name+' '+(p.desc||'')).toLowerCase().includes(q));
+  const onlyCompat = $('compat-only').checked;
+  let mapped = list.map(p => ({p, iss: issues(cat,p)}));
+  if (onlyCompat) mapped = mapped.filter(x => x.iss.length===0);
+  const sort = $('part-sort').value;
+  if (sort==='asc') mapped.sort((a,b)=>a.p.price-b.p.price);
+  else if (sort==='desc') mapped.sort((a,b)=>b.p.price-a.p.price);
+  else mapped.sort((a,b)=>((a.p.avail==='Disponível'?0:1)-(b.p.avail==='Disponível'?0:1)) || (a.iss.length-b.iss.length));
+  return mapped;
+}
+
+function renderParts(){
+  const meta = CATS.find(c=>c.key===activeCat);
+  $('cat-title').innerHTML = '<i class="fa '+meta.icon+'"></i> ' + meta.name;
+  const items = partList(activeCat);
+  const total = (activeCat==='gpu'? CATALOG.gpu.length+1 : (CATALOG[activeCat]||[]).length);
+  $('parts-count').textContent = items.length + ' de ' + total + ' peças · preços com IVA (elitedigital.pt)';
+  const box = $('parts');
+  if (!items.length){
+    box.innerHTML = '<div class="empty-state"><i class="fa fa-search"></i><strong>Sem resultados.</strong><br>Ajuste a pesquisa ou desative o filtro “Só compatíveis”.</div>';
+    return;
+  }
+  box.innerHTML = items.map(({p,iss})=>{
+    const chosen = String(state[activeCat])===String(p.id);
+    const out = p.avail!=='Disponível';
+    const thumb = p.img
+      ? '<img src="'+esc(p.img)+'" alt="'+esc(p.name)+'" loading="lazy" onerror="this.parentNode.innerHTML=\'<i class=&quot;fa '+meta.icon+'&quot;></i>\'">' 
+      : '<i class="fa '+meta.icon+'"></i>';
+    const shopBtn = p.url
+      ? '<a class="shop-link" href="'+esc(p.url)+'" target="_blank" rel="noopener">Ver na loja <i class="fa fa-external-link"></i></a>' : '';
+    return '<div class="part-card'+(chosen?' selected':'')+(iss.length?' incompatible':'')+'">'
+      + '<div class="part-thumb">'+thumb
+      + '<span class="stock-badge '+(out?'stock-out':'stock-ok')+'">'+(out?'ESGOTADO':'DISPONÍVEL')+'</span>'
+      + (iss.length? '<span class="incompat-badge" title="'+esc(iss.join(' · '))+'"><i class="fa fa-warning"></i> VERIFICAR</span>':'')
+      + '</div>'
+      + '<h3>'+(p.url? '<a href="'+esc(p.url)+'" target="_blank" rel="noopener">'+esc(p.name)+'</a>' : esc(p.name))+'</h3>'
+      + '<div class="spec-chips">'+chips(activeCat,p).map(c=>'<span class="spec-chip">'+esc(c)+'</span>').join('')+'</div>'
+      + (p.desc? '<p class="part-desc">'+esc(p.desc)+'</p>':'<p class="part-desc"></p>')
+      + (iss.length? '<div class="part-issues"><i class="fa fa-warning"></i> '+esc(iss[0])+(iss.length>1?' (+'+(iss.length-1)+')':'')+'</div>':'')
+      + '<div class="price-row"><span class="part-price">'+fmt(p.price)+'<small>IVA incluído</small></span>'+shopBtn+'</div>'
+      + '<button class="choose-btn'+(chosen?' chosen':'')+'" data-id="'+esc(p.id)+'">'
+      + (chosen? '<i class="fa fa-check"></i> Escolhido — trocar?' : '<i class="fa fa-plus"></i> Escolher') + '</button>'
+      + '</div>';
+  }).join('');
+  box.querySelectorAll('.choose-btn').forEach(b=>b.addEventListener('click',()=>{
+    state[activeCat]=b.dataset.id; save(); renderAll();
+    const p=getPart(activeCat,b.dataset.id);
+    toast((CATS.find(c=>c.key===activeCat).name)+': '+(p.name.length>52? p.name.slice(0,52)+'…':p.name));
+  }));
+}
+
+/* ================= RENDER: SUMMARY ================= */
+function renderSummary(){
+  const done = CATS.filter(c=>state[c.key]).length;
+  const total = CATS.reduce((s,c)=>{const p=sel(c.key);return s+(p?p.price:0);},0);
+  const {errs,outStock} = buildProblems();
+  const cpu=sel('cpu'), gpu=sel('gpu'), psu=sel('psu');
+  const est=(cpu||gpu)? estimateW(cpu,gpu):0;
+  const rec=est? recommendedPSU(est):0;
+  let html = '<h2><i class="fa fa-shopping-basket"></i>A sua build</h2>'
+    + '<div class="progress-wrap"><div class="progress-bar" style="width:'+(done/8*100)+'%"></div></div>'
+    + '<span class="progress-label">'+done+' de 8 componentes escolhidos</span>'
+    + '<div class="summary-total"><span>Total estimado</span><span class="total-val">'+fmt(total)+'</span></div>'
+    + '<div class="summary-watts">Consumo estimado: <strong>'+(est? '~'+est+'W':'—')+'</strong>'
+    + (rec? ' · Fonte recomendada: <strong>≥ '+rec+'W</strong>':'') + '</div>';
+  if (errs.length)
+    html += '<div class="warn-box warn-err"><i class="fa fa-warning" style="margin-top:2px"></i><span><strong>'+errs.length+' incompatibilidade(s):</strong><br>• '+errs.map(esc).join('<br>• ')+'</span></div>';
+  else if (done===8)
+    html += '<div class="warn-box warn-ok"><i class="fa fa-check-circle" style="margin-top:2px"></i><span><strong>Build compatível!</strong> Pronta a finalizar na loja.</span></div>';
+  else if (done>0)
+    html += '<div class="warn-box warn-ok"><i class="fa fa-info-circle" style="margin-top:2px"></i><span>Sem conflitos até agora. Continue a escolher.</span></div>';
+  if (outStock.length)
+    html += '<div class="warn-box warn-err" style="background:rgba(107,114,128,.08);border-color:var(--border-color);color:var(--text-muted)"><i class="fa fa-clock-o" style="margin-top:2px"></i><span><strong>Sob consulta (esgotado):</strong> '+outStock.map(esc).join(', ')+'</span></div>';
+  html += '<ul class="summary-list">' + CATS.map(c=>{
+    const p=sel(c.key);
+    if (!p) return '<li><span class="s-ico"><i class="fa '+c.icon+'"></i></span><span class="s-name">'+c.name+'<small>— por escolher —</small></span><span class="s-price"></span></li>';
+    return '<li><span class="s-ico ok"><i class="fa fa-check"></i></span>'
+      + '<span class="s-name">'+c.name+'<small title="'+esc(p.name)+'">'+esc(p.name)+'</small></span>'
+      + '<span class="s-price">'+fmt(p.price)+'</span>'
+      + '<button class="s-remove" data-cat="'+c.key+'" title="Remover"><i class="fa fa-times"></i></button></li>';
+  }).join('') + '</ul>';
+  html += '<div class="summary-btns">'
+    + '<button class="btn btn-primary" id="btn-copy"><i class="fa fa-clipboard"></i>Copiar resumo</button>'
+    + '<button class="btn" id="btn-shop"><i class="fa fa-external-link"></i>Abrir peças na loja</button>'
+    + '<button class="btn" id="btn-clear"><i class="fa fa-trash-o"></i>Limpar tudo</button>'
+    + '</div>'
+    + '<p class="summary-note"><i class="fa fa-info-circle"></i> Preços com IVA de 12/10/2026. Stock e preço final confirmados em elitedigital.pt. A configuração fica guardada neste browser.</p>';
+  $('summary').innerHTML = html;
+  $('summary').querySelectorAll('.s-remove').forEach(b=>b.addEventListener('click',()=>{
+    state[b.dataset.cat]=null; save(); renderAll();
+  }));
+  $('btn-copy').addEventListener('click', copySummary);
+  $('btn-clear').addEventListener('click', ()=>{
+    if (!CATS.some(c=>state[c.key])) return;
+    if (confirm('Limpar toda a configuração?')){ CATS.forEach(c=>state[c.key]=null); save(); renderAll(); toast('Configuração limpa.'); }
+  });
+  $('btn-shop').addEventListener('click', ()=>{
+    const links = CATS.map(c=>sel(c.key)).filter(p=>p&&p.url).map(p=>p.url);
+    if (!links.length){ toast('Escolha peças primeiro.'); return; }
+    links.forEach(u=>window.open(u,'_blank','noopener'));
+  });
+  // compat hint above grid
+  const ca = $('compat-alert');
+  if (errs.length>0)
+    ca.innerHTML = '<div class="alert-compat"><i class="fa fa-warning"></i><span><strong>Atenção:</strong> '+esc(errs[0])+(errs.length>1?' (+'+(errs.length-1)+' mais — ver resumo)':'')+'</span></div>';
+  else ca.innerHTML='';
+}
+
+/* ================= PRESETS ================= */
+function presetTotal(p){ return Object.keys(p.picks).reduce((s,k)=>{const x=getPart(k,p.picks[k]);return s+(x?x.price:0);},0); }
+function renderPresets(){
+  $('presets').innerHTML = PRESETS.map(p=>
+    '<div class="preset-card"><div class="preset-top"><span class="preset-ico" style="background:'+p.color+'"><i class="fa '+p.icon+'"></i></span>'
+    + '<div><h3>'+esc(p.name)+'</h3><span class="preset-price">≈ '+fmt(presetTotal(p))+'</span></div></div>'
+    + '<p>'+esc(p.desc)+'</p>'
+    + '<button data-preset="'+p.id+'"><i class="fa fa-magic"></i> Aplicar esta build</button></div>'
+  ).join('');
+  document.querySelectorAll('[data-preset]').forEach(b=>b.addEventListener('click',()=>{
+    const pr = PRESETS.find(x=>x.id===b.dataset.preset);
+    Object.keys(pr.picks).forEach(k=>state[k]=pr.picks[k]);
+    save(); renderAll();
+    toast('Build "'+pr.name+'" aplicada!');
+    document.getElementById('summary').scrollIntoView({behavior:'smooth', block:'nearest'});
+  }));
+  const n = Object.values(CATALOG).reduce((s,a)=>s+a.length,0);
+  $('hero-count').textContent = n;
+}
+
+/* ================= COPY SUMMARY ================= */
+function copySummary(){
+  const lines = ['🖥️ A MINHA BUILD — EliteDigital Construtor de PC',''];
+  CATS.forEach(c=>{
+    const p=sel(c.key);
+    lines.push((p? '✅ ':'⬜ ') + c.name + ': ' + (p? p.name+' — '+fmt(p.price) : '(por escolher)'));
+    if (p&&p.url) lines.push('   '+p.url);
+  });
+  const total = CATS.reduce((s,c)=>{const p=sel(c.key);return s+(p?p.price:0);},0);
+  const {errs}=buildProblems();
+  lines.push('', 'TOTAL: '+fmt(total));
+  lines.push(errs.length? ('⚠️ '+errs.join(' | ')) : '✔ Sem incompatibilidades detetadas.');
+  lines.push('Preços de 12/10/2026 · confirme em www.elitedigital.pt');
+  const txt = lines.join('\n');
+  const done = ()=>toast('Resumo copiado! Cole onde quiser.');
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(done, ()=>fallbackCopy(txt, done));
+  else fallbackCopy(txt, done);
+}
+function fallbackCopy(txt, done){
+  const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta);
+  ta.select(); try{ document.execCommand('copy'); done(); }catch(e){ toast('Não foi possível copiar.'); }
+  document.body.removeChild(ta);
+}
+
+/* ================= THEME / MODAL ================= */
+function toggleSettingsModal(show){ const m=$('settingsModal'); if(m) m.style.display=show?'block':'none'; }
+function handleBackdropClick(e){ if(e.target.id==='settingsModal') toggleSettingsModal(false); }
+function setTheme(t){ document.documentElement.setAttribute('data-theme',t); try{localStorage.setItem('elitedigital_theme',t);}catch(e){} updateThemeCards(t); }
+function updateThemeCards(t){
+  const l=$('theme-light-card'), d=$('theme-dark-card'); if(!l||!d) return;
+  d.classList.toggle('active', t==='dark'); l.classList.toggle('active', t!=='dark');
+}
+
+/* ================= INIT ================= */
+function renderAll(){ renderSteps(); renderParts(); renderSummary(); }
+document.addEventListener('DOMContentLoaded', ()=>{
+  let st='light'; try{ st=localStorage.getItem('elitedigital_theme')||'light'; }catch(e){}
+  setTheme(st);
+  renderPresets(); renderAll();
+  $('part-search').addEventListener('input', renderParts);
+  $('part-sort').addEventListener('change', renderParts);
+  $('compat-only').addEventListener('change', renderParts);
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') toggleSettingsModal(false); });
+});
+</script>
+</body>
+</html>

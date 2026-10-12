@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="pt" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Construtor de PC — EliteDigital</title>
+  <meta name="description" content="Monte o seu PC peça a peça com componentes reais da EliteDigital: verificação de compatibilidade, presets gaming e escritório, e resumo do orçamento.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fa0707">
+  <link rel="icon" type="image/vnd.microsoft.icon" href="https://www.elitedigital.pt/img/favicon.ico?1631183047">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script>try{var t=localStorage.getItem('elitedigital_theme')||'light';document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+  <style>
+    /* ================= THEME VARS ================= */
+    :root{
+      --bg-primary:#ffffff; --bg-secondary:#f3f4f6; --bg-card:#ffffff;
+      --text-primary:#1f2937; --text-muted:#6b7280; --border-color:#e5e7eb;
+      --header-bg:#ffffff; --nav-bg:#1a1a1a;
+      --accent-red:#dd3333; --accent-hover:#b91c1c;
+      --accent-green:#16a34a; --accent-green-dark:#15803d;
+      --accent-blue:#0d6efd;
+      --card-shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -1px rgba(0,0,0,.06);
+      --radius:14px;
+    }
+    [data-theme="dark"]{
+      --bg-primary:#0f172a; --bg-secondary:#1e293b; --bg-card:#1e293b;
+      --text-primary:#f8fafc; --text-muted:#94a3b8; --border-color:#334155;
+      --header-bg:#0f172a; --nav-bg:#090d16;
+      --card-shadow:0 4px 12px rgba(0,0,0,.45);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--bg-primary);color:var(--text-primary);transition:background-color .3s ease,color .3s ease;line-height:1.5}
+    a{color:inherit}
+    .container{max-width:1280px;margin:0 auto;padding:0 16px}
+    .text-muted{color:var(--text-muted)!important}
+
+    /* ================= HEADER ================= */
+    .site-header{background:var(--header-bg);border-bottom:1px solid var(--border-color);position:sticky;top:0;z-index:900}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:7px 0;font-size:13px;color:var(--text-muted);border-bottom:1px dashed var(--border-color)}
+    .topbar .social a{color:var(--text-muted);margin-right:10px;font-size:15px}
+    .topbar .social a:hover{color:var(--accent-red)}
+    .topbar-right{display:flex;align-items:center;gap:14px}
+    .wishlist-link{font-size:13px;text-decoration:none;color:var(--text-muted)}
+    .wishlist-link:hover{color:var(--accent-red)}
+    .theme-settings-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;background:var(--bg-secondary);border:1px solid var(--border-color);color:var(--text-primary);cursor:pointer;font-weight:600;font-size:13px;transition:all .2s ease;font-family:inherit}
+    .theme-settings-btn:hover{background:var(--accent-red);color:#fff;border-color:var(--accent-red)}
+    .header-main{display:flex;align-items:center;gap:18px;padding:14px 0;flex-wrap:wrap}
+    .brand-logo img{height:44px;width:auto}
+    .search-box{flex:1;min-width:220px;max-width:560px;display:flex}
+    .search-box input{flex:1;padding:10px 14px;border:1px solid var(--border-color);border-right:0;border-radius:8px 0 0 8px;background:var(--bg-card);color:var(--text-primary);font-size:14px;outline:none}
+    .search-box button{padding:0 18px;border:0;border-radius:0 8px 8px 0;background:var(--accent-red);color:#fff;cursor:pointer;font-size:15px}
+    .search-box button:hover{background:var(--accent-hover)}
+    .header-actions{display:flex;align-items:center;gap:16px;margin-left:auto}
+    .header-actions a{text-decoration:none;font-size:13px;font-weight:600;color:var(--text-primary);display:flex;align-items:center;gap:7px}
+    .header-actions a i{font-size:18px}
+    .header-actions a:hover{color:var(--accent-red)}
+
+    /* ================= NAV ================= */
+    .main-nav{background:var(--nav-bg);border-top:1px solid var(--border-color)}
+    .main-nav .container{display:flex;align-items:center;gap:6px;padding-top:10px;padding-bottom:10px;flex-wrap:wrap}
+    .main-nav a.nav-item{text-decoration:none;padding:9px 14px;border-radius:8px;font-size:13px;font-weight:700;letter-spacing:.3px;display:inline-flex;align-items:center;gap:7px;color:#e5e7eb;transition:all .15s ease;white-space:nowrap}
+    .main-nav a.nav-item i{font-size:14px;opacity:.85}
+    .main-nav a.nav-item:hover{background:rgba(255,255,255,.1);color:#fff}
+    .main-nav .nav-spacer{flex:1}
+    .ed-pill-red{background:linear-gradient(135deg,#ff1a1a 0%,#b30000 100%)!important;color:#fff!important;border:1px solid #ef4444!important;border-top:3px solid #fca5a5!important;box-shadow:0 2px 8px rgba(221,51,51,.45),inset 0 1px 0 rgba(255,255,255,.25)}
+    .ed-pill-red:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(221,51,51,.6)}
+    .ed-pill-red.active{outline:2px solid #fff;outline-offset:2px}
+    .ed-pill-green{background:rgba(255,255,255,.06)!important;color:#fecaca!important;border:1px solid #dd3333!important;border-top:3px solid #dd3333!important}
+    .ed-pill-green:hover{background:var(--accent-red)!important;color:#fff!important;border-color:var(--accent-red)!important;transform:translateY(-1px);box-shadow:0 4px 14px rgba(221,51,51,.5)}
+    .ed-badge{background:#fff;color:#b30000;padding:2px 7px;border-radius:4px;font-size:10px;font-weight:800;letter-spacing:.5px}
+    .ed-badge.green{background:#4ade80;color:#052e16}
+    .ed-pill-green:hover .ed-badge.green{background:#fff;color:var(--accent-green-dark)}
+
+    /* ================= HERO ================= */
+    .builder-hero{background:linear-gradient(135deg,#111827 0%,#7f1d1d 60%,#b91c1c 100%);color:#fff;border-radius:18px;padding:38px 30px;margin:26px 0 20px;box-shadow:var(--card-shadow);position:relative;overflow:hidden}
+    .builder-hero::after{content:"\f085";font-family:FontAwesome;position:absolute;right:-24px;top:-38px;font-size:210px;opacity:.07}
+    .builder-hero .kicker{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);font-weight:800;font-size:12px;letter-spacing:1.2px;padding:6px 14px;border-radius:30px;margin-bottom:12px}
+    .builder-hero h1{margin:0 0 8px;font-size:32px;line-height:1.15}
+    .builder-hero p{margin:0;max-width:680px;opacity:.92;font-size:15px}
+    .hero-meta{display:flex;gap:22px;margin-top:18px;flex-wrap:wrap;font-size:13px}
+    .hero-meta span{display:flex;align-items:center;gap:7px;opacity:.95}
+    .hero-meta i{color:#fbbf24}
+
+    /* ================= PRESETS ================= */
+    .presets{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:0 0 22px}
+    .preset-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);padding:18px;box-shadow:var(--card-shadow);display:flex;flex-direction:column;gap:6px;transition:transform .15s ease}
+    .preset-card:hover{transform:translateY(-3px)}
+    .preset-card .preset-top{display:flex;align-items:center;gap:10px}
+    .preset-ico{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff;flex-shrink:0}
+    .preset-card h3{margin:0;font-size:15px}
+    .preset-card p{margin:0;font-size:12.5px;color:var(--text-muted);min-height:36px}
+    .preset-card .preset-price{font-weight:800;color:var(--accent-red);font-size:15px}
+    .preset-card button{margin-top:6px;border:0;background:var(--bg-secondary);border:1px solid var(--border-color);color:var(--text-primary);font-weight:700;padding:9px;border-radius:9px;cursor:pointer;font-size:13px;transition:all .15s ease;font-family:inherit}
+    .preset-card button:hover{background:var(--accent-red);border-color:var(--accent-red);color:#fff}
+
+    /* ================= BUILDER LAYOUT ================= */
+    .builder-layout{display:grid;grid-template-columns:250px minmax(0,1fr) 300px;gap:18px;align-items:start;margin-bottom:44px}
+    /* Steps */
+    .builder-steps{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);box-shadow:var(--card-shadow);padding:10px;position:sticky;top:150px}
+    .steps-title{font-size:12px;font-weight:800;letter-spacing:1px;color:var(--text-muted);padding:6px 10px 10px}
+    .step-item{display:flex;align-items:center;gap:11px;padding:10px;border-radius:10px;cursor:pointer;border:1px solid transparent;transition:all .15s ease;margin-bottom:4px}
+    .step-item:hover{background:var(--bg-secondary)}
+    .step-item.active{background:rgba(221,51,51,.08);border-color:var(--accent-red)}
+    .step-num{width:30px;height:30px;border-radius:50%;background:var(--bg-secondary);border:1px solid var(--border-color);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;color:var(--text-muted)}
+    .step-item.done .step-num{background:var(--accent-green);border-color:var(--accent-green);color:#fff}
+    .step-item.active .step-num{background:var(--accent-red);border-color:var(--accent-red);color:#fff}
+    .step-info{min-width:0;flex:1}
+    .step-info strong{display:flex;align-items:center;gap:6px;font-size:13px}
+    .step-info strong i{color:var(--accent-red);font-size:14px}
+    .step-item.done .step-info strong i{color:var(--accent-green)}
+    .step-info small{display:block;font-size:11px;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .step-price{font-size:12px;font-weight:800;color:var(--accent-red);white-space:nowrap}
+    /* Main */
+    .builder-main{min-width:0}
+    .builder-toolbar{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);box-shadow:var(--card-shadow);padding:12px 14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+    .builder-toolbar .cat-title{font-size:16px;font-weight:800;margin:0;display:flex;align-items:center;gap:8px}
+    .builder-toolbar .cat-title i{color:var(--accent-red)}
+    .toolbar-spacer{flex:1}
+    .toolbar-search{display:flex;align-items:center;gap:6px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:8px;padding:6px 10px}
+    .toolbar-search input{background:transparent;border:0;outline:none;color:var(--text-primary);font-size:13px;width:150px;font-family:inherit}
+    .toolbar-search i{color:var(--text-muted);font-size:13px}
+    .toolbar-select{background:var(--bg-secondary);border:1px solid var(--border-color);color:var(--text-primary);border-radius:8px;padding:7px 9px;font-size:13px;font-family:inherit;outline:none}
+    .compat-toggle{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--text-muted);cursor:pointer;user-select:none}
+    .compat-toggle input{accent-color:var(--accent-red);width:15px;height:15px;cursor:pointer}
+    .parts-count{font-size:12px;color:var(--text-muted);width:100%}
+    .alert-compat{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.4);color:#b45309;border-radius:10px;padding:10px 14px;font-size:13px;margin-bottom:14px;display:flex;gap:9px;align-items:flex-start}
+    [data-theme="dark"] .alert-compat{color:#fbbf24}
+    .alert-compat i{margin-top:2px}
+    .parts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:14px}
+    .part-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);box-shadow:var(--card-shadow);padding:14px;display:flex;flex-direction:column;transition:transform .15s ease,border-color .15s ease;position:relative}
+    .part-card:hover{transform:translateY(-3px)}
+    .part-card.selected{border-color:var(--accent-green);box-shadow:0 0 0 2px rgba(22,163,74,.25),var(--card-shadow)}
+    .part-card.incompatible{opacity:.75;border-style:dashed}
+    .part-thumb{height:130px;display:flex;align-items:center;justify-content:center;background:var(--bg-secondary);border-radius:10px;margin-bottom:10px;overflow:hidden;position:relative}
+    .part-thumb img{max-height:100%;max-width:100%;object-fit:contain}
+    .part-thumb .fa{font-size:44px;color:var(--text-muted)}
+    .stock-badge{position:absolute;top:8px;left:8px;font-size:10px;font-weight:800;padding:3px 9px;border-radius:20px;letter-spacing:.3px}
+    .stock-ok{background:#22c55e;color:#052e16}
+    .stock-out{background:#6b7280;color:#fff}
+    .incompat-badge{position:absolute;top:8px;right:8px;font-size:10px;font-weight:800;padding:3px 9px;border-radius:20px;background:#ef4444;color:#fff}
+    .part-card h3{margin:0 0 4px;font-size:13.5px;line-height:1.35;min-height:37px}
+    .part-card h3 a{text-decoration:none}
+    .part-card h3 a:hover{color:var(--accent-red)}
+    .spec-chips{display:flex;gap:5px;flex-wrap:wrap;margin:6px 0}
+    .spec-chip{font-size:10.5px;font-weight:700;background:var(--bg-secondary);border:1px solid var(--border-color);color:var(--text-muted);padding:2px 8px;border-radius:20px}
+    .part-desc{font-size:11.5px;color:var(--text-muted);margin:0 0 8px;flex:1}
+    .part-issues{font-size:11.5px;color:#dc2626;background:rgba(220,38,38,.08);border:1px solid rgba(220,38,38,.25);border-radius:8px;padding:6px 9px;margin-bottom:8px}
+    [data-theme="dark"] .part-issues{color:#fca5a5}
+    .price-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+    .part-price{font-weight:800;font-size:18px;color:var(--accent-red)}
+    .part-price small{display:block;font-size:10px;color:var(--text-muted);font-weight:400}
+    .shop-link{font-size:11.5px;color:var(--text-muted);text-decoration:none}
+    .shop-link:hover{color:var(--accent-red)}
+    .choose-btn{width:100%;border:0;border-radius:9px;padding:10px;font-weight:700;font-size:13px;cursor:pointer;background:var(--accent-red);color:#fff;transition:background .15s ease;font-family:inherit}
+    .choose-btn:hover{background:var(--accent-hover)}
+    .choose-btn.chosen{background:var(--accent-green)}
+    .choose-btn.chosen:hover{background:var(--accent-green-dark)}
+    .empty-state{background:var(--bg-card);border:1px dashed var(--border-color);border-radius:var(--radius);padding:40px 20px;text-align:center;color:var(--text-muted);grid-column:1/-1}
+    .empty-state i{font-size:40px;margin-bottom:10px;display:block;opacity:.5}
+    /* Summary */
+    .builder-summary{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);box-shadow:var(--card-shadow);padding:18px;position:sticky;top:150px}
+    .builder-summary h2{margin:0 0 4px;font-size:16px;display:flex;align-items:center;gap:8px}
+    .builder-summary h2 i{color:var(--accent-red)}
+    .progress-wrap{background:var(--bg-secondary);border-radius:20px;height:10px;margin:12px 0 4px;overflow:hidden}
+    .progress-bar{height:100%;background:linear-gradient(90deg,var(--accent-red),#f97316);border-radius:20px;transition:width .3s ease}
+    .progress-label{font-size:12px;color:var(--text-muted)}
+    .summary-total{display:flex;align-items:baseline;justify-content:space-between;margin:14px 0 2px}
+    .summary-total .total-val{font-size:26px;font-weight:800;color:var(--accent-red)}
+    .summary-watts{font-size:12.5px;color:var(--text-muted);margin-bottom:10px}
+    .summary-watts strong{color:var(--text-primary)}
+    .summary-list{list-style:none;margin:10px 0;padding:0;max-height:290px;overflow:auto}
+    .summary-list li{display:flex;gap:8px;align-items:flex-start;font-size:12px;padding:7px 0;border-bottom:1px dashed var(--border-color)}
+    .summary-list li:last-child{border-bottom:0}
+    .summary-list .s-ico{width:24px;height:24px;border-radius:7px;background:var(--bg-secondary);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;color:var(--accent-red)}
+    .summary-list .s-ico.ok{color:var(--accent-green)}
+    .summary-list .s-name{flex:1;min-width:0}
+    .summary-list .s-name small{display:block;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .summary-list .s-price{font-weight:700;white-space:nowrap}
+    .summary-list .s-remove{border:0;background:transparent;color:var(--text-muted);cursor:pointer;padding:0 2px}
+    .summary-list .s-remove:hover{color:var(--accent-red)}
+    .warn-box{border-radius:10px;padding:9px 12px;font-size:12.5px;margin:10px 0;display:flex;gap:8px;align-items:flex-start}
+    .warn-err{background:rgba(220,38,38,.09);border:1px solid rgba(220,38,38,.35);color:#dc2626}
+    [data-theme="dark"] .warn-err{color:#fca5a5}
+    .warn-ok{background:rgba(22,163,74,.09);border:1px solid rgba(22,163,74,.35);color:var(--accent-green)}
+    [data-theme="dark"] .warn-ok{color:#4ade80}
+    .summary-btns{display:grid;gap:8px;margin-top:12px}
+    .btn{display:flex;align-items:center;justify-content:center;gap:8px;border-radius:9px;padding:10px;font-weight:700;font-size:13px;cursor:pointer;border:1px solid var(--border-color);background:var(--bg-secondary);color:var(--text-primary);font-family:inherit;text-decoration:none;transition:all .15s ease}
+    .btn:hover{border-color:var(--accent-red);color:var(--accent-red)}
+    .btn-primary{background:var(--accent-red);border-color:var(--accent-red);color:#fff}
+    .btn-primary:hover{background:var(--accent-hover);color:#fff}
+    .btn-green{background:var(--accent-green);border-color:var(--accent-green);color:#fff}
+    .btn-green:hover{background:var(--accent-green-dark);color:#fff}
+    .summary-note{font-size:11px;color:var(--text-muted);margin-top:10px}
+
+    /* ================= INFO + FOOTER ================= */
+    .howto{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:40px}
+    .howto-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);padding:18px;box-shadow:var(--card-shadow)}
+    .howto-card i{font-size:24px;color:var(--accent-red);margin-bottom:8px}
+    .howto-card strong{display:block;font-size:14px;margin-bottom:4px}
+    .howto-card p{margin:0;font-size:12.5px;color:var(--text-muted)}
+    .site-footer{background:var(--bg-secondary);border-top:1px solid var(--border-color);padding:28px 0;margin-top:20px}
+    .footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;font-size:13px}
+    .footer-grid h5{margin:0 0 8px;font-size:14px}
+    .footer-grid p,.footer-grid a{color:var(--text-muted);margin:0 0 4px;display:block;text-decoration:none;font-size:12.5px}
+    .footer-grid a:hover{color:var(--accent-red)}
+
+    /* ================= SETTINGS MODAL ================= */
+    #settingsModal{display:none;position:fixed;z-index:99999;left:0;top:0;width:100%;height:100%;background-color:rgba(0,0,0,.6);backdrop-filter:blur(4px)}
+    .settings-modal-content{background-color:var(--bg-card);color:var(--text-primary);margin:10% auto;padding:24px;border:1px solid var(--border-color);width:90%;max-width:480px;border-radius:16px;box-shadow:0 20px 25px -5px rgba(0,0,0,.3);animation:modalFadeIn .25s ease-out}
+    @keyframes modalFadeIn{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+    .modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+    .modal-head h4{margin:0;font-size:17px}
+    .modal-head h4 i{color:var(--accent-red);margin-right:8px}
+    .modal-close{background:transparent;border:0;font-size:24px;cursor:pointer;color:var(--text-muted);line-height:1}
+    .modal-close:hover{color:var(--accent-red)}
+    .modal-hr{border:0;border-top:1px solid var(--border-color);margin:12px 0}
+    .theme-toggle-options{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+    .theme-card{border:2px solid var(--border-color);border-radius:12px;padding:16px;text-align:center;cursor:pointer;transition:all .2s ease}
+    .theme-card.active{border-color:var(--accent-red);background-color:rgba(221,51,51,.08)}
+    .theme-card i{font-size:28px;margin-bottom:8px;display:block}
+    .modal-btns{text-align:right;margin-top:16px;display:flex;gap:8px;justify-content:flex-end}
+    .btn-secondary{background:var(--bg-secondary);border:1px solid var(--border-color);color:var(--text-primary);border-radius:8px;padding:9px 20px;font-weight:700;cursor:pointer;font-size:13px;font-family:inherit}
+    .btn-danger{background:var(--accent-red);border:0;color:#fff;border-radius:8px;padding:9px 20px;font-weight:700;cursor:pointer;font-size:13px;font-family:inherit}
+    .btn-danger:hover{background:var(--accent-hover)}
+
+    /* ================= TOAST ================= */
+    #toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#111827;color:#fff;padding:12px 22px;border-radius:30px;font-size:13.5px;font-weight:600;box-shadow:0 10px 25px rgba(0,0,0,.35);transition:transform .3s ease;z-index:999999;display:flex;align-items:center;gap:9px;max-width:90%}
+    #toast.show{transform:translateX(-50%) translateY(0)}
+    #toast i{color:#4ade80}
+
+    @media (max-width:1080px){
+      .builder-layout{grid-template-columns:220px minmax(0,1fr)}
+      .builder-summary{grid-column:1/-1;position:static}
+      .summary-list{max-height:none}
+    }
+    @media (max-width:760px){
+      .builder-layout{grid-template-columns:1fr}
+      .builder-steps{position:static;display:flex;overflow-x:auto;gap:6px;padding:8px}
+      .steps-title{display:none}
+      .step-item{flex:0 0 auto;min-width:170px;margin-bottom:0}
+      .builder-hero h1{font-size:24px}
+      .header-main{gap:10px}
+      .topbar .promo-txt{display:none}
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="topbar">
+      <span class="social">
+        <a href="https://www.facebook.com/elitedigital.pt" target="_blank" rel="noreferrer noopener" aria-label="Facebook"><i class="fa fa-facebook"></i></a>
+        <a href="https://www.instagram.com/elitedigital.pt/" target="_blank" rel="noreferrer noopener" aria-label="Instagram"><i class="fa fa-instagram"></i></a>
+      </span>
+      <span class="promo-txt"><span style="background:var(--accent-red);color:#fff;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:800;">NOVO</span> &nbsp;Monte o seu computador à medida com o <strong>Construtor de PC</strong>!</span>
+      <span class="topbar-right">
+        <button class="theme-settings-btn" onclick="toggleSettingsModal(true)"><i class="fa fa-cog"></i><span>Definições</span></button>
+        <a href="javascript:void(0)" class="wishlist-link" title="Funcionalidade disponível na loja online"><i class="fa fa-heart-o"></i> Lista de Desejos (0)</a>
+      </span>
+    </div>
+    <div class="header-main">
+      <a href="index.html" class="brand-logo"><img src="https://www.elitedigital.pt/img/loja-prestashop-2-logo-1631183047.jpg" alt="EliteDigital"></a>
+      <form class="search-box" method="get" action="https://www.elitedigital.pt/module/iqitsearch/searchiqit" target="_blank" rel="noopener">
+        <input type="text" name="s" placeholder="Pesquise no catálogo EliteDigital…">
+        <button type="submit" aria-label="Pesquisar"><i class="fa fa-search"></i></button>
+      </form>
+      <div class="header-actions">
+        <a href="https://www.elitedigital.pt/a-minha-conta" target="_blank" rel="noopener"><i class="fa fa-user"></i><span>Iniciar sessão</span></a>
+        <a href="https://www.elitedigital.pt/carrinho" target="_blank" rel="noopener"><i class="fa fa-shopping-bag"></i><span>Carrinho</span></a>
+      </div>
+    </div>
+  </div>
+  <nav class="main-nav">
+    <div class="container">
+      <a class="nav-item" href="index.html"><i class="fa fa-bolt"></i>NOVIDADES</a>
+      <a class="nav-item" href="campanha.html"><i class="fa fa-tags"></i>CAMPANHAS</a>
+      <a class="nav-item" href="lojas.html"><i class="fa fa-map-marker"></i>LOJAS</a>
+      <a class="nav-item" href="franchise.html"><i class="fa fa-handshake-o"></i>FRANCHISING</a>
+      <span class="nav-spacer"></span>
+      <a class="nav-item ed-pill-red active" href="construtor.html"><span class="ed-badge">NOVO</span><i class="fa fa-cogs"></i>CONSTRUTOR DE PC</a>
+      <a class="nav-item ed-pill-green" href="recondicionados.html"><span class="ed-badge green">PROMO</span><i class="fa fa-recycle"></i>RECONDICIONADOS</a>
+    </div>
+  </nav>
+</header>
+
+<main class="container">
+
+  <section class="builder-hero">
+    <span class="kicker"><i class="fa fa-wrench"></i> &nbsp;CONFIGURADOR DE COMPUTADORES</span>
+    <h1>Monte o seu PC peça a peça</h1>
+    <p>Escolha entre <strong id="hero-count">100</strong> componentes reais do catálogo EliteDigital, com verificação automática de compatibilidade (socket, DDR, potência e formato) e orçamento em tempo real.</p>
+    <div class="hero-meta">
+      <span><i class="fa fa-check-circle"></i> Compatibilidade verificada</span>
+      <span><i class="fa fa-eur"></i> Preços reais da loja</span>
+      <span><i class="fa fa-save"></i> Configuração guardada no browser</span>
+      <span><i class="fa fa-magic"></i> 3 builds prontas a usar</span>
+    </div>
+  </section>
+
+  <div class="presets" id="presets"></div>
+
+  <div class="builder-layout">
+    <aside class="builder-steps" id="steps" aria-label="Etapas do configurador"></aside>
+
+    <div class="builder-main">
+      <div class="builder-toolbar">
+        <h2 class="cat-title" id="cat-title"><i class="fa fa-microchip"></i> Processador</h2>
+        <span class="toolbar-spacer"></span>
+        <label class="toolbar-search"><i class="fa fa-search"></i><input type="text" id="part-search" placeholder="Pesquisar peças…"></label>
+        <select class="toolbar-select" id="part-sort" aria-label="Ordenar">
+          <option value="reco">Ordenar: Recomendados</option>
+          <option value="asc">Preço: mais baixo</option>
+          <option value="desc">Preço: mais alto</option>
+        </select>
+        <label class="compat-toggle" title="Esconder peças incompatíveis com a seleção atual"><input type="checkbox" id="compat-only" checked> Só compatíveis</label>
+        <span class="parts-count" id="parts-count"></span>
+      </div>
+      <div id="compat-alert"></div>
+      <div class="parts-grid" id="parts"></div>
+    </div>
+
+    <aside class="builder-summary" id="summary" aria-label="Resumo da configuração"></aside>
+  </div>
+
+  <section class="howto">
+    <div class="howto-card"><i class="fa fa-list-ol"></i><strong>1. Escolha as peças</strong><p>Navegue pelas 8 categorias e selecione os componentes. Tudo o que vê existe mesmo na loja EliteDigital.</p></div>
+    <div class="howto-card"><i class="fa fa-puzzle-piece"></i><strong>2. Compatibilidade automática</strong><p>O configurador cruza socket do CPU, geração DDR, potência da fonte, formato da caixa e TDP do cooler.</p></div>
+    <div class="howto-card"><i class="fa fa-calculator"></i><strong>3. Orçamento em tempo real</strong><p>Veja o total, a potência estimada e a fonte recomendada. Copie o resumo ou abra cada peça na loja.</p></div>
+    <div class="howto-card"><i class="fa fa-truck"></i><strong>4. Finalize na loja</strong><p>Cada peça tem ligação direta para a página oficial — preços, stock e compra final na EliteDigital.</p></div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <h5>EliteDigital</h5>
+      <p>Especialistas em informática, computadores gaming, hardware e montagem personalizada.</p>
+      <a href="https://www.elitedigital.pt" target="_blank" rel="noopener">www.elitedigital.pt</a>
+    </div>
+    <div>
+      <h5>Construtor de PC</h5>
+      <p>CPUs, placas-mãe, RAM, GPUs, SSDs, fontes, caixas e coolers — dados de 12/10/2026.</p>
+      <a href="construtor.html">Voltar ao topo ↑</a>
+    </div>
+    <div>
+      <h5>Suporte ao Cliente</h5>
+      <p>loja.online@elitedigital.pt · Aveiro, Portugal</p>
+      <a href="lojas.html">Ver lojas</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ================= SETTINGS MODAL ================= -->
+<div id="settingsModal" onclick="handleBackdropClick(event)" style="display:none;">
+  <div class="settings-modal-content">
+    <div class="modal-head">
+      <h4><i class="fa fa-cog"></i>Definições de Visualização</h4>
+      <button type="button" class="modal-close" onclick="toggleSettingsModal(false)">×</button>
+    </div>
+    <hr class="modal-hr">
+    <p class="text-muted" style="margin:0 0 4px;font-size:14px;">Escolha a aparência da interface:</p>
+    <div class="theme-toggle-options">
+      <div class="theme-card" id="theme-light-card" onclick="setTheme('light')">
+        <i class="fa fa-sun-o" style="color:#f59e0b;"></i>
+        <strong>Modo Claro</strong>
+        <small style="display:block;" class="text-muted">Fundo branco clássico</small>
+      </div>
+      <div class="theme-card" id="theme-dark-card" onclick="setTheme('dark')">
+        <i class="fa fa-moon-o" style="color:#6366f1;"></i>
+        <strong>Modo Escuro</strong>
+        <small style="display:block;" class="text-muted">Confortável para os olhos</small>
+      </div>
+    </div>
+    <div class="modal-btns">
+      <button class="btn-secondary" onclick="toggleSettingsModal(false)">Fechar</button>
+      <button class="btn-danger" onclick="toggleSettingsModal(false)">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"><i class="fa fa-check-circle"></i><span id="toast-msg"></span></div>
+
+<script>
+/* ============================================================
+   CATÁLOGO — componentes reais de www.elitedigital.pt (12/10/2026)
+   ============================================================ */
+const CATALOG = {"cpu":[{"id":"157812","name":"Processador AMD Ryzen 3 4100 3.8GHz SktAM4, 4 Núcleos e 6MB Cache","price":61.89,"price_txt":"61,89 €","img":"https://www.elitedigital.pt/10724191-home_default/processador-amd-ryzen-3-4100-38ghz-sktam4-4-nucleos-e-6mb-cache.jpg","url":"https://www.elitedigital.pt/processadores-desktop/157812-processador-amd-ryzen-3-4100-38ghz-sktam4-4-nucleos-e-6mb-cache-0730143314060.html","desc":"O processador AMD Ryzen 3 4100 oferece um desempenho eficiente e responsivo para computadores. Com 4 núcleos, arquitetura Zen 2 e frequência de 3.8GHz, é ideal para tarefas diárias e jogos. Destaques principais: * 4 Núcl","avail":"Disponível","spec":{"socket":"AM4","brand":"AMD","cores":4,"tdp":65,"igpu":false}},{"id":"275450","name":"Processador Intel Core i3-12100F 3.3GHz LGA1700 - 4 Núcleos, 4.3GHz Turbo","price":81.41,"price_txt":"81,41 €","img":"https://www.elitedigital.pt/1453961-home_default/processador-intel-core-i3-12100f-33ghz-lga1700-4-nucleos-43ghz-turbo.jpg","url":"https://www.elitedigital.pt/processadores-desktop/275450-processador-intel-core-i3-12100f-33ghz-lga1700-4-nucleos-43ghz-turbo.html","desc":"O processador Intel Core i3-12100F de 12ª geração oferece desempenho eficiente para desktops. * Frequência base de 3.30 GHz * Frequência Turbo de até 4.30 GHz * 4 núcleos e 8 threads * Não inclui gráficos integrados","avail":"Disponível","spec":{"socket":"LGA1700","brand":"Intel","cores":4,"tdp":65,"igpu":false}},{"id":"157381","name":"Processador AMD Ryzen 5 4500 AM4 6-Core 4.1GHz 8MB c/ Cooler","price":82.55,"price_txt":"82,55 €","img":"https://www.elitedigital.pt/1137598-home_default/processador-amd-ryzen-5-4500-am4-6-core-41ghz-8mb-c-cooler.jpg","url":"https://www.elitedigital.pt/processadores-desktop/157381-processador-amd-ryzen-5-4500-am4-6-core-41ghz-8mb-c-cooler-0730143314114.html","desc":"O Processador AMD Ryzen 5 4500 é uma CPU de alto desempenho para computadores desktop. Com 6 núcleos e 12 threads, oferece excelente capacidade de multitarefa e resposta rápida. A arquitetura Zen 2 e a litografia de 7nm ","avail":"Disponível","spec":{"socket":"AM4","brand":"AMD","cores":6,"tdp":65,"igpu":false}},{"id":"355779","name":"Processador AMD Ryzen 5 5500 AM4 6-Core 4.2GHz 16MB Cache Tray","price":84.59,"price_txt":"84,59 €","img":"https://www.elitedigital.pt/7327188-home_default/processador-amd-ryzen-5-5500-am4-6-core-42ghz-16mb-cache-tray.jpg","url":"https://www.elitedigital.pt/processadores-desktop/355779-processador-amd-ryzen-5-5500-am4-6-core-42ghz-16mb-cache-tray-0100000000457.html","desc":"O Processador AMD Ryzen 5 5500 oferece excelente desempenho para computadores de secretária. Com 6 núcleos e 12 threads, uma frequência base de 3.6 GHz e turbo de até 4.2 GHz, proporciona uma experiência fluida em divers","avail":"Disponível","spec":{"socket":"AM4","brand":"AMD","cores":6,"tdp":65,"igpu":false}},{"id":"161480","name":"Processador AMD Ryzen 5 5600 4.4GHz 16MB - 6 Núcleos, AM4","price":114.03,"price_txt":"114,03 €","img":"https://www.elitedigital.pt/3932043-home_default/processador-amd-ryzen-5-5600-44ghz-16mb-6-nucleos-am4.jpg","url":"https://www.elitedigital.pt/processadores-desktop/161480-processador-amd-ryzen-5-5600-44ghz-16mb-6-nucleos-am4-8435280960218.html","desc":"O Processador AMD Ryzen 5 5600, com socket AM4, oferece excelente desempenho para desktop. Opera a 3.5GHz, com turbo até 4.4GHz, e possui 16MB de cache, ideal para jogos e aplicações exigentes. Destaques principais: * 6 ","avail":"Disponível","spec":{"socket":"AM4","brand":"AMD","cores":6,"tdp":65,"igpu":false}},{"id":"201010","name":"Processador AMD Ryzen 5 PRO 5650G AM4, 6 Núcleos, 4.4GHz Turbo, Radeon Graphics","price":134.48,"price_txt":"134,48 €","img":"https://www.elitedigital.pt/1137601-home_default/processador-amd-ryzen-5-pro-5650g-am4-6-nucleos-44ghz-turbo-radeon-graphics.jpg","url":"https://www.elitedigital.pt/processadores-desktop/201010-processador-amd-ryzen-5-pro-5650g-am4-6-nucleos-44ghz-turbo-radeon-graphics-0730143313711.html","desc":"O processador AMD Ryzen 5 PRO 5650G é ideal para computadores de secretária, oferecendo desempenho sólido para diversas tarefas. Com 6 núcleos e tecnologia Turbo, atinge até 4.4GHz. Inclui gráficos Radeon Vega 7 integrad","avail":"Disponível","spec":{"socket":"AM4","brand":"AMD","cores":6,"tdp":65,"igpu":true}},{"id":"363773","name":"Processador AMD Ryzen 5 8400F AM5 4.2GHz/4.7GHz 22MB Cache - Desempenho e Eficiência","price":150.37,"price_txt":"150,37 €","img":"https://www.elitedigital.pt/8024775-home_default/processador-amd-ryzen-5-8400f-am5-42ghz-47ghz-22mb-cache-desempenho-e-eficiencia.jpg","url":"https://www.elitedigital.pt/processadores-desktop/363773-processador-amd-ryzen-5-8400f-am5-42ghz-47ghz-22mb-cache-desempenho-e-eficiencia-0730143316736.html","desc":"O processador AMD Ryzen 5 8400F é um componente de alto desempenho projetado para computadores desktop, oferecendo excelente performance em jogos e aplicações exigentes. Com arquitetura Zen 4, este processador destaca-se","avail":"Disponível","spec":{"socket":"AM5","brand":"AMD","cores":null,"tdp":65,"igpu":false}},{"id":"191982","name":"Processador AMD Ryzen 5 7600X 4.7GHz, AM5, 38MB Cache, 6 Núcleos","price":155.24,"price_txt":"155,24 €","img":"https://www.elitedigital.pt/1406596-home_default/processador-amd-ryzen-5-7600x-47ghz-am5-38mb-cache-6-nucleos.jpg","url":"https://www.elitedigital.pt/processadores-desktop/191982-processador-amd-ryzen-5-7600x-47ghz-am5-38mb-cache-6-nucleos-730143314442.html","desc":"O Processador AMD Ryzen 5 7600X oferece desempenho excecional para jogos e tarefas exigentes. Com 6 núcleos, 12 threads e uma frequência turbo de até 5.3 GHz, garante uma experiência fluida e responsiva. Destaques princi","avail":"Disponível","spec":{"socket":"AM5","brand":"AMD","cores":6,"tdp":105,"igpu":true}},{"id":"355778","name":"Processador AMD Ryzen 5 9600X, 6-Core AM5, 3.9GHz - 5.4GHz, 38MB Cache","price":184.89,"price_txt":"184,89 €","img":"https://www.elitedigital.pt/7327186-home_default/processador-amd-ryzen-5-9600x-6-core-am5-39ghz-54ghz-38mb-cache.jpg","url":"https://www.elitedigital.pt/processadores-desktop/355778-processador-amd-ryzen-5-9600x-6-core-am5-39ghz-54ghz-38mb-cache-730143315609.html","desc":"O processador AMD Ryzen 5 9600X é um componente de alto desempenho para desktops, com 6 núcleos e 12 threads. Opera com clock base de 3.9 GHz e turbo de até 5.4 GHz, contando com 38MB de cache. Ideal para gaming e tarefa","avail":"Disponível","spec":{"socket":"AM5","brand":"AMD","cores":6,"tdp":65,"igpu":true}},{"id":"329695","name":"Processador AMD Ryzen 7 7700 AM5 3.8GHz/5.3GHz 8 Núcleos - Desempenho Superior","price":223.11,"price_txt":"223,11 €","img":"https://www.elitedigital.pt/9187825-home_default/processador-amd-ryzen-7-7700-am5-38ghz-53ghz-8-nucleos-desempenho-superior.jpg","url":"https://www.elitedigital.pt/processadores-desktop/329695-processador-amd-ryzen-7-7700-am5-38ghz-53ghz-8-nucleos-desempenho-superior-0730143314497.html","desc":"O Processador AMD Ryzen 7 7700 para desktops, com socket AM5, oferece um desempenho excecional. Com 8 núcleos, frequência turbo de 5.3GHz e gráficos AMD Radeon integrados, garante uma experiência fluida para gaming e mul","avail":"Disponível","spec":{"socket":"AM5","brand":"AMD","cores":8,"tdp":65,"igpu":true}},{"id":"355772","name":"Processador AMD Ryzen 7 9700X AM5 8-Core 5.5GHz com Radeon Graphics","price":272.65,"price_txt":"272,65 €","img":"https://www.elitedigital.pt/7326758-home_default/processador-amd-ryzen-7-9700x-am5-8-core-55ghz-com-radeon-graphics.jpg","url":"https://www.elitedigital.pt/processadores-desktop/355772-processador-amd-ryzen-7-9700x-am5-8-core-55ghz-com-radeon-graphics-8592978561581.html","desc":"O processador AMD Ryzen 7 9700X é uma CPU de alto desempenho projetada para computadores desktop. Com 8 núcleos e 16 threads, oferece excelente capacidade de multitarefa e resposta. Inclui gráficos Radeon integrados para","avail":"Disponível","spec":{"socket":"AM5","brand":"AMD","cores":8,"tdp":65,"igpu":true}},{"id":"364930","name":"Processador Intel Core i7-14700 20-Core, 5.4 GHz, 33MB Cache","price":324.65,"price_txt":"324,65 €","img":"https://www.elitedigital.pt/8088319-home_default/processador-intel-core-i7-14700-20-core-54-ghz-33mb-cache.jpg","url":"https://www.elitedigital.pt/processadores-desktop/364930-processador-intel-core-i7-14700-20-core-54-ghz-33mb-cache-8435280931652.html","desc":"O Processador Intel Core i7-14700 oferece um desempenho robusto para desktops, com 20 núcleos (8 de desempenho, 12 eficientes) e 28 threads. Possui uma frequência turbo de até 5.4 GHz e 33MB de cache. Ideal para gaming e","avail":"Disponível","spec":{"socket":"LGA1700","brand":"Intel","cores":20,"tdp":125,"igpu":true}},{"id":"355788","name":"Processador AMD Ryzen 7 7800X3D AM5 8-Core 5.0GHz 104MB Cache","price":362.27,"price_txt":"362,27 €","img":"https://www.elitedigital.pt/7327848-home_default/processador-amd-ryzen-7-7800x3d-am5-8-core-50ghz-104mb-cache.jpg","url":"https://www.elitedigital.pt/processadores-desktop/355788-processador-amd-ryzen-7-7800x3d-am5-8-core-50ghz-104mb-cache-730143314930.html","desc":"O Processador AMD Ryzen 7 7800X3D é otimizado para jogos. Possui 8 núcleos, 16 threads e atinge até 5.0 GHz. Com 104MB de cache e tecnologia 3D V-Cache, proporciona alto desempenho e baixa latência. Requer socket AM5. De","avail":"Disponível","spec":{"socket":"AM5","brand":"AMD","cores":8,"tdp":120,"igpu":true}},{"id":"362642","name":"Processador AMD Ryzen 7 9800X3D, AM5, até 5.2GHz, 96MB Cache","price":416.07,"price_txt":"416,07 €","img":"https://www.elitedigital.pt/7430235-home_default/processador-amd-ryzen-7-9800x3d-am5-ate-52ghz-96mb-cache.jpg","url":"https://www.elitedigital.pt/processadores-desktop/362642-processador-amd-ryzen-7-9800x3d-am5-ate-52ghz-96mb-cache-8435280949534.html","desc":"O Processador AMD Ryzen 7 9800X3D é a escolha ideal para entusiastas e jogadores. Com arquitetura Zen 5, este processador AM5 oferece até 5.2 GHz de velocidade e 96MB de cache L3. Desfrute de um desempenho excecional em ","avail":"Disponível","spec":{"socket":"AM5","brand":"AMD","cores":null,"tdp":120,"igpu":true}}],"motherboard":[{"id":"355777","name":"Motherboard MSI A520M-A PRO AM4, Micro-ATX, DDR4, Gigabit LAN","price":59.57,"price_txt":"59,57 €","img":"https://www.elitedigital.pt/7326996-home_default/motherboard-msi-a520m-a-pro-am4-micro-atx-ddr4-gigabit-lan.jpg","url":"https://www.elitedigital.pt/placas-mae-desktops/355777-motherboard-msi-a520m-a-pro-am4-micro-atx-ddr4-gigabit-lan-4719072749927.html","desc":"Motherboard MSI A520M-A PRO, formato Micro-ATX, projetada para processadores AMD Ryzen no socket AM4. Suporta memória DDR4, inclui Gigabit LAN e diversas opções de expansão. Ideal para configurações compactas e desempenh","avail":"Disponível","spec":{"socket":"AM4","ddr":"DDR4","form":"mATX","wifi":false}},{"id":"228388","name":"Motherboard AsRock A520M-HVS AM4, DDR4, M.2, HDMI, Gigabit LAN","price":63.57,"price_txt":"63,57 €","img":"https://www.elitedigital.pt/1279683-home_default/motherboard-asrock-a520m-hvs-am4-ddr4-m2-hdmi-gigabit-lan.jpg","url":"https://www.elitedigital.pt/placas-mae-desktops/228388-motherboard-asrock-a520m-hvs-am4-ddr4-m2-hdmi-gigabit-lan.html","desc":"Esta motherboard AsRock A520M-HVS é uma solução Micro ATX recondicionada, projetada para processadores AMD Ryzen com socket AM4. Suporta até 64GB de memória DDR4 e oferece uma variedade de opções de conectividade, inclui","avail":"Disponível","spec":{"socket":"AM4","ddr":"DDR4","form":"mATX","wifi":false}},{"id":"246220","name":"Motherboard MSI PRO H610M-E DDR4 LGA1700, PCIe 4.0, DDR4, Micro-ATX","price":65.53,"price_txt":"65,53 €","img":"https://www.elitedigital.pt/1409733-home_default/motherboard-msi-pro-h610m-e-ddr4-lga1700-pcie-40-ddr4-micro-atx.jpg","url":"https://www.elitedigital.pt/placas-mae-desktops/246220-motherboard-msi-pro-h610m-e-ddr4-lga1700-pcie-40-ddr4-micro-atx-471137700266.html","desc":"A Motherboard MSI PRO H610M-E DDR4 é uma placa Micro-ATX para processadores Intel LGA1700. Suporta memórias DDR4, PCIe 4.0, e oferece áudio de alta qualidade. Destaques principais: * Suporte para processadores Intel Core","avail":"Disponível","spec":{"socket":"LGA1700","ddr":"DDR4","form":"mATX","wifi":false}},{"id":"347737","name":"MotherBoard AsRock H610M-HDV/M.2+ D5 LGA 1700, DDR5, Gigabit LAN, HDMI, DisplayPort","price":71.06,"price_txt":"71,06 €","img":"https://www.elitedigital.pt/2436449-home_default/motherboard-asrock-h610m-hdv-m2-d5-lga-1700-ddr5-gigabit-lan-hdmi-displayport.jpg","url":"https://www.elitedigital.pt/placas-mae-desktops/347737-motherboard-asrock-h610m-hdv-m2-d5-lga-1700-ddr5-gigabit-lan-hdmi-displayport-4710483943478.html","desc":"A Motherboard ASROCK H610M-HDV/M.2+ D5 é uma placa-mãe micro ATX para processadores Intel LGA 1700. Suporta memória DDR5, oferecendo desempenho até 5600MHz. Inclui Gigabit Ethernet, saídas de vídeo HDMI e DisplayPort, e ","avail":"Disponível","spec":{"socket":"LGA1700","ddr":"DDR5","form":"mATX","wifi":false}},{"id":"365345","name":"Motherboard AsRock A620AM-HVS, AM5, DDR5, HDMI/VGA, Gigabit Ethernet","price":77.48,"price_txt":"77,48 €","img":"https://www.elitedigital.pt/9071817-home_default/motherboard-asrock-a620am-hvs-am5-ddr5-hdmi-vga-gigabit-ethernet.jpg","url":"https://www.elitedigital.pt/placas-mae-desktops/365345-motherboard-asrock-a620am-hvs-am5-ddr5-hdmi-vga-gigabit-ethernet-4711581490802.html","desc":"A placa-mãe ASRock A620AM-HVS, com socket AM5 e suporte para DDR5, oferece uma solução eficiente para processadores AMD Ryzen. Ideal para PCs compactos, conta com saídas HDMI/VGA e Gigabit Ethernet, sendo adequada para u","avail":"Disponível","spec":{"socket":"AM5","ddr":"DDR5","form":"mATX","wifi":false}},{"id":"347736","name":"Motherboard MSI PRO H610M-E DDR5, LGA 1700, HDMI, LAN e M.2","price":78.35,"price_txt":"78,35 €","img":"https://www.elitedigital.pt/2436445-home_default/motherboard-msi-pro-h610m-e-ddr5-lga-1700-hdmi-lan-e-m2.jpg","url":"https://www.elitedigital.pt/placas-mae-desktops/347736-motherboard-msi-pro-h610m-e-ddr5-lga-1700-hdmi-lan-e-m2-4711377125147.html","desc":"A Motherboard MSI PRO H610M-E DDR5 é uma placa-mãe mATX para processadores Intel de 12ª, 13ª e 14ª geração. Oferece suporte para memória DDR5, conectividade HDMI, LAN Gigabit e slot M.2 para armazenamento rápido. Destaqu","avail":"Disponível","spec":{"socket":"LGA1700","ddr":"DDR5","form":"mATX","wifi":false}},{"id":"366860","name":"MotherBoard SktAM4 Micro-ATX MSI B550M PRO-B","price":84.92,"price_txt":"84,92 €","img":"https://www.elitedigital.pt/10986980-home_default/motherboard-sktam4-micro-atx-msi-b550m-pro-b.jpg","url":"https://www.elitedigital.pt/placas-mae-desktops/366860-motherboard-sktam4-micro-atx-msi-b550m-pro-b-4711377428927.html","desc":"A MSI PRO B550M-B é uma motherboard Micro-ATX desenvolvida para utilizadores que procuram desempenho, estabilidade e compatibilidade com processadores AMD Ryzen™ das séries 3000, 4000G e 5000. Equipada com chipset AMD B5","avail":"Disponível","spec":{"socket":"AM4","ddr":"DDR4","form":"mATX","wifi":false}},{"id":"275056","name":"Motherboard AsRock B760M-HDV/M.2 D4, LGA 1700, DDR4, HDMI, DisplayPort","price":85.46,"price_txt":"85,46 €","img":"https://www.elitedigital.pt/1453384-home_default/motherboard-asrock-b760m-hdv-m2-d4-lga-1700-ddr4-hdmi-displayport.jpg","url":"https://www.elitedigital.pt/placas-mae-desktops/275056-motherboard-asrock-b760m-hdv-m2-d4-lga-1700-ddr4-hdmi-displayport-4710483942020.html","desc":"A Motherboard AsRock B760M-HDV/M.2 D4 é uma placa-mãe para processadores Intel LGA 1700. Suporta memória DDR4 e oferece múltiplas opções de conectividade de vídeo. Destaques principais: * Suporte para processadores Intel","avail":"Disponível","spec":{"socket":"LGA1700","ddr":"DDR4","form":"mATX","wifi":false}},{"id":"270140","name":"Motherboard AsRock A620M-HDV/M.2 Socket AM5, DDR5, HDMI, DisplayPort, Gigabit Ethernet","price":94.06,"price_txt":"94,06 €","img":"https://www.elitedigital.pt/2065486-home_default/motherboard-asrock-a620m-hdv-m2-socket-am5-ddr5-hdmi-displayport-gigabit-ethernet.jpg","url":"https://www.elitedigital.pt/placas-mae-desktops/270140-motherboard-asrock-a620m-hdv-m2-socket-am5-ddr5-hdmi-displayport-gigabit-ethernet-4710483943041.html","desc":"A Motherboard AsRock A620M-HDV/M.2 é compatível com processadores AMD Ryzen Série 9000/8000/7000, oferecendo desempenho sólido e confiabilidade. Suporta memória DDR5, possui slots PCIe 4.0 e 3.0, e inclui saídas HDMI e D","avail":"Disponível","spec":{"socket":"AM5","ddr":"DDR5","form":"mATX","wifi":false}},{"id":"331370","name":"Motherboard MSI PRO B760M-P D5, LGA 1700, DDR5, PCIe 4.0, áudio 7.1","price":125.95,"price_txt":"125,95 €","img":"https://www.elitedigital.pt/2300987-home_default/motherboard-msi-pro-b760m-p-d5-lga-1700-ddr5-pcie-40-audio-71.jpg","url":"https://www.elitedigital.pt/placas-mae-desktops/331370-motherboard-msi-pro-b760m-p-d5-lga-1700-ddr5-pcie-40-audio-71-4711377086578.html","desc":"Motherboard MSI PRO B760M-P D5, compatível com processadores Intel LGA 1700. Suporta DDR5 e oferece slots PCIe 4.0. Com áudio 7.1 e design otimizado, ideal para gaming e uso geral. Destaques principais: * Suporte para pr","avail":"Disponível","spec":{"socket":"LGA1700","ddr":"DDR5","form":"mATX","wifi":false}},{"id":"349080","name":"Motherboard MSI PRO B760-P II D5, LGA 1700, ATX, DDR5, 2.5GbE LAN","price":158.5,"price_txt":"158,50 €","img":"https://www.elitedigital.pt/2752040-home_default/motherboard-msi-pro-b760-p-ii-d5-lga-1700-atx-ddr5-25gbe-lan.jpg","url":"https://www.elitedigital.pt/placas-mae-desktops/349080-motherboard-msi-pro-b760-p-ii-d5-lga-1700-atx-ddr5-25gbe-lan-4711377193887.html","desc":"A Motherboard MSI PRO B760-P II D5 é uma placa-mãe ATX projetada para processadores Intel LGA 1700. Suporta memórias DDR5, oferece conectividade 2.5 Gigabit Ethernet e diversos recursos para otimizar o desempenho. Destaq","avail":"Disponível","spec":{"socket":"LGA1700","ddr":"DDR5","form":"ATX","wifi":false}},{"id":"324424","name":"Motherboard MSI B760 Gaming Plus WiFi D5, Skt1700, DDR5, Wi-Fi 6E, 2.5G LAN","price":193.06,"price_txt":"193,06 €","img":"https://www.elitedigital.pt/2617774-home_default/motherboard-msi-b760-gaming-plus-wifi-d5-skt1700-ddr5-wi-fi-6e-25g-lan.jpg","url":"https://www.elitedigital.pt/placas-mae-desktops/324424-motherboard-msi-b760-gaming-plus-wifi-d5-skt1700-ddr5-wi-fi-6e-25g-lan-4711377086561.html","desc":"A Motherboard MSI B760 Gaming Plus WiFi D5 é uma placa-mãe projetada para gamers, com suporte para processadores Intel de 12ª/13ª geração. Com memória DDR5, Wi-Fi 6E integrado, LAN 2.5G e áudio de alta qualidade, ela ofe","avail":"Disponível","spec":{"socket":"LGA1700","ddr":"DDR5","form":"mATX","wifi":true}}],"ram":[{"id":"203152","name":"DIMM-DDR4 8GB 3200MHz Netac","price":24.9,"price_txt":"24,90 €","img":"https://www.elitedigital.pt/1137357-home_default/dimm-ddr4-8gb-3200mhz-netac.jpg","url":"https://www.elitedigital.pt/impressoras-grande-formato/203152-dimm-ddr4-8gb-3200mhz-netac.html","desc":"Aumente a velocidade do seu computador com este módulo de memória super-rápido e veja o seu sistema operativo e aplicações a carregar com mais fluidez.","avail":"Disponível","spec":{"ddr":"DDR4","cap":8,"speed":3200,"kit":false}},{"id":"191437","name":"DIMM-DDR4 16GB 3200MHz Netac","price":38.44,"price_txt":"38,44 €","img":"https://www.elitedigital.pt/1041718-home_default/dimm-ddr4-16gb-3200mhz-netac.jpg","url":"https://www.elitedigital.pt/impressoras-grande-formato/191437-dimm-ddr4-16gb-3200mhz-netac.html","desc":"Aumente a velocidade do seu computador com este módulo de memória super-rápido e veja o seu sistema operativo e aplicações a carregar com mais fluidez.","avail":"Disponível","spec":{"ddr":"DDR4","cap":16,"speed":3200,"kit":false}},{"id":"369348","name":"Memória Kingston Fury Beast 8GB DDR4 3200MHz, Dissipador de Calor e XMP 2.0","price":77.0,"price_txt":"77,00 €","img":"https://www.elitedigital.pt/11961309-home_default/memoria-kingston-fury-beast-8gb-ddr4-3200mhz-dissipador-de-calor-e-xmp-20.jpg","url":"https://www.elitedigital.pt/memoria-desktops/369348-memoria-kingston-fury-beast-8gb-ddr4-3200mhz-dissipador-de-calor-e-xmp-20-0740617319910.html","desc":"Memória Kingston Fury Beast de 8GB, DDR4 com velocidade de 3200MHz, ideal para computadores de secretária. Oferece alto desempenho e confiabilidade, com dissipador de calor para melhor refrigeração e suporte para Intel X","avail":"Disponível","spec":{"ddr":"DDR4","cap":8,"speed":3200,"kit":false}},{"id":"29082","name":"Memória RAM TeamGroup Delta RGB 8GB DDR4 3000MHz M678G325G260 para Desktops","price":77.0,"price_txt":"77,00 €","img":"https://www.elitedigital.pt/437823-home_default/memoria-ram-teamgroup-delta-rgb-8gb-ddr4-3000mhz-m678g325g260-para-desktops.jpg","url":"https://www.elitedigital.pt/memoria-desktops/29082-memoria-ram-teamgroup-delta-rgb-8gb-ddr4-3000mhz-m678g325g260-para-desktops.html","desc":"A memória RAM TeamGroup Delta RGB DDR4 é ideal para aumentar o desempenho do seu desktop. Oferece 8GB de capacidade, com velocidade de 3000MHz e design com iluminação RGB. Destaques principais: * 8GB de capacidade (2x4GB","avail":"Disponível","spec":{"ddr":"DDR4","cap":8,"speed":3000,"kit":false}},{"id":"26943","name":"GoodRam GR3200D464L22/16G Memória RAM DDR4 16GB 3200MHz, 288-Pin DIMM","price":100.59,"price_txt":"100,59 €","img":"https://www.elitedigital.pt/433819-home_default/goodram-gr3200d464l22-16g-memoria-ram-ddr4-16gb-3200mhz-288-pin-dimm.jpg","url":"https://www.elitedigital.pt/memoria-desktops/26943-goodram-gr3200d464l22-16g-memoria-ram-ddr4-16gb-3200mhz-288-pin-dimm-5908267960431.html","desc":"A memória RAM GoodRam GR3200D464L22/16G é um módulo de 16GB DDR4 projetado para desktops e servidores. Oferece uma velocidade de 3200MHz, garantindo um desempenho rápido e eficiente. Com um design de 288-pin DIMM e baixa","avail":"Disponível","spec":{"ddr":"DDR4","cap":16,"speed":3200,"kit":false}},{"id":"368637","name":"Memória RAM Kingston FURY Beast RGB 16GB DDR4 3200MHz, CL16, RGB","price":139.0,"price_txt":"139,00 €","img":"https://www.elitedigital.pt/11880839-home_default/memoria-ram-kingston-fury-beast-rgb-16gb-ddr4-3200mhz-cl16-rgb.jpg","url":"https://www.elitedigital.pt/memoria-desktops/368637-memoria-ram-kingston-fury-beast-rgb-16gb-ddr4-3200mhz-cl16-rgb-0740617337518.html","desc":"A memória Kingston FURY Beast RGB 16GB DDR4 3200MHz oferece alto desempenho para gamers e entusiastas, com iluminação RGB personalizável. Possui latência CL16 e suporte XMP. Destaques principais: * Capacidade de 16GB * V","avail":"Disponível","spec":{"ddr":"DDR4","cap":16,"speed":3200,"kit":false}},{"id":"368648","name":"Memória RAM Kingston Fury Beast 16GB DDR4 3200MHz CL16 para PC, MPN: KF432C16BB1/16","price":196.79,"price_txt":"196,79 €","img":"https://www.elitedigital.pt/11880931-home_default/memoria-ram-kingston-fury-beast-16gb-ddr4-3200mhz-cl16-para-pc-mpn-kf432c16bb1-16.jpg","url":"https://www.elitedigital.pt/memoria-desktops/368648-memoria-ram-kingston-fury-beast-16gb-ddr4-3200mhz-cl16-para-pc-mpn-kf432c16bb1-16-0740617319880.html","desc":"A memória Kingston Fury Beast DDR4 oferece um desempenho excecional para desktops. Com 16GB de capacidade e velocidade de 3200MHz, garante multitarefas rápidas e jogos fluidos. Destaques principais: * Capacidade: 16GB * ","avail":"Disponível","spec":{"ddr":"DDR4","cap":16,"speed":3200,"kit":false}},{"id":"367577","name":"Memória RAM PNY 16GB DDR5 4800MHz DIMM - MD16GSD54800-BLK","price":203.66,"price_txt":"203,66 €","img":"https://www.elitedigital.pt/11508444-home_default/memoria-ram-pny-16gb-ddr5-4800mhz-dimm-md16gsd54800-blk.jpg","url":"https://www.elitedigital.pt/memoria-desktops/367577-memoria-ram-pny-16gb-ddr5-4800mhz-dimm-md16gsd54800-blk-3536403400125.html","desc":"A memória PNY MD16GSD54800-BLK DDR5, com 16GB e 4800MHz, oferece desempenho superior para o seu PC. Desfrute de maior largura de banda, menor consumo de energia e resposta mais rápida. Ideal para aplicações exigentes. De","avail":"Disponível","spec":{"ddr":"DDR5","cap":16,"speed":4800,"kit":false}},{"id":"368500","name":"DIMM-DDR5 16GB 5600MHz TeamGroup T-Force VULCAN (2x8GB) CL40","price":256.63,"price_txt":"256,63 €","img":"https://www.elitedigital.pt/11844279-home_default/dimm-ddr5-16gb-5600mhz-teamgroup-t-force-vulcan-2x8gb-cl40.jpg","url":"https://www.elitedigital.pt/memoria-desktops/368500-dimm-ddr5-16gb-5600mhz-teamgroup-t-force-vulcan-2x8gb-cl40-0765441777132.html","desc":"DIMM DDR5 16GB TeamGroup T-Force VULCAN, 5600MHz, CL40, composto por 2 módulos de 8GB. Memória de elevado desempenho, ideal para PCs gaming e de uso geral, com excelente estabilidade e eficiência.","avail":"Disponível","spec":{"ddr":"DDR5","cap":16,"speed":5600,"kit":true}},{"id":"369368","name":"Memória Adata DIMM-DDR5 16GB 5600MHz CL46 1,1V","price":262.11,"price_txt":"262,11 €","img":"https://www.elitedigital.pt/12062329-home_default/memoria-adata-dimm-ddr5-16gb-5600mhz-cl46-11v.jpg","url":"https://www.elitedigital.pt/memoria-desktops/369368-memoria-adata-dimm-ddr5-16gb-5600mhz-cl46-11v.html","desc":"A memória Adata oferece 16GB de capacidade com velocidade de 5600MHz, ideal para gamers e entusiastas. Com latência CL46 e design de 288 pinos, garante um desempenho superior e eficiente. Opera a 1.1V e é fácil de instal","avail":"Disponível","spec":{"ddr":"DDR5","cap":16,"speed":5600,"kit":false}},{"id":"368680","name":"Memória Kingston FURY Beast RGB DDR5 16GB 5600MHz CL36 - Dissipador, RGB","price":333.59,"price_txt":"333,59 €","img":"https://www.elitedigital.pt/11881237-home_default/memoria-kingston-fury-beast-rgb-ddr5-16gb-5600mhz-cl36-dissipador-rgb.jpg","url":"https://www.elitedigital.pt/memoria-desktops/368680-memoria-kingston-fury-beast-rgb-ddr5-16gb-5600mhz-cl36-dissipador-rgb-0740617330786.html","desc":"A memória Kingston FURY Beast RGB DDR5 oferece desempenho e estilo para o seu PC. Com 16GB de capacidade, velocidade de 5600MHz e iluminação RGB personalizável, esta memória eleva a experiência de jogo e computação. Dest","avail":"Disponível","spec":{"ddr":"DDR5","cap":16,"speed":5600,"kit":false}},{"id":"347017","name":"DIMM-DDR5 32GB (2x16GB) 6000MHz Goodram Black V Silver","price":523.05,"price_txt":"523,05 €","img":"https://www.elitedigital.pt/11508519-home_default/dimm-ddr5-32gb-2x16gb-6000mhz-goodram-black-v-silver.jpg","url":"https://www.elitedigital.pt/memoria-desktops/347017-dimm-ddr5-32gb-2x16gb-6000mhz-goodram-black-v-silver-5908267964910.html","desc":"Diga adeus às limitações e leve o seu PC a um novo patamar de jogo com os módulos de memória IRDM DDR5. A mais recente tecnologia garante um desempenho, velocidade e capacidade ainda maiores. Tudo isto permitirá extrair ","avail":"Disponível","spec":{"ddr":"DDR5","cap":32,"speed":6000,"kit":true}}],"gpu":[{"id":"234855","name":"Placa Gráfica MSI GT 1030 2GB GDDR4, Low Profile, HDMI e DisplayPort","price":93.05,"price_txt":"93,05 €","img":"https://www.elitedigital.pt/1344364-home_default/placa-grafica-msi-gt-1030-2gb-gddr4-low-profile-hdmi-e-displayport.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/234855-placa-grafica-msi-gt-1030-2gb-gddr4-low-profile-hdmi-e-displayport-4719072561420.html","desc":"A Placa Gráfica MSI GeForce GT 1030 2GB GDDR4 LP OC é uma solução compacta e silenciosa para HTPC e sistemas SFF. Com design Low Profile, ventoinha passiva e conectividade HDMI e DisplayPort, esta placa oferece desempenh","avail":"Disponível","spec":{"vram":2,"watts":30,"tier":"office"}},{"id":"365237","name":"Placa Gráfica AFOX Radeon RX 550 4GB GDDR5 - Desempenho Gráfico","price":96.0,"price_txt":"96,00 €","img":"https://www.elitedigital.pt/8707435-home_default/placa-grafica-afox-radeon-rx-550-4gb-gddr5-desempenho-grafico.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/365237-placa-grafica-afox-radeon-rx-550-4gb-gddr5-desempenho-grafico.html","desc":"Esta é uma placa gráfica AFOX Radeon RX 550 com 4GB de memória GDDR5. Foi projetada para oferecer desempenho gráfico melhorado para jogos e outras aplicações gráficas. Destaques principais: * 4GB GDDR5 Memória * Interfac","avail":"Disponível","spec":{"vram":4,"watts":50,"tier":"office"}},{"id":"364840","name":"Placa Gráfica PCIe 8GB ASROCK Phantom Gaming RX 6500 XT 8GB","price":195.13,"price_txt":"195,13 €","img":"https://www.elitedigital.pt/7993981-home_default/placa-grafica-pcie-8gb-asrock-phantom-gaming-rx-6500-xt-8gb.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/364840-placa-grafica-pcie-8gb-asrock-phantom-gaming-rx-6500-xt-8gb-4710483945151.html","desc":"As placas gráficas AMD Radeon™ RX 6500 XT, com arquitetura AMD RDNA™ 2, foram desenvolvidas para oferecer excelente desempenho em jogos e notável eficiência energética. Se quiser, posso te ajudar a comparar essa placa co","avail":"Disponível","spec":{"vram":8,"watts":107,"tier":"entry"}},{"id":"364000","name":"Placa Gráfica MSI RTX 5060 Ti 8GB VENTUS 2X OC PLUS, Blackwell, GDDR7, 2x Ventoinhas","price":419.84,"price_txt":"419,84 €","img":"https://www.elitedigital.pt/7807813-home_default/placa-grafica-msi-rtx-5060-ti-8gb-ventus-2x-oc-plus-blackwell-gddr7-2x-ventoinhas.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/364000-placa-grafica-msi-rtx-5060-ti-8gb-ventus-2x-oc-plus-blackwell-gddr7-2x-ventoinhas-4711377338875.html","desc":"A Placa Gráfica MSI GeForce RTX 5060 Ti 8G VENTUS 2X OC PLUS é ideal para gamers, proporcionando desempenho de ponta. Equipada com 8GB de memória GDDR7 e a arquitetura NVIDIA Blackwell, garante visuais impressionantes. O","avail":"Disponível","spec":{"vram":8,"watts":180,"tier":"mid"}},{"id":"223356","name":"Placa Gráfica MSI RTX 4060 Ti VENTUS 2X BLACK OC 8GB GDDR6, 2x Ventoinhas","price":442.65,"price_txt":"442,65 €","img":"https://www.elitedigital.pt/2015275-home_default/placa-grafica-msi-rtx-4060-ti-ventus-2x-black-oc-8gb-gddr6-2x-ventoinhas.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/223356-placa-grafica-msi-rtx-4060-ti-ventus-2x-black-oc-8gb-gddr6-2x-ventoinhas-4711377216166.html","desc":"A Placa Gráfica MSI GeForce RTX 4060 Ti VENTUS 2X BLACK OC de 8GB GDDR6 oferece desempenho superior para jogos e criação de conteúdo. Equipada com a arquitetura NVIDIA Ada Lovelace, suporta Ray Tracing e DLSS 3. Com sist","avail":"Disponível","spec":{"vram":8,"watts":160,"tier":"mid"}},{"id":"364106","name":"Placa Gráfica Gigabyte AMD RX 9070 GV-R9070GAMING OC-16GD GDDR6","price":699.17,"price_txt":"699,17 €","img":"https://www.elitedigital.pt/9713383-home_default/placa-grafica-gigabyte-amd-rx-9070-gv-r9070gaming-oc-16gd-gddr6.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/364106-placa-grafica-gigabyte-amd-rx-9070-gv-r9070gaming-oc-16gd-gddr6-4719331355531.html","desc":"Placa gráfica AMD Radeon RX Série 9000 com avançada arquitetura AMD RDNA™ 4; Mergulha na ação com recursos visuais realistas com Ray Tracing de última geração; Ray Tracing aprimorado para uma experiência ultra-imersiva e","avail":"Disponível","spec":{"vram":16,"watts":220,"tier":"high"}},{"id":"364844","name":"Placa Gráfica AFOX RTX 3050 8GB GDDR6, HDMI, DisplayPort, Desempenho Gaming","price":229.78,"price_txt":"229,78 €","img":"https://www.elitedigital.pt/7993989-home_default/placa-grafica-afox-rtx-3050-8gb-gddr6-hdmi-displayport-desempenho-gaming.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/364844-placa-grafica-afox-rtx-3050-8gb-gddr6-hdmi-displayport-desempenho-gaming.html","desc":"A placa gráfica AFOX AF3050-8GD6H1 oferece um desempenho gráfico robusto para jogos e aplicações exigentes. Equipada com 8GB de memória GDDR6 e a arquitetura NVIDIA RTX 3050, proporciona uma experiência visual fluida e i","avail":"Esgotado","spec":{"vram":8,"watts":130,"tier":"entry"}},{"id":"364856","name":"Placa Gráfica Asus Phoenix RTX 3050 8GB GDDR6 - PCI Express 4.0, HDMI, DisplayPort","price":274.91,"price_txt":"274,91 €","img":"https://www.elitedigital.pt/8010499-home_default/placa-grafica-asus-phoenix-rtx-3050-8gb-gddr6-pci-express-40-hdmi-displayport.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/364856-placa-grafica-asus-phoenix-rtx-3050-8gb-gddr6-pci-express-40-hdmi-displayport-4711081645221.html","desc":"A placa gráfica ASUS Phoenix PH-RTX3050-8G é ideal para jogos e aplicações exigentes. Equipada com 8GB de memória GDDR6, oferece desempenho superior e gráficos impressionantes. Destaques principais: * NVIDIA GeForce RTX ","avail":"Esgotado","spec":{"vram":8,"watts":130,"tier":"entry"}},{"id":"364834","name":"Placa Gráfica Gigabyte RTX 3060 WindForce OC Rev.2 12GB GDDR6 - PCIe 4.0, 2x HDMI/DP","price":280.86,"price_txt":"280,86 €","img":"https://www.elitedigital.pt/7993965-home_default/placa-grafica-gigabyte-rtx-3060-windforce-oc-rev2-12gb-gddr6-pcie-40-2x-hdmi-dp.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/364834-placa-grafica-gigabyte-rtx-3060-windforce-oc-rev2-12gb-gddr6-pcie-40-2x-hdmi-dp-4719331312862.html","desc":"A Gigabyte RTX 3060 WindForce OC Rev.2 é uma placa gráfica de alto desempenho, ideal para gaming e tarefas multimédia. Equipada com 12GB de memória GDDR6, oferece excelente desempenho e suporta resoluções de até 7680 x 4","avail":"Esgotado","spec":{"vram":12,"watts":170,"tier":"mid"}},{"id":"265959","name":"Placa Gráfica Asus RTX 4060 DUAL-RTX4060-O8G-V2, 8GB GDDR6, 2505MHz Boost","price":323.85,"price_txt":"323,85 €","img":"https://www.elitedigital.pt/1441215-home_default/placa-grafica-asus-rtx-4060-dual-rtx4060-o8g-v2-8gb-gddr6-2505mhz-boost.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/265959-placa-grafica-asus-rtx-4060-dual-rtx4060-o8g-v2-8gb-gddr6-2505mhz-boost-4711387341032.html","desc":"A Placa Gráfica ASUS DUAL-RTX4060-O8G-V2 é uma excelente opção para gamers que procuram um desempenho sólido a 1080p e 1440p. Equipada com 8GB de memória GDDR6 e a arquitetura NVIDIA Ada Lovelace, oferece Ray Tracing e D","avail":"Esgotado","spec":{"vram":8,"watts":130,"tier":"entry"}},{"id":"364847","name":"Placa Gráfica 8GB MSI GeForce RTX5060 SHADOW 2X OC","price":322.58,"price_txt":"322,58 €","img":"https://www.elitedigital.pt/7993993-home_default/placa-grafica-8gb-msi-geforce-rtx5060-shadow-2x-oc.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/364847-placa-grafica-8gb-msi-geforce-rtx5060-shadow-2x-oc-4711377344234.html","desc":"A Placa Gráfica 8GB MSI GeForce RTX5060 SHADOW 2X OC oferece um desempenho gráfico avançado, ideal para jogos de alta resolução e aplicações intensivas. Com 8GB de memória GDDR7 e velocidades de clock elevadas, garante e","avail":"Esgotado","spec":{"vram":8,"watts":130,"tier":"entry"}},{"id":"364916","name":"Placa Gráfica Gigabyte GeForce RTX 5070 Eagle OC - 12GB GDDR7","price":715.61,"price_txt":"715,61 €","img":"https://www.elitedigital.pt/8077273-home_default/placa-grafica-gigabyte-geforce-rtx-5070-eagle-oc-12gb-gddr7.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/364916-placa-grafica-gigabyte-geforce-rtx-5070-eagle-oc-12gb-gddr7-4719331355760.html","desc":"A placa gráfica Gigabyte GeForce RTX 5070 Eagle OC oferece um desempenho excecional para jogos e aplicações de criação de conteúdo. Com 12GB de memória GDDR7 e o sistema de refrigeração WINDFORCE, garante uma experiência","avail":"Esgotado","spec":{"vram":12,"watts":220,"tier":"high"}}],"ssd":[{"id":"1276","name":"Disco SSD 2.5 240GB SATA3 Emtec X150","price":23.15,"price_txt":"23,15 €","img":"https://www.elitedigital.pt/356257-home_default/disco-ssd-25-240gb-sata3-emtec-x150.jpg","url":"https://www.elitedigital.pt/frigorificos-arcas/1276-disco-ssd-25-240gb-sata3-emtec-x150-3126170136404.html","desc":"Disco SSD 2.5 240GB SATA3 Emtec X150 Interface: SATA III 6Gb/s Capacity: 240GB Velocidade de leitura : Até 520MB/s Velocidade de escrita : Até 500MB/s","avail":"Disponível","spec":{"cap":240,"nvme":false,"form":"2.5\""}},{"id":"318601","name":"Disco SSD ADATA SU650 240GB SATA3","price":29.14,"price_txt":"29,14 €","img":"https://www.elitedigital.pt/6519109-home_default/disco-ssd-adata-su650-240gb-sata3.jpg","url":"https://www.elitedigital.pt/frigorificos-arcas/318601-disco-ssd-adata-su650-240gb-sata3.html","desc":"O Disco SSD ADATA SU650 de 240GB oferece desempenho e fiabilidade excecionais para o seu computador. Com interface SATA3 e velocidades de leitura e escrita rápidas, melhora significativamente os tempos de carregamento e ","avail":"Disponível","spec":{"cap":240,"nvme":false,"form":"2.5\""}},{"id":"1275","name":"Disco SSD 2.5 480GB SATA3 Emtec X150","price":29.45,"price_txt":"29,45 €","img":"https://www.elitedigital.pt/356255-home_default/disco-ssd-25-480gb-sata3-emtec-x150.jpg","url":"https://www.elitedigital.pt/frigorificos-arcas/1275-disco-ssd-25-480gb-sata3-emtec-x150-3126170136411.html","desc":"Disco SSD 2.5 480GB SATA3 Emtec X150 Velocidade Máxima de Escrita 500 MB/s Velocidade Máxima de Leitura 520 MB/s","avail":"Disponível","spec":{"cap":480,"nvme":false,"form":"2.5\""}},{"id":"11","name":"Disco SSD M.2 512GB 2280 Emtec X250","price":31.81,"price_txt":"31,81 €","img":"https://www.elitedigital.pt/1410041-home_default/disco-ssd-m2-512gb-2280-emtec-x250.jpg","url":"https://www.elitedigital.pt/frigorificos-arcas/11-disco-ssd-m2-512gb-2280-emtec-x250-3126170170484.html","desc":"Atualize o seu computador com uma unidade SSD M2 2280 SATA de última geração. Melhore seu desempenho e desfrute da velocidade, confiabilidade e eficiência da nova geração do 3D NAND. A unidade SSD Power Plus impulsiona i","avail":"Disponível","spec":{"cap":512,"nvme":false,"form":"M.2"}},{"id":"169173","name":"Disco SSD 2.5 1TB SATA3 N538S Netac","price":44.57,"price_txt":"44,57 €","img":"https://www.elitedigital.pt/960110-home_default/disco-ssd-25-1tb-sata3-n538s-netac.jpg","url":"https://www.elitedigital.pt/frigorificos-arcas/169173-disco-ssd-25-1tb-sata3-n538s-netac-4712366967274.html","desc":"SSD 2.5\" 1TB SATA3 Seq R/W - 560/520 MB/s Suporta TRIM, NCQ MTBF - >1 500 000h Auto diagnóstico - Auto / Manual","avail":"Disponível","spec":{"cap":1000,"nvme":false,"form":"2.5\""}},{"id":"74054","name":"SSD TeamGroup CX2 256GB 2.5 SATA3 - 520MB/s Leitura, Encriptação HW","price":62.75,"price_txt":"62,75 €","img":"https://www.elitedigital.pt/7317515-home_default/ssd-teamgroup-cx2-256gb-25-sata3-520mb-s-leitura-encriptacao-hw.jpg","url":"https://www.elitedigital.pt/discos-internos-ssd/74054-ssd-teamgroup-cx2-256gb-25-sata3-520mb-s-leitura-encriptacao-hw-0765441051928.html","desc":"O SSD TeamGroup CX2 de 256GB é uma solução de armazenamento confiável para computadores portáteis e de secretária. Oferece velocidades de leitura de até 520 MB/s e escrita de 430 MB/s. Inclui encriptação de hardware para","avail":"Disponível","spec":{"cap":256,"nvme":false,"form":"2.5\""}},{"id":"368259","name":"SSD Netac G930 256GB NVMe M.2 2280 PCIe 3.0 - Velocidade e Eficiência","price":68.26,"price_txt":"68,26 €","img":"https://www.elitedigital.pt/11537389-home_default/ssd-netac-g930-256gb-nvme-m2-2280-pcie-30-velocidade-e-eficiencia.jpg","url":"https://www.elitedigital.pt/discos-internos-ssd/368259-ssd-netac-g930-256gb-nvme-m2-2280-pcie-30-velocidade-e-eficiencia.html","desc":"O SSD Netac G930 de 256GB M.2 2280 NVMe PCIe 3.0 oferece uma solução de armazenamento rápida e eficiente. Projetado para desempenho superior, este SSD utiliza a interface PCIe Gen3x4 NVMe. Ideal para melhorar a velocidad","avail":"Disponível","spec":{"cap":256,"nvme":true,"form":"M.2"}},{"id":"356407","name":"Disco SSD M.2 2280 NVMe 256GB Lexar NM620 PCIe 3.0 x4","price":69.98,"price_txt":"69,98 €","img":"https://www.elitedigital.pt/7330853-home_default/disco-ssd-m2-2280-nvme-256gb-lexar-nm620-pcie-30-x4.jpg","url":"https://www.elitedigital.pt/discos-internos-ssd/356407-disco-ssd-m2-2280-nvme-256gb-lexar-nm620-pcie-30-x4-0843367123148.html","desc":"Disco SSD Lexar de alta velocidade com interface PCIe Gen3, oferecendo velocidades de leitura de até 3500 MB/s e escrita de até 1300 MB/s. Capacidade de 256GB. Ideal para computadores e laptops que necessitam de um desem","avail":"Disponível","spec":{"cap":256,"nvme":true,"form":"M.2"}},{"id":"318753","name":"Disco SSD ADATA SX8200 Pro M.2 PCIe 1TB","price":101.62,"price_txt":"101,62 €","img":"https://www.elitedigital.pt/1517305-home_default/disco-ssd-adata-sx8200-pro-m2-pcie-1tb.jpg","url":"https://www.elitedigital.pt/frigorificos-arcas/318753-disco-ssd-adata-sx8200-pro-m2-pcie-1tb.html","desc":"O SSD ADATA SX8200 Pro oferece velocidades de leitura e escrita ultrarrápidas, melhorando significativamente o desempenho do seu computador. Com interface PCIe Gen3 x4, garante acesso rápido aos seus dados. * Interface P","avail":"Disponível","spec":{"cap":1000,"nvme":true,"form":"M.2"}},{"id":"241541","name":"Disco SSD Western Digital Blue SN580 500GB M.2 NVMe - 4.150 MB/s Leitura/Escrita","price":105.46,"price_txt":"105,46 €","img":"https://www.elitedigital.pt/1396783-home_default/disco-ssd-western-digital-blue-sn580-500gb-m2-nvme-4150-mb-s-leitura-escrita.jpg","url":"https://www.elitedigital.pt/discos-internos-ssd/241541-disco-ssd-western-digital-blue-sn580-500gb-m2-nvme-4150-mb-s-leitura-escrita-8801643205263.html","desc":"O SSD WD Blue SN580 NVMe oferece desempenho rápido e fiável para diversas tarefas. Ideal para utilização em computadores portáteis e desktops, este SSD acelera os tempos de carregamento e a capacidade de resposta do sist","avail":"Disponível","spec":{"cap":500,"nvme":true,"form":"M.2"}},{"id":"369396","name":"Disco SSD Kingston NV3 1TB M.2 NVMe 4.0 5000MB/s 3D NAND","price":163.04,"price_txt":"163,04 €","img":"https://www.elitedigital.pt/img/p/pt-default-home_default.jpg","url":"https://www.elitedigital.pt/discos-internos-ssd/369396-disco-ssd-kingston-nv3-1tb-m2-nvme-40-5000mb-s-3d-nand-740617344790.html","desc":"O Disco SSD Kingston NV3 de 1TB é uma solução de armazenamento de alto desempenho no formato M.2. Eleva a performance do seu computador, ideal p/ portáteis e desktops. Destaques principais: * Interface PCIe 4.0 NVMe para","avail":"Disponível","spec":{"cap":1000,"nvme":true,"form":"M.2"}},{"id":"365330","name":"SSD Samsung 990 Pro 1TB M.2 NVMe - 7450MB/s Leitura/Escrita","price":359.73,"price_txt":"359,73 €","img":"https://www.elitedigital.pt/9034137-home_default/ssd-samsung-990-pro-1tb-m2-nvme-7450mb-s-leitura-escrita.jpg","url":"https://www.elitedigital.pt/discos-internos-ssd/365330-ssd-samsung-990-pro-1tb-m2-nvme-7450mb-s-leitura-escrita-8806094413748.html","desc":"O Samsung 990 PRO de 1TB é um SSD M.2 NVMe de alto desempenho, ideal para gamers e profissionais. Oferece velocidades de leitura e escrita de até 7450 MB/s e 6900 MB/s, respetivamente. Equipado com V-NAND MLC e encriptaç","avail":"Disponível","spec":{"cap":1000,"nvme":true,"form":"M.2"}}],"psu":[{"id":"1036","name":"Fonte Alimentação Coolbox 500W ATX, BASIC 500GR, PFC Ativo, 12cm Ventoinha","price":15.58,"price_txt":"15,58 €","img":"https://www.elitedigital.pt/11073215-home_default/fonte-alimentacao-coolbox-500w-atx-basic-500gr-pfc-ativo-12cm-ventoinha.jpg","url":"https://www.elitedigital.pt/fontes-de-alimentacao-standard/1036-fonte-alimentacao-coolbox-500w-atx-basic-500gr-pfc-ativo-12cm-ventoinha-8437013799737.html","desc":"A Fonte de Alimentação Coolbox BASIC 500GR, com 500W de potência, é uma solução confiável para o seu computador. Oferece conector 20+4 pin ATX e ventoinha de 12cm para refrigeração eficiente. Destaques principais: * Potê","avail":"Disponível","spec":{"watts":500,"cert":"Standard","modular":false}},{"id":"355678","name":"Fonte Alimentação Coolbox ATX 650W Powerline3 Black","price":32.46,"price_txt":"32,46 €","img":"https://www.elitedigital.pt/7317533-home_default/fonte-alimentacao-coolbox-atx-650w-powerline3-black.jpg","url":"https://www.elitedigital.pt/fontes-de-alimentacao-standard/355678-fonte-alimentacao-coolbox-atx-650w-powerline3-black-8436556143014.html","desc":"Concebidas no formato ATX, e disponíveis em diferentes versões de potência, as fontes de alimentação CoolBox PowerLine Black destacam-se pela sua qualidade, fiabilidade e eficiência de 85% (com 50% de carga). Destaca-se ","avail":"Disponível","spec":{"watts":650,"cert":"Standard","modular":false}},{"id":"368535","name":"Fonte Alim ATX 550W Gaming Unyka","price":34.44,"price_txt":"34,44 €","img":"https://www.elitedigital.pt/11880231-home_default/fonte-alim-atx-550w-gaming-unyka.jpg","url":"https://www.elitedigital.pt/fontes-de-alimentacao-standard/368535-fonte-alim-atx-550w-gaming-unyka-8436617920325.html","desc":"fonte de alimentação UK210551 ATX com uma potência nominal de 550 W, ideal para alimentar sistemas de alto desempenho com requisitos moderados.","avail":"Disponível","spec":{"watts":550,"cert":"Standard","modular":false}},{"id":"358732","name":"Fonte de Alimentação FSP Hyper 80+ Pro 550W BKB","price":37.53,"price_txt":"37,53 €","img":"https://www.elitedigital.pt/7357678-home_default/fonte-de-alimentacao-fsp-hyper-80-pro-550w-bkb.jpg","url":"https://www.elitedigital.pt/fontes-de-alimentacao-standard/358732-fonte-de-alimentacao-fsp-hyper-80-pro-550w-bkb-4711498480569.html","desc":"Fonte de alimentação FSP Hyper 80+ Pro de 550W, modelo BKB, com certificação 80+ Pro, garantindo alta eficiência energética. Concebida para computadores de secretária, esta fonte de alimentação ATX oferece um funcionamen","avail":"Disponível","spec":{"watts":550,"cert":"80+ Bronze","modular":false}},{"id":"355677","name":"Fonte de Alimentação Coolbox CoolPower 650W 80+ Bronze - ATX, 120mm Ventoinha, PFC Ativo","price":37.91,"price_txt":"37,91 €","img":"https://www.elitedigital.pt/7317529-home_default/fonte-de-alimentacao-coolbox-coolpower-650w-80-bronze-atx-120mm-ventoinha-pfc-ativo.jpg","url":"https://www.elitedigital.pt/fontes-de-alimentacao-standard/355677-fonte-de-alimentacao-coolbox-coolpower-650w-80-bronze-atx-120mm-ventoinha-pfc-ativo-8436556143045.html","desc":"A Fonte de Alimentação Coolbox CoolPower 650W oferece 650W de potência com certificação 80+ Bronze. Inclui um ventilador de 120mm, PFC ativo e múltiplas proteções. Destaques principais: * Potência de 650W. * Certificação","avail":"Disponível","spec":{"watts":650,"cert":"80+ Bronze","modular":false}},{"id":"368549","name":"Fonte Unyka 500W ATX 80+ Bronze, PFC Ativo, 12cm","price":53.52,"price_txt":"53,52 €","img":"https://www.elitedigital.pt/11880281-home_default/fonte-unyka-500w-atx-80-bronze-pfc-ativo-12cm.jpg","url":"https://www.elitedigital.pt/fontes-de-alimentacao-standard/368549-fonte-unyka-500w-atx-80-bronze-pfc-ativo-12cm-6940533544357.html","desc":"A Fonte de Alimentação Unyka 500W ATX com certificação 80+ Bronze e PFC Ativo é ideal para sistemas que buscam eficiência energética e bom desempenho. Inclui ventoinha de 12cm para refrigeração eficaz. Destaques principa","avail":"Disponível","spec":{"watts":500,"cert":"80+ Bronze","modular":false}},{"id":"24338","name":"Fonte Coolbox DeepGaming 650W 80+ Bronze ATX","price":59.46,"price_txt":"59,46 €","img":"https://www.elitedigital.pt/427532-home_default/fonte-coolbox-deepgaming-650w-80-bronze-atx.jpg","url":"https://www.elitedigital.pt/fontes-de-alimentacao-standard/24338-fonte-coolbox-deepgaming-650w-80-bronze-atx-8436556145339.html","desc":"Fonte de alimentação Coolbox DeepGaming de 650W com certificação 80+ Bronze, ideal para PC gaming e workstations de gama média e alta. Apresenta um design eficiente e fiável, com ventoinha silenciosa e múltiplas proteçõe","avail":"Disponível","spec":{"watts":650,"cert":"80+ Bronze","modular":false}},{"id":"157139","name":"Fonte Gamemax GP-650WHITE 650W 80+ Bronze, Branca","price":59.9,"price_txt":"59,90 €","img":"https://www.elitedigital.pt/806641-home_default/fonte-gamemax-gp-650white-650w-80-bronze-branca.jpg","url":"https://www.elitedigital.pt/fontes-de-alimentacao-standard/157139-fonte-gamemax-gp-650white-650w-80-bronze-branca-6931858720144.html","desc":"A Fonte de Alimentação Gamemax GP-650WHITE de 650W, com certificação 80+ Bronze, é uma solução fiável e eficiente para o seu PC gaming. Oferece boa performance, design elegante em branco e ventoinha de 140mm para arrefec","avail":"Disponível","spec":{"watts":650,"cert":"80+ Bronze","modular":false}},{"id":"24288","name":"Fonte de Alimentação NOX Urano VX 750W 80+ Bronze, 2-Way SLI/CrossFireX, 14cm Fan","price":62.8,"price_txt":"62,80 €","img":"https://www.elitedigital.pt/427437-home_default/fonte-de-alimentacao-nox-urano-vx-750w-80-bronze-2-way-sli-crossfirex-14cm-fan.jpg","url":"https://www.elitedigital.pt/fontes-de-alimentacao-standard/24288-fonte-de-alimentacao-nox-urano-vx-750w-80-bronze-2-way-sli-crossfirex-14cm-fan-8436532166969.html","desc":"A Fonte de Alimentação NOX Urano VX 750W é uma fonte ATX de 750W com certificação 80+ Bronze. Oferece suporte a 2-Way SLI/CrossFireX e possui uma ventoinha de 14cm. Ideal para PC de alto desempenho, garante eficiência e ","avail":"Disponível","spec":{"watts":750,"cert":"80+ Bronze","modular":false}},{"id":"366738","name":"Fonte de Alimentação Gamemax GM-700 700W 80+ Bronze Modular - ATX, 14cm Ventoinha,...","price":67.08,"price_txt":"67,08 €","img":"https://www.elitedigital.pt/10078073-home_default/fonte-de-alimentacao-gamemax-gm-700-700w-80-bronze-modular-atx-14cm-ventoinha-protecao-total.jpg","url":"https://www.elitedigital.pt/fontes-de-alimentacao-standard/366738-fonte-de-alimentacao-gamemax-gm-700-700w-80-bronze-modular-atx-14cm-ventoinha-protecao-total-6931858740524.html","desc":"A Fonte de Alimentação Gamemax GM-700 é uma fonte ATX de 700W com certificação 80+ Bronze e design modular. Oferece proteção OVP, UVP, OTP, OCP, OLP, OPP e SCP. Destaques principais: * Potência de 700W. * Certificação 80","avail":"Disponível","spec":{"watts":700,"cert":"80+ Bronze","modular":true}},{"id":"24287","name":"Fonte de Alimentação NOX Urano TX 850W 80+ Bronze, ATX","price":67.17,"price_txt":"67,17 €","img":"https://www.elitedigital.pt/427436-home_default/fonte-de-alimentacao-nox-urano-tx-850w-80-bronze-atx.jpg","url":"https://www.elitedigital.pt/fontes-de-alimentacao-standard/24287-fonte-de-alimentacao-nox-urano-tx-850w-80-bronze-atx-8436532166976.html","desc":"Fonte de alimentação NOX Urano TX 850W 80+ Bronze, ATX. Eficiência energética 80+ Bronze, ventoinha 140mm PWM, cabos planos. Ideal para gaming. Oferece alto desempenho e fiabilidade, assegurando um fornecimento de energi","avail":"Disponível","spec":{"watts":850,"cert":"80+ Bronze","modular":false}},{"id":"24331","name":"Fonte NOX Hummer X 750W 80+ Gold Modular - PFC Ativo","price":97.71,"price_txt":"97,71 €","img":"https://www.elitedigital.pt/427521-home_default/fonte-nox-hummer-x-750w-80-gold-modular-pfc-ativo.jpg","url":"https://www.elitedigital.pt/fontes-de-alimentacao-standard/24331-fonte-nox-hummer-x-750w-80-gold-modular-pfc-ativo-8436532168598.html","desc":"A Fonte de Alimentação NOX Hummer X 750W 80+ Gold, modular, oferece eficiência e silêncio. Com PFC Ativo, ventoinha de 120mm e cabos planos, é ideal para gamers.","avail":"Disponível","spec":{"watts":750,"cert":"80+ Gold","modular":true}},{"id":"338358","name":"Fonte de Alimentação MSI MAG A750GL 750W 80+ Gold PCIE5 Modular","price":151.87,"price_txt":"151,87 €","img":"https://www.elitedigital.pt/3646073-home_default/fonte-de-alimentacao-msi-mag-a750gl-750w-80-gold-pcie5-modular.jpg","url":"https://www.elitedigital.pt/fontes-de-alimentacao-standard/338358-fonte-de-alimentacao-msi-mag-a750gl-750w-80-gold-pcie5-modular-4711377084284.html","desc":"A Fonte de Alimentação MSI MAG A750GL de 750W oferece alta eficiência e desempenho para o seu PC. Compatível com ATX 3.0 e PCIe 5.0, suporta placas gráficas RTX Série 40. Apresenta design modular, ventoinha de 120mm e ce","avail":"Disponível","spec":{"watts":750,"cert":"80+ Gold","modular":true}}],"case":[{"id":"26991","name":"Caixa Micro-ATX Gaming Gamemax SilentHill H606, Silenciosa, USB 3.0, 1x120mm","price":28.61,"price_txt":"28,61 €","img":"https://www.elitedigital.pt/433945-home_default/caixa-micro-atx-gaming-gamemax-silenthill-h606-silenciosa-usb-30-1x120mm.jpg","url":"https://www.elitedigital.pt/caixas-de-computador/26991-caixa-micro-atx-gaming-gamemax-silenthill-h606-silenciosa-usb-30-1x120mm-6931858771139.html","desc":"A caixa Gamemax SilentHill H606 é uma Micro Torre projetada para proporcionar um ambiente de computação silencioso, ideal para quem procura reduzir o ruído. Construída com materiais de amortecimento de som, esta caixa mi","avail":"Disponível","spec":{"support":["mATX","ITX"],"size":"mATX","glass":false,"rgb":false}},{"id":"241138","name":"Caixa Gaming Gamemax M60 Black - Micro ATX, Painéis Rede, USB 3.0 e 2.0","price":36.04,"price_txt":"36,04 €","img":"https://www.elitedigital.pt/1346790-home_default/caixa-gaming-gamemax-m60-black-micro-atx-paineis-rede-usb-30-e-20.jpg","url":"https://www.elitedigital.pt/caixas-de-computador/241138-caixa-gaming-gamemax-m60-black-micro-atx-paineis-rede-usb-30-e-20.html","desc":"A caixa Gamemax M60 Black é uma caixa Micro ATX ideal para quem procura uma solução compacta e eficiente. Possui painéis laterais em rede para um excelente fluxo de ar e inclui portas USB 3.0 e 2.0. Oferece suporte para ","avail":"Disponível","spec":{"support":["mATX","ITX"],"size":"mATX","glass":false,"rgb":false}},{"id":"6479","name":"Caixa NOX Infinity ATOM RGB ATX, Vidro Temperado, 2x USB 2.0, 1x USB 3.0","price":37.42,"price_txt":"37,42 €","img":"https://www.elitedigital.pt/829533-home_default/caixa-nox-infinity-atom-rgb-atx-vidro-temperado-2x-usb-20-1x-usb-30.jpg","url":"https://www.elitedigital.pt/caixas-de-computador/6479-caixa-nox-infinity-atom-rgb-atx-vidro-temperado-2x-usb-20-1x-usb-30-8436532168642.html","desc":"A caixa NOX Infinity ATOM RGB é uma torre média ATX com design moderno, painel lateral em vidro temperado e iluminação RGB. Inclui um ventilador de 12 cm pré-montado e um detalhe de LED no painel frontal, oferecendo um v","avail":"Disponível","spec":{"support":["ATX","mATX","ITX"],"size":"ATX","glass":true,"rgb":true}},{"id":"368558","name":"Caixa Gaming Unyka MIR 100 ATX, ARGB, 4 Ventoinhas, Design Moderno","price":45.12,"price_txt":"45,12 €","img":"https://www.elitedigital.pt/11880316-home_default/caixa-gaming-unyka-mir-100-atx-argb-4-ventoinhas-design-moderno.jpg","url":"https://www.elitedigital.pt/caixas-de-computador/368558-caixa-gaming-unyka-mir-100-atx-argb-4-ventoinhas-design-moderno-6974560221158.html","desc":"A caixa Unyka MIR 100 é uma torre ATX gaming com um design moderno e económico. Destaca-se pelas suas 4 ventoinhas ARGB pré-instaladas, painel frontal em vidro temperado e boa compatibilidade com hardware. Ideal para que","avail":"Disponível","spec":{"support":["ATX","mATX","ITX"],"size":"ATX","glass":false,"rgb":true}},{"id":"1451","name":"Caixa Gamemax RockStar 2 - ATX, Vidro Temperado, ARGB, USB 3.0, Personalizável","price":49.9,"price_txt":"49,90 €","img":"https://www.elitedigital.pt/549228-home_default/caixa-gamemax-rockstar-2-atx-vidro-temperado-argb-usb-30-personalizavel.jpg","url":"https://www.elitedigital.pt/caixas-de-computador/1451-caixa-gamemax-rockstar-2-atx-vidro-temperado-argb-usb-30-personalizavel-5604008013335.html","desc":"A Caixa Gamemax RockStar 2 é uma torre média ATX com design moderno e painel frontal personalizável. Apresenta vidro temperado, iluminação ARGB, controlador remoto e suporte para ventoinhas e refrigeração líquida. Inclui","avail":"Disponível","spec":{"support":["ATX","mATX","ITX"],"size":"ATX","glass":true,"rgb":true}},{"id":"241137","name":"Caixa Gaming Gamemax Typhoon COC - ATX, Vidro Temperado, aRGB e USB 3.0","price":54.89,"price_txt":"54,89 €","img":"https://www.elitedigital.pt/2015258-home_default/caixa-gaming-gamemax-typhoon-coc-atx-vidro-temperado-argb-e-usb-30.jpg","url":"https://www.elitedigital.pt/caixas-de-computador/241137-caixa-gaming-gamemax-typhoon-coc-atx-vidro-temperado-argb-e-usb-30-6931858736046.html","desc":"A Caixa Gamemax Typhoon COC é uma caixa ATX de gaming com design moderno e arrojado. Possui painel lateral em vidro temperado e iluminação aRGB personalizável, oferecendo um visual impressionante. Inclui ventoinha aRGB e","avail":"Disponível","spec":{"support":["ATX","mATX","ITX"],"size":"ATX","glass":true,"rgb":true}},{"id":"241206","name":"Caixa Gamemax MeshBox Pro ATX, Fluxo de Ar Otimizado, USB 3.2, Tipo C","price":59.9,"price_txt":"59,90 €","img":"https://www.elitedigital.pt/1347168-home_default/caixa-gamemax-meshbox-pro-atx-fluxo-de-ar-otimizado-usb-32-tipo-c.jpg","url":"https://www.elitedigital.pt/caixas-de-computador/241206-caixa-gamemax-meshbox-pro-atx-fluxo-de-ar-otimizado-usb-32-tipo-c.html","desc":"A Caixa Gamemax MeshBox Pro ATX é uma caixa Midi Tower com design em mesh, otimizando o fluxo de ar para um arrefecimento eficiente. Possui portas USB 3.2 (Tipo A e Tipo C). Destaques principais: * Painéis em mesh para e","avail":"Disponível","spec":{"support":["ATX","mATX","ITX"],"size":"ATX","glass":false,"rgb":false}},{"id":"241207","name":"Caixa Gamemax Infinity ATX, Design Modular, Vidro Temperado, aRGB","price":59.9,"price_txt":"59,90 €","img":"https://www.elitedigital.pt/1347176-home_default/caixa-gamemax-infinity-atx-design-modular-vidro-temperado-argb.jpg","url":"https://www.elitedigital.pt/caixas-de-computador/241207-caixa-gamemax-infinity-atx-design-modular-vidro-temperado-argb.html","desc":"A Caixa Gamemax Infinity ATX é uma caixa Medium Tower com design modular, que oferece amplo espaço e flexibilidade para montagem. Possui painéis em vidro temperado e suporte a iluminação aRGB. Destaques principais: * Des","avail":"Disponível","spec":{"support":["ATX","mATX","ITX"],"size":"ATX","glass":true,"rgb":true}},{"id":"274959","name":"Fractal Design Focus G Midi Tower Negro","price":63.07,"price_txt":"63,07 €","img":"https://www.elitedigital.pt/4387993-home_default/fractal-design-focus-g-midi-tower-negro.jpg","url":"https://www.elitedigital.pt/caixas-de-computador/274959-fractal-design-focus-g-midi-tower-negro-7350041084907.html","desc":"FRACTAL CAJA FOCUS G BLACK VENTANA ATX","avail":"Disponível","spec":{"support":["ATX","mATX","ITX"],"size":"ATX","glass":false,"rgb":false}},{"id":"241204","name":"Caixa Gamemax Brufen C1 ATX, Vidro Temperado, aRGB, COC, 2xUSB3.0","price":69.9,"price_txt":"69,90 €","img":"https://www.elitedigital.pt/1347154-home_default/caixa-gamemax-brufen-c1-atx-vidro-temperado-argb-coc-2xusb30.jpg","url":"https://www.elitedigital.pt/caixas-de-computador/241204-caixa-gamemax-brufen-c1-atx-vidro-temperado-argb-coc-2xusb30.html","desc":"A Caixa Gamemax Brufen C1 é uma caixa ATX de design moderno, com painel lateral em vidro temperado e sistema de refrigeração COC patenteado. Destaques principais: * Sistema de refrigeração COC (Cooling & Over-Clocking) *","avail":"Disponível","spec":{"support":["ATX","mATX","ITX"],"size":"ATX","glass":true,"rgb":true}},{"id":"257761","name":"Caixa MSI MAG Forge M100R, Midi Tower, Vidro Temperado, RGB, USB 3.0","price":72.98,"price_txt":"72,98 €","img":"https://www.elitedigital.pt/1428773-home_default/caixa-msi-mag-forge-m100r-midi-tower-vidro-temperado-rgb-usb-30.jpg","url":"https://www.elitedigital.pt/caixas-de-computador/257761-caixa-msi-mag-forge-m100r-midi-tower-vidro-temperado-rgb-usb-30-4719072932220.html","desc":"A caixa MSI MAG FORGE M100R é uma Midi Tower para gaming, com design elegante em preto e vidro temperado. Suporta motherboards Micro ATX e Mini-ITX. Apresenta iluminação RGB, filtros anti-pó e ventoinhas instaladas. Ofer","avail":"Disponível","spec":{"support":["mATX","ITX"],"size":"mATX","glass":true,"rgb":true}},{"id":"350900","name":"Caixa NZXT H6 Flow Midi Tower Branca","price":131.89,"price_txt":"131,89 €","img":"https://www.elitedigital.pt/4610960-home_default/caixa-nzxt-h6-flow-midi-tower-branca.jpg","url":"https://www.elitedigital.pt/caixas-de-computador/350900-caixa-nzxt-h6-flow-midi-tower-branca-5056547204048.html","desc":"A NZXT H6 Flow é uma caixa de computador Midi Tower branca, projetada para um excelente fluxo de ar. Integra três ventoinhas frontais de 120 mm para refrigeração eficiente. Compatível com placas-mãe ATX, Micro-ATX e Mini","avail":"Disponível","spec":{"support":["ATX","mATX","ITX"],"size":"ATX","glass":true,"rgb":false}}],"cooler":[{"id":"368733","name":"Cooler CPU PC Cooler E80 - Silencioso, 65W TDP, Compatível","price":8.47,"price_txt":"8,47 €","img":"https://www.elitedigital.pt/11894787-home_default/cooler-cpu-pc-cooler-e80-silencioso-65w-tdp-compativel.jpg","url":"https://www.elitedigital.pt/refrigeracao-desktops/368733-cooler-cpu-pc-cooler-e80-silencioso-65w-tdp-compativel.html","desc":"O cooler para CPU PC Cooler E80 é uma solução de arrefecimento eficiente e silenciosa, ideal para processadores com TDP de até 65W. Com um ventilador de 80mm e design otimizado, garante uma dissipação de calor eficaz. A ","avail":"Disponível","spec":{"water":false,"tdp":65,"sockets":["AM4","AM5","LGA1700","LGA1200"],"rgb":false}},{"id":"368729","name":"Dissipador PC Cooler E126RGB, para CPU, RGB, LGA1700/1200/20XX/115X e AM4/AM3/AM2, 92W TDP","price":10.06,"price_txt":"10,06 €","img":"https://www.elitedigital.pt/11894773-home_default/dissipador-pc-cooler-e126rgb-para-cpu-rgb-lga1700-1200-20xx-115x-e-am4-am3-am2-92w-tdp.jpg","url":"https://www.elitedigital.pt/refrigeracao-desktops/368729-dissipador-pc-cooler-e126rgb-para-cpu-rgb-lga1700-1200-20xx-115x-e-am4-am3-am2-92w-tdp.html","desc":"O Dissipador PC Cooler E126RGB é uma solução de arrefecimento para CPU com iluminação RGB. Compatível com múltiplas plataformas Intel e AMD, oferece arrefecimento eficiente com ventoinha de 120mm e baixo ruído. Ideal par","avail":"Disponível","spec":{"water":false,"tdp":92,"sockets":["AM4","AM5","LGA1700","LGA1200"],"rgb":true}},{"id":"368511","name":"Cooler CPU MARS GAMING MCPU120 120mm RGB, Compatível Intel/AMD","price":12.9,"price_txt":"12,90 €","img":"https://www.elitedigital.pt/11880169-home_default/cooler-cpu-mars-gaming-mcpu120-120mm-rgb-compativel-intel-amd.jpg","url":"https://www.elitedigital.pt/refrigeracao-desktops/368511-cooler-cpu-mars-gaming-mcpu120-120mm-rgb-compativel-intel-amd-4710562758832.html","desc":"Design horizontal e perfil baixo com um grande desempenho em refrigeração por ar de CPUs de até 120W TDP juntamente com a mais espetacular iluminação automática CHROMA RGB e visibilidade máxima através da janela do seu e","avail":"Disponível","spec":{"water":false,"tdp":120,"sockets":["AM4","AM5","LGA1700","LGA1200"],"rgb":true}},{"id":"365760","name":"Cooler CPU AMD AM4/AM5 TDP 105W Wraith Prism SR4 Bulk","price":14.91,"price_txt":"14,91 €","img":"https://www.elitedigital.pt/9474486-home_default/cooler-cpu-amd-am4-am5-tdp-105w-wraith-prism-sr4-bulk.jpg","url":"https://www.elitedigital.pt/refrigeracao-desktops/365760-cooler-cpu-amd-am4-am5-tdp-105w-wraith-prism-sr4-bulk-0675901999526.html","desc":"O Cooler AMD Wraith Prism SR4 é um cooler de CPU projetado para processadores AMD para AM4 e AM5com TDP de até 105W. Possui ventoinha com controlo PWM e é construído em cobre e alumínio.","avail":"Disponível","spec":{"water":false,"tdp":105,"sockets":["AM4","AM5"],"rgb":false}},{"id":"257899","name":"Cooler CPU NOX HUMMER H-123 PRO, 120mm, aRGB, PWM, Intel/AMD","price":19.86,"price_txt":"19,86 €","img":"https://www.elitedigital.pt/1429161-home_default/cooler-cpu-nox-hummer-h-123-pro-120mm-argb-pwm-intel-amd.jpg","url":"https://www.elitedigital.pt/refrigeracao-desktops/257899-cooler-cpu-nox-hummer-h-123-pro-120mm-argb-pwm-intel-amd-8436587973208.html","desc":"O Cooler CPU Nox HUMMER H-123 PRO é ideal para arrefecimento eficiente e estético. Com lâminas translúcidas e iluminação RGB, a sua ventoinha de 120mm oferece fluxo de ar de 61.5 CFM, com tecnologia PWM e baixo nível de ","avail":"Disponível","spec":{"water":false,"tdp":100,"sockets":["AM4","AM5","LGA1700","LGA1200"],"rgb":true}},{"id":"348496","name":"Cooler CPU Gamemax SH4-A96, Low Profile, 130W TDP, LGA1xxx/AM4/AM5","price":19.9,"price_txt":"19,90 €","img":"https://www.elitedigital.pt/2616892-home_default/cooler-cpu-gamemax-sh4-a96-low-profile-130w-tdp-lga1xxx-am4-am5.jpg","url":"https://www.elitedigital.pt/refrigeracao-desktops/348496-cooler-cpu-gamemax-sh4-a96-low-profile-130w-tdp-lga1xxx-am4-am5.html","desc":"O Gamemax SH4-A96 é um cooler para CPU de perfil baixo, ideal para mini-PCs e sistemas uSFF. Com suporte para processadores Intel LGA1xxx e AMD AM4/AM5, este cooler oferece uma capacidade de dissipação de calor de até 13","avail":"Disponível","spec":{"water":false,"tdp":130,"sockets":["AM5","AM4"],"rgb":false}},{"id":"241501","name":"Cooler CPU Gamemax Sigma 540 ARGB, 200W TDP, 4 Heatpipes, aRGB","price":25.9,"price_txt":"25,90 €","img":"https://www.elitedigital.pt/1350637-home_default/cooler-cpu-gamemax-sigma-540-argb-200w-tdp-4-heatpipes-argb.jpg","url":"https://www.elitedigital.pt/refrigeracao-desktops/241501-cooler-cpu-gamemax-sigma-540-argb-200w-tdp-4-heatpipes-argb-6931858791632.html","desc":"O Gamemax Sigma 540 ARGB é um cooler para CPU que combina alto desempenho e estética com iluminação aRGB. Compatível com LGA115X/1200/1700/AM4/AM5, oferece até 200W TDP e 4 heatpipes para dissipação eficiente. Equipado c","avail":"Disponível","spec":{"water":false,"tdp":200,"sockets":["AM4","AM5","LGA1700","LGA1200"],"rgb":true}},{"id":"241502","name":"Cooler CPU Gamemax Sigma 540 BK, 200W TDP, 4 Heatpipes, AM4/AM5","price":30.47,"price_txt":"30,47 €","img":"https://www.elitedigital.pt/1349901-home_default/cooler-cpu-gamemax-sigma-540-bk-200w-tdp-4-heatpipes-am4-am5.jpg","url":"https://www.elitedigital.pt/refrigeracao-desktops/241502-cooler-cpu-gamemax-sigma-540-bk-200w-tdp-4-heatpipes-am4-am5-6931858791625.html","desc":"O Gamemax Sigma 540 BK é um cooler para CPU de alto desempenho, projetado para manter a temperatura do seu processador sob controle. Compatível com sockets LGA115X/1200/1700/AM4/AM5 e com TDP de até 200W, garante excelen","avail":"Disponível","spec":{"water":false,"tdp":200,"sockets":["AM4","AM5","LGA1700","LGA1200"],"rgb":false}},{"id":"1251","name":"Cooler CPU Nox Hummer H-224 ARGB, ventoinha 120mm, ARGB, compatível Intel/AMD.","price":49.38,"price_txt":"49,38 €","img":"https://www.elitedigital.pt/356216-home_default/cooler-cpu-nox-hummer-h-224-argb-ventoinha-120mm-argb-compativel-intel-amd.jpg","url":"https://www.elitedigital.pt/refrigeracao-desktops/1251-cooler-cpu-nox-hummer-h-224-argb-ventoinha-120mm-argb-compativel-intel-amd-8436587970481.html","desc":"O Cooler CPU Nox Hummer H-224 ARGB é projetado para oferecer uma refrigeração eficiente e visualmente atraente para o seu processador. Com um dissipador de calor de alumínio e ventoinha de 120mm com iluminação ARGB, gara","avail":"Disponível","spec":{"water":false,"tdp":180,"sockets":["AM4","AM5","LGA1700","LGA1200"],"rgb":true}},{"id":"1454","name":"Water Cooler Gamemax Ice Chill 120, ARGB, Compatível, Desempenho Gaming","price":52.8,"price_txt":"52,80 €","img":"https://www.elitedigital.pt/11508183-home_default/water-cooler-gamemax-ice-chill-120-argb-compativel-desempenho-gaming.jpg","url":"https://www.elitedigital.pt/refrigeracao-modding/1454-water-cooler-gamemax-ice-chill-120-argb-compativel-desempenho-gaming-6931858791441.html","desc":"O Water Cooler Gamemax Ice Chill 120 é uma solução de refrigeração líquida 'All in One' para CPU, com iluminação ARGB e efeito Infinity Mirror. Compatível com várias plataformas e equipado com ventoinhas PWM ARGB LED, es","avail":"Disponível","spec":{"water":true,"tdp":150,"sockets":["AM4","AM5","LGA1700","LGA1200"],"rgb":true}},{"id":"365746","name":"Water Cooler CPU Gamemax IceBurg 240 Digital BK, ARGB, 240mm, LGA/AMD","price":77.0,"price_txt":"77,00 €","img":"https://www.elitedigital.pt/9474447-home_default/water-cooler-cpu-gamemax-iceburg-240-digital-bk-argb-240mm-lga-amd.jpg","url":"https://www.elitedigital.pt/refrigeracao-desktops/365746-water-cooler-cpu-gamemax-iceburg-240-digital-bk-argb-240mm-lga-amd-6931858791557.html","desc":"O Cooler CPU Gamemax IceBurg 240 Digital BK é um sistema de refrigeração líquida All-in-one com radiador de 240mm e iluminação ARGB. Compatível com LGA e AMD, oferece um arrefecimento eficiente com um design elegante. De","avail":"Disponível","spec":{"water":true,"tdp":250,"sockets":["AM4","AM5","LGA1700","LGA1200"],"rgb":true}},{"id":"352564","name":"Water Cooler CPU MSI MAG CoreLiquid A13 240mm ARGB All-In-On","price":79.59,"price_txt":"79,59 €","img":"https://www.elitedigital.pt/11508037-home_default/water-cooler-cpu-msi-mag-coreliquid-a13-240mm-argb-all-in-on.jpg","url":"https://www.elitedigital.pt/refrigeracao-modding/352564-water-cooler-cpu-msi-mag-coreliquid-a13-240mm-argb-all-in-on-4711377273763.html","desc":"Design minimalista: Adota a filosofia da simplicidade \"menos é mais\" com linhas simples; Design Ring Blade: concentra o fluxo de ar e reduz o ruído; Ventoinhas com rolamentos Rifle, reduzem eficazmente o ruído e aumentam","avail":"Disponível","spec":{"water":true,"tdp":250,"sockets":["AM4","AM5","LGA1700","LGA1200"],"rgb":true}},{"id":"1161","name":"Cooler CPU Noctua NH-U14S, 140mm, PWM, Compatível com Intel/AMD","price":79.9,"price_txt":"79,90 €","img":"https://www.elitedigital.pt/356021-home_default/cooler-cpu-noctua-nh-u14s-140mm-pwm-compativel-com-intel-amd.jpg","url":"https://www.elitedigital.pt/refrigeracao-desktops/1161-cooler-cpu-noctua-nh-u14s-140mm-pwm-compativel-com-intel-amd-4716123314950.html","desc":"O Noctua NH-U14S é um cooler de CPU de alto desempenho com um design de torre de 140mm. Oferece refrigeração eficiente e operação silenciosa, com compatibilidade para múltiplas plataformas Intel e AMD. Destaques principa","avail":"Disponível","spec":{"water":false,"tdp":220,"sockets":["AM4","AM5","LGA1700","LGA1200"],"rgb":false}}]};
+
+const CATS = [
+  {key:'cpu',         name:'Processador',  short:'CPU',      icon:'fa-microchip'},
+  {key:'motherboard', name:'Placa-Mãe',    short:'Board',    icon:'fa-sliders'},
+  {key:'ram',         name:'Memória RAM',  short:'RAM',      icon:'fa-database'},
+  {key:'gpu',         name:'Placa Gráfica',short:'GPU',      icon:'fa-gamepad'},
+  {key:'ssd',         name:'Armazenamento',short:'SSD',      icon:'fa-hdd-o'},
+  {key:'psu',         name:'Fonte (PSU)',  short:'Fonte',    icon:'fa-bolt'},
+  {key:'case',        name:'Caixa',        short:'Caixa',    icon:'fa-cube'},
+  {key:'cooler',      name:'Refrigeração', short:'Cooler',   icon:'fa-snowflake-o'}
+];
+
+const IGPU = {id:'IGPU', name:'Gráficos Integrados do CPU (sem placa dedicada)', price:0,
+  price_txt:'0,00 €', img:'', url:'', desc:'Usa o chip gráfico do processador. Ideal para escritório e HTPC.', avail:'Disponível',
+  spec:{vram:0, watts:0, tier:'igpu'}};
+
+const PRESETS = [
+  {id:'office', name:'Escritório & Casa', icon:'fa-briefcase', color:'#0d6efd',
+   desc:'Rápido para trabalho, net e filmes. Silencioso e económico.',
+   picks:{cpu:'201010', motherboard:'355777', ram:'191437', gpu:'IGPU', ssd:'1275', psu:'1036', case:'26991', cooler:'365760'}},
+  {id:'gaming1080', name:'Gaming 1080p', icon:'fa-gamepad', color:'#dd3333',
+   desc:'Gaming Full HD com folga: 6 núcleos, 16 GB e gráfica dedicada.',
+   picks:{cpu:'161480', motherboard:'366860', ram:'191437', gpu:'364840', ssd:'318753', psu:'355677', case:'241138', cooler:'368729'}},
+  {id:'ultra4k', name:'Entusiasta 4K', icon:'fa-rocket', color:'#7c3aed',
+   desc:'X3D + 32 GB DDR5 + RX 9070 + NVMe Gen4 topo de gama.',
+   picks:{cpu:'355788', motherboard:'270140', ram:'347017', gpu:'364106', ssd:'365330', psu:'338358', case:'350900', cooler:'1161'}}
+];
+
+/* ================= STATE ================= */
+const LS_KEY = 'ed_builder_v2';
+let state = {cpu:null, motherboard:null, ram:null, gpu:null, ssd:null, psu:null, case:null, cooler:null};
+let activeCat = 'cpu';
+try {
+  const saved = JSON.parse(localStorage.getItem(LS_KEY) || '{}');
+  for (const c of CATS) if (saved[c.key]) state[c.key] = saved[c.key];
+} catch(e){}
+function save(){ try{ localStorage.setItem(LS_KEY, JSON.stringify(state)); }catch(e){} }
+
+/* ================= HELPERS ================= */
+const $ = id => document.getElementById(id);
+function fmt(n){ return n.toLocaleString('pt-PT',{minimumFractionDigits:2, maximumFractionDigits:2}) + ' €'; }
+function getPart(cat, id){
+  if (!id) return null;
+  if (cat==='gpu' && id==='IGPU') return IGPU;
+  return (CATALOG[cat]||[]).find(p => String(p.id)===String(id)) || null;
+}
+function sel(cat){ return getPart(cat, state[cat]); }
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function toast(msg){
+  $('toast-msg').textContent = msg;
+  const t = $('toast'); t.classList.add('show');
+  clearTimeout(t._h); t._h = setTimeout(()=>t.classList.remove('show'), 2600);
+}
+
+/* ================= COMPAT ENGINE ================= */
+function estimateW(cpu, gpu){
+  const c = cpu ? (cpu.spec.tdp||65) : 0;
+  const g = gpu ? (gpu.spec.watts||0) : 0;
+  return c + g + 120; // base: board + ram + ssd + fans
+}
+function recommendedPSU(est){ return Math.ceil(est*1.25/50)*50; }
+
+function coolerFits(cooler, cpuSocket){
+  const s = cooler.spec.sockets||[];
+  if (!s.length) return true;
+  if (s.includes(cpuSocket)) return true;
+  const fam = h => s.some(x => x.indexOf(h)===0);
+  if (cpuSocket==='LGA1700'||cpuSocket==='LGA1851') return fam('LGA')||s.includes('1700')||s.includes('115X')||s.includes('1200');
+  if (cpuSocket==='LGA1200') return fam('LGA')||s.includes('1200')||s.includes('115X')||s.includes('1700');
+  if (cpuSocket==='AM4'||cpuSocket==='AM5') return fam('AM');
+  return false;
+}
+
+/* issues(cat, part) -> array de strings, face à seleção atual (excluindo a própria categoria) */
+function issues(cat, part){
+  const out = [];
+  const cpu = cat==='cpu' ? part : sel('cpu');
+  const mb  = cat==='motherboard' ? part : sel('motherboard');
+  const ram = cat==='ram' ? part : sel('ram');
+  const gpu = cat==='gpu' ? part : sel('gpu');
+  const psu = cat==='psu' ? part : sel('psu');
+  const cs  = cat==='case' ? part : sel('case');
+  const co  = cat==='cooler' ? part : sel('cooler');
+
+  if ((cat==='cpu'||cat==='motherboard') && cpu && mb && cpu.spec.socket!=='?' && mb.spec.socket!=='?'
+      && cpu.spec.socket!==mb.spec.socket)
+    out.push('Socket incompatível: CPU ' + cpu.spec.socket + ' ≠ placa-mãe ' + mb.spec.socket);
+  if ((cat==='ram'||cat==='motherboard') && ram && mb && ram.spec.ddr!==mb.spec.ddr)
+    out.push('Memória ' + ram.spec.ddr + ' incompatível com placa-mãe ' + mb.spec.ddr);
+  if (cat==='gpu' && part.id==='IGPU' && cpu && !cpu.spec.igpu)
+    out.push('Este CPU não tem gráficos integrados — escolha uma placa gráfica');
+  if (cat==='case' && cs && mb && !(cs.spec.support||[]).includes(mb.spec.form))
+    out.push('Caixa ' + cs.spec.size + ' não suporta placas ' + mb.spec.form);
+  if (cat==='motherboard' && mb && cs && !(cs.spec.support||[]).includes(mb.spec.form))
+    out.push('Placa ' + mb.spec.form + ' não cabe na caixa ' + cs.spec.size);
+  if (cat==='cooler' && co && cpu && cpu.spec.socket && !coolerFits(co, cpu.spec.socket))
+    out.push('Cooler sem suporte indicado para socket ' + cpu.spec.socket);
+  if (cat==='cooler' && co && cpu && co.spec.tdp && cpu.spec.tdp && co.spec.tdp < cpu.spec.tdp)
+    out.push('TDP do cooler (' + co.spec.tdp + 'W) abaixo do CPU (' + cpu.spec.tdp + 'W)');
+  if (cat==='cpu' && co && cpu && !coolerFits(co, cpu.spec.socket||'?'))
+    out.push('Cooler atual pode não suportar socket ' + (cpu.spec.socket||'?'));
+  if (cat==='psu' && psu && (cpu||gpu)) {
+    const est = estimateW(cpu, gpu);
+    if (psu.spec.watts < est) out.push('Potência insuficiente: ' + psu.spec.watts + 'W para ~' + est + 'W estimados');
+    else if (psu.spec.watts < recommendedPSU(est)) out.push('Apertada: recomendado ≥ ' + recommendedPSU(est) + 'W para esta build');
+  }
+  if ((cat==='cpu'||cat==='gpu') && psu && (cpu||gpu)) {
+    const est = estimateW(cpu, gpu);
+    if (psu.spec.watts < est) out.push('Fonte atual (' + psu.spec.watts + 'W) insuficiente para ~' + est + 'W');
+  }
+  return out;
+}
+
+function buildProblems(){
+  const errs = [];
+  const cpu=sel('cpu'), mb=sel('motherboard'), ram=sel('ram'), gpu=sel('gpu'),
+        psu=sel('psu'), cs=sel('case'), co=sel('cooler');
+  if (cpu&&mb&&cpu.spec.socket!=='?'&&mb.spec.socket!=='?'&&cpu.spec.socket!==mb.spec.socket)
+    errs.push('Socket: CPU ' + cpu.spec.socket + ' ≠ placa-mãe ' + mb.spec.socket);
+  if (ram&&mb&&ram.spec.ddr!==mb.spec.ddr)
+    errs.push('DDR: RAM ' + ram.spec.ddr + ' ≠ placa-mãe ' + mb.spec.ddr);
+  if (gpu&&gpu.id==='IGPU'&&cpu&&!cpu.spec.igpu)
+    errs.push('CPU sem gráficos integrados — adicione uma placa gráfica');
+  if (mb&&cs&&!(cs.spec.support||[]).includes(mb.spec.form))
+    errs.push('Caixa ' + cs.spec.size + ' não suporta placas ' + mb.spec.form);
+  if (co&&cpu&&cpu.spec.socket&&!coolerFits(co,cpu.spec.socket))
+    errs.push('Cooler sem suporte indicado para socket ' + cpu.spec.socket);
+  if (co&&cpu&&co.spec.tdp&&cpu.spec.tdp&&co.spec.tdp<cpu.spec.tdp)
+    errs.push('Cooler de ' + co.spec.tdp + 'W para um CPU de ' + cpu.spec.tdp + 'W');
+  if (psu&&(cpu||gpu)){
+    const est=estimateW(cpu,gpu);
+    if (psu.spec.watts<est) errs.push('Fonte de ' + psu.spec.watts + 'W insuficiente (~' + est + 'W estimados)');
+    else if (psu.spec.watts<recommendedPSU(est)) errs.push('Fonte justa: recomendado ≥ ' + recommendedPSU(est) + 'W');
+  }
+  const outStock = CATS.filter(c=>{const p=sel(c.key);return p&&p.avail!=='Disponível';}).map(c=>c.name);
+  return {errs, outStock};
+}
+
+/* ================= SPEC CHIPS ================= */
+function chips(cat, p){
+  const s=p.spec||{};
+  if (cat==='cpu') return [s.socket, s.cores? s.cores+' núcleos':null, (s.tdp||65)+'W TDP', s.igpu?'iGPU ✓':'sem iGPU'].filter(Boolean);
+  if (cat==='motherboard') return [s.socket, s.ddr, s.form, s.wifi?'Wi-Fi':null].filter(Boolean);
+  if (cat==='ram') return [s.ddr, s.cap+' GB', s.speed? s.speed+' MHz':null, s.kit?'Kit 2x':null].filter(Boolean);
+  if (cat==='gpu'){
+    if (p.id==='IGPU') return ['0 €','iGPU'];
+    return [(s.vram||'?')+' GB VRAM', '~'+(s.watts||'?')+'W', {office:'Escritório',entry:'Entrada',mid:'Intermédia',high:'Topo de gama'}[s.tier]||s.tier].filter(Boolean);
+  }
+  if (cat==='ssd') return [(s.cap>=1000?(s.cap/1000)+' TB':s.cap+' GB'), s.nvme?'NVMe':'SATA', s.form].filter(Boolean);
+  if (cat==='psu') return [s.watts+'W', s.cert, s.modular?'Modular':null].filter(Boolean);
+  if (cat==='case') return [s.size, s.glass?'Vidro temperado':null, s.rgb?'ARGB':null].filter(Boolean);
+  if (cat==='cooler') return [s.water?'Water cooler':'Ar', (s.tdp||'?')+'W TDP', s.rgb?'ARGB':null].filter(Boolean);
+  return [];
+}
+
+/* ================= RENDER: STEPS ================= */
+function renderSteps(){
+  const el = $('steps');
+  let html = '<div class="steps-title">COMPONENTES</div>';
+  CATS.forEach((c,i)=>{
+    const p = sel(c.key);
+    const cls = 'step-item' + (c.key===activeCat?' active':'') + (p?' done':'');
+    const sub = p ? esc(p.name.length>34? p.name.slice(0,34)+'…' : p.name) : 'Por escolher';
+    html += '<div class="'+cls+'" data-cat="'+c.key+'" role="button" tabindex="0">'
+      + '<span class="step-num">'+(p?'<i class="fa fa-check"></i>':(i+1))+'</span>'
+      + '<span class="step-info"><strong><i class="fa '+c.icon+'"></i>'+c.name+'</strong><small>'+sub+'</small></span>'
+      + (p? '<span class="step-price">'+fmt(p.price)+'</span>':'')
+      + '</div>';
+  });
+  el.innerHTML = html;
+  el.querySelectorAll('.step-item').forEach(d=>{
+    const go = ()=>{ activeCat=d.dataset.cat; $('part-search').value=''; renderAll(); };
+    d.addEventListener('click', go);
+    d.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();go();} });
+  });
+}
+
+/* ================= RENDER: PARTS ================= */
+function partList(cat){
+  let list = (CATALOG[cat]||[]).slice();
+  if (cat==='gpu') list.unshift(IGPU);
+  const q = $('part-search').value.trim().toLowerCase();
+  if (q) list = list.filter(p => (p.name+' '+(p.desc||'')).toLowerCase().includes(q));
+  const onlyCompat = $('compat-only').checked;
+  let mapped = list.map(p => ({p, iss: issues(cat,p)}));
+  if (onlyCompat) mapped = mapped.filter(x => x.iss.length===0);
+  const sort = $('part-sort').value;
+  if (sort==='asc') mapped.sort((a,b)=>a.p.price-b.p.price);
+  else if (sort==='desc') mapped.sort((a,b)=>b.p.price-a.p.price);
+  else mapped.sort((a,b)=>((a.p.avail==='Disponível'?0:1)-(b.p.avail==='Disponível'?0:1)) || (a.iss.length-b.iss.length));
+  return mapped;
+}
+
+function renderParts(){
+  const meta = CATS.find(c=>c.key===activeCat);
+  $('cat-title').innerHTML = '<i class="fa '+meta.icon+'"></i> ' + meta.name;
+  const items = partList(activeCat);
+  const total = (activeCat==='gpu'? CATALOG.gpu.length+1 : (CATALOG[activeCat]||[]).length);
+  $('parts-count').textContent = items.length + ' de ' + total + ' peças · preços com IVA (elitedigital.pt)';
+  const box = $('parts');
+  if (!items.length){
+    box.innerHTML = '<div class="empty-state"><i class="fa fa-search"></i><strong>Sem resultados.</strong><br>Ajuste a pesquisa ou desative o filtro “Só compatíveis”.</div>';
+    return;
+  }
+  box.innerHTML = items.map(({p,iss})=>{
+    const chosen = String(state[activeCat])===String(p.id);
+    const out = p.avail!=='Disponível';
+    const thumb = p.img
+      ? '<img src="'+esc(p.img)+'" alt="'+esc(p.name)+'" loading="lazy" onerror="this.parentNode.innerHTML=\'<i class=&quot;fa '+meta.icon+'&quot;></i>\'">' 
+      : '<i class="fa '+meta.icon+'"></i>';
+    const shopBtn = p.url
+      ? '<a class="shop-link" href="'+esc(p.url)+'" target="_blank" rel="noopener">Ver na loja <i class="fa fa-external-link"></i></a>' : '';
+    return '<div class="part-card'+(chosen?' selected':'')+(iss.length?' incompatible':'')+'">'
+      + '<div class="part-thumb">'+thumb
+      + '<span class="stock-badge '+(out?'stock-out':'stock-ok')+'">'+(out?'ESGOTADO':'DISPONÍVEL')+'</span>'
+      + (iss.length? '<span class="incompat-badge" title="'+esc(iss.join(' · '))+'"><i class="fa fa-warning"></i> VERIFICAR</span>':'')
+      + '</div>'
+      + '<h3>'+(p.url? '<a href="'+esc(p.url)+'" target="_blank" rel="noopener">'+esc(p.name)+'</a>' : esc(p.name))+'</h3>'
+      + '<div class="spec-chips">'+chips(activeCat,p).map(c=>'<span class="spec-chip">'+esc(c)+'</span>').join('')+'</div>'
+      + (p.desc? '<p class="part-desc">'+esc(p.desc)+'</p>':'<p class="part-desc"></p>')
+      + (iss.length? '<div class="part-issues"><i class="fa fa-warning"></i> '+esc(iss[0])+(iss.length>1?' (+'+(iss.length-1)+')':'')+'</div>':'')
+      + '<div class="price-row"><span class="part-price">'+fmt(p.price)+'<small>IVA incluído</small></span>'+shopBtn+'</div>'
+      + '<button class="choose-btn'+(chosen?' chosen':'')+'" data-id="'+esc(p.id)+'">'
+      + (chosen? '<i class="fa fa-check"></i> Escolhido — trocar?' : '<i class="fa fa-plus"></i> Escolher') + '</button>'
+      + '</div>';
+  }).join('');
+  box.querySelectorAll('.choose-btn').forEach(b=>b.addEventListener('click',()=>{
+    state[activeCat]=b.dataset.id; save(); renderAll();
+    const p=getPart(activeCat,b.dataset.id);
+    toast((CATS.find(c=>c.key===activeCat).name)+': '+(p.name.length>52? p.name.slice(0,52)+'…':p.name));
+  }));
+}
+
+/* ================= RENDER: SUMMARY ================= */
+function renderSummary(){
+  const done = CATS.filter(c=>state[c.key]).length;
+  const total = CATS.reduce((s,c)=>{const p=sel(c.key);return s+(p?p.price:0);},0);
+  const {errs,outStock} = buildProblems();
+  const cpu=sel('cpu'), gpu=sel('gpu'), psu=sel('psu');
+  const est=(cpu||gpu)? estimateW(cpu,gpu):0;
+  const rec=est? recommendedPSU(est):0;
+  let html = '<h2><i class="fa fa-shopping-basket"></i>A sua build</h2>'
+    + '<div class="progress-wrap"><div class="progress-bar" style="width:'+(done/8*100)+'%"></div></div>'
+    + '<span class="progress-label">'+done+' de 8 componentes escolhidos</span>'
+    + '<div class="summary-total"><span>Total estimado</span><span class="total-val">'+fmt(total)+'</span></div>'
+    + '<div class="summary-watts">Consumo estimado: <strong>'+(est? '~'+est+'W':'—')+'</strong>'
+    + (rec? ' · Fonte recomendada: <strong>≥ '+rec+'W</strong>':'') + '</div>';
+  if (errs.length)
+    html += '<div class="warn-box warn-err"><i class="fa fa-warning" style="margin-top:2px"></i><span><strong>'+errs.length+' incompatibilidade(s):</strong><br>• '+errs.map(esc).join('<br>• ')+'</span></div>';
+  else if (done===8)
+    html += '<div class="warn-box warn-ok"><i class="fa fa-check-circle" style="margin-top:2px"></i><span><strong>Build compatível!</strong> Pronta a finalizar na loja.</span></div>';
+  else if (done>0)
+    html += '<div class="warn-box warn-ok"><i class="fa fa-info-circle" style="margin-top:2px"></i><span>Sem conflitos até agora. Continue a escolher.</span></div>';
+  if (outStock.length)
+    html += '<div class="warn-box warn-err" style="background:rgba(107,114,128,.08);border-color:var(--border-color);color:var(--text-muted)"><i class="fa fa-clock-o" style="margin-top:2px"></i><span><strong>Sob consulta (esgotado):</strong> '+outStock.map(esc).join(', ')+'</span></div>';
+  html += '<ul class="summary-list">' + CATS.map(c=>{
+    const p=sel(c.key);
+    if (!p) return '<li><span class="s-ico"><i class="fa '+c.icon+'"></i></span><span class="s-name">'+c.name+'<small>— por escolher —</small></span><span class="s-price"></span></li>';
+    return '<li><span class="s-ico ok"><i class="fa fa-check"></i></span>'
+      + '<span class="s-name">'+c.name+'<small title="'+esc(p.name)+'">'+esc(p.name)+'</small></span>'
+      + '<span class="s-price">'+fmt(p.price)+'</span>'
+      + '<button class="s-remove" data-cat="'+c.key+'" title="Remover"><i class="fa fa-times"></i></button></li>';
+  }).join('') + '</ul>';
+  html += '<div class="summary-btns">'
+    + '<button class="btn btn-primary" id="btn-copy"><i class="fa fa-clipboard"></i>Copiar resumo</button>'
+    + '<button class="btn" id="btn-shop"><i class="fa fa-external-link"></i>Abrir peças na loja</button>'
+    + '<button class="btn" id="btn-clear"><i class="fa fa-trash-o"></i>Limpar tudo</button>'
+    + '</div>'
+    + '<p class="summary-note"><i class="fa fa-info-circle"></i> Preços com IVA de 12/10/2026. Stock e preço final confirmados em elitedigital.pt. A configuração fica guardada neste browser.</p>';
+  $('summary').innerHTML = html;
+  $('summary').querySelectorAll('.s-remove').forEach(b=>b.addEventListener('click',()=>{
+    state[b.dataset.cat]=null; save(); renderAll();
+  }));
+  $('btn-copy').addEventListener('click', copySummary);
+  $('btn-clear').addEventListener('click', ()=>{
+    if (!CATS.some(c=>state[c.key])) return;
+    if (confirm('Limpar toda a configuração?')){ CATS.forEach(c=>state[c.key]=null); save(); renderAll(); toast('Configuração limpa.'); }
+  });
+  $('btn-shop').addEventListener('click', ()=>{
+    const links = CATS.map(c=>sel(c.key)).filter(p=>p&&p.url).map(p=>p.url);
+    if (!links.length){ toast('Escolha peças primeiro.'); return; }
+    links.forEach(u=>window.open(u,'_blank','noopener'));
+  });
+  // compat hint above grid
+  const ca = $('compat-alert');
+  if (errs.length>0)
+    ca.innerHTML = '<div class="alert-compat"><i class="fa fa-warning"></i><span><strong>Atenção:</strong> '+esc(errs[0])+(errs.length>1?' (+'+(errs.length-1)+' mais — ver resumo)':'')+'</span></div>';
+  else ca.innerHTML='';
+}
+
+/* ================= PRESETS ================= */
+function presetTotal(p){ return Object.keys(p.picks).reduce((s,k)=>{const x=getPart(k,p.picks[k]);return s+(x?x.price:0);},0); }
+function renderPresets(){
+  $('presets').innerHTML = PRESETS.map(p=>
+    '<div class="preset-card"><div class="preset-top"><span class="preset-ico" style="background:'+p.color+'"><i class="fa '+p.icon+'"></i></span>'
+    + '<div><h3>'+esc(p.name)+'</h3><span class="preset-price">≈ '+fmt(presetTotal(p))+'</span></div></div>'
+    + '<p>'+esc(p.desc)+'</p>'
+    + '<button data-preset="'+p.id+'"><i class="fa fa-magic"></i> Aplicar esta build</button></div>'
+  ).join('');
+  document.querySelectorAll('[data-preset]').forEach(b=>b.addEventListener('click',()=>{
+    const pr = PRESETS.find(x=>x.id===b.dataset.preset);
+    Object.keys(pr.picks).forEach(k=>state[k]=pr.picks[k]);
+    save(); renderAll();
+    toast('Build "'+pr.name+'" aplicada!');
+    document.getElementById('summary').scrollIntoView({behavior:'smooth', block:'nearest'});
+  }));
+  const n = Object.values(CATALOG).reduce((s,a)=>s+a.length,0);
+  $('hero-count').textContent = n;
+}
+
+/* ================= COPY SUMMARY ================= */
+function copySummary(){
+  const lines = ['🖥️ A MINHA BUILD — EliteDigital Construtor de PC',''];
+  CATS.forEach(c=>{
+    const p=sel(c.key);
+    lines.push((p? '✅ ':'⬜ ') + c.name + ': ' + (p? p.name+' — '+fmt(p.price) : '(por escolher)'));
+    if (p&&p.url) lines.push('   '+p.url);
+  });
+  const total = CATS.reduce((s,c)=>{const p=sel(c.key);return s+(p?p.price:0);},0);
+  const {errs}=buildProblems();
+  lines.push('', 'TOTAL: '+fmt(total));
+  lines.push(errs.length? ('⚠️ '+errs.join(' | ')) : '✔ Sem incompatibilidades detetadas.');
+  lines.push('Preços de 12/10/2026 · confirme em www.elitedigital.pt');
+  const txt = lines.join('\n');
+  const done = ()=>toast('Resumo copiado! Cole onde quiser.');
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(done, ()=>fallbackCopy(txt, done));
+  else fallbackCopy(txt, done);
+}
+function fallbackCopy(txt, done){
+  const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta);
+  ta.select(); try{ document.execCommand('copy'); done(); }catch(e){ toast('Não foi possível copiar.'); }
+  document.body.removeChild(ta);
+}
+
+/* ================= THEME / MODAL ================= */
+function toggleSettingsModal(show){ const m=$('settingsModal'); if(m) m.style.display=show?'block':'none'; }
+function handleBackdropClick(e){ if(e.target.id==='settingsModal') toggleSettingsModal(false); }
+function setTheme(t){ document.documentElement.setAttribute('data-theme',t); try{localStorage.setItem('elitedigital_theme',t);}catch(e){} updateThemeCards(t); }
+function updateThemeCards(t){
+  const l=$('theme-light-card'), d=$('theme-dark-card'); if(!l||!d) return;
+  d.classList.toggle('active', t==='dark'); l.classList.toggle('active', t!=='dark');
+}
+
+/* ================= INIT ================= */
+function renderAll(){ renderSteps(); renderParts(); renderSummary(); }
+document.addEventListener('DOMContentLoaded', ()=>{
+  let st='light'; try{ st=localStorage.getItem('elitedigital_theme')||'light'; }catch(e){}
+  setTheme(st);
+  renderPresets(); renderAll();
+  $('part-search').addEventListener('input', renderParts);
+  $('part-sort').addEventListener('change', renderParts);
+  $('compat-only').addEventListener('change', renderParts);
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') toggleSettingsModal(false); });
+});
+</script>
+</body>
+</html>
